@@ -12,6 +12,7 @@ import com.tromeel.ponafit.repository.UserRepository
 import com.tromeel.ponafit.ui.screens.about.AboutScreen
 import com.tromeel.ponafit.ui.screens.auth.LoginScreen
 import com.tromeel.ponafit.ui.screens.auth.RegisterScreen
+import com.tromeel.ponafit.ui.screens.dashboard.DashboardScreen
 import com.tromeel.ponafit.ui.screens.home.HomeScreen
 import com.tromeel.ponafit.ui.screens.splash.SplashScreen
 import com.tromeel.ponafit.viewmodel.AuthViewModel
@@ -39,6 +40,10 @@ fun AppNavHost(
 
         composable(ROUT_SPLASH) {
             SplashScreen(navController)
+        }
+
+        composable(ROUT_DASHBOARD) {
+            DashboardScreen(navController)
         }
 
         //AUTHENTICATION
