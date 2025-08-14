@@ -26,6 +26,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
 import com.tromeel.ponafit.navigation.ROUT_HOME
+import com.tromeel.ponafit.navigation.ROUT_HOMEEXERCISES
 import com.tromeel.ponafit.ui.theme.Grin
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -102,29 +103,33 @@ fun DashboardScreen(navController: NavController) {
                         imageRes = R.drawable.home,
                         title = "Home Exercises",
                         description = "No gym? No problem. Simple yet effective workouts you can do anywhere using minimal or no equipment. Perfect for staying active in your living room.",
-                        taskCount = "12 tasks",
-                        backgroundRes = R.drawable.darkbg
+                        taskCount = "4 tasks",
+                        backgroundRes = R.drawable.darkbg,
+                        onClick = { navController.navigate(ROUT_HOMEEXERCISES) }
                     )
                     ExerciseCard(
                         imageRes = R.drawable.gym,
                         title = "Gym Exercises",
                         description = "Make the most of gym machines and weights with guided workouts that target strength, endurance, and overall fitness.",
                         taskCount = "15 tasks",
-                        backgroundRes = R.drawable.darkbg
+                        backgroundRes = R.drawable.darkbg,
+                        onClick = { navController.navigate("gym_exercises") }
                     )
                     ExerciseCard(
                         imageRes = R.drawable.stretch,
                         title = "Stretching and Mobility",
                         description = "Improve flexibility, posture, and joint health with gentle stretches and mobility drills designed for all fitness levels.",
                         taskCount = "10 tasks",
-                        backgroundRes = R.drawable.darkbg
+                        backgroundRes = R.drawable.darkbg,
+                        onClick = { navController.navigate("stretching_mobility") }
                     )
                     ExerciseCard(
                         imageRes = R.drawable.rehab,
                         title = "Injury-Specific Rehab",
                         description = "Targeted physiotherapy routines to aid recovery from common injuries like knee, back, and shoulder issues—always guided step-by-step for safety.",
                         taskCount = "8 tasks",
-                        backgroundRes = R.drawable.darkbg
+                        backgroundRes = R.drawable.darkbg,
+                        onClick = { navController.navigate("injury_rehab") }
                     )
                 }
             }
@@ -138,10 +143,11 @@ fun ExerciseCard(
     title: String,
     description: String,
     taskCount: String,
-    backgroundRes: Int
+    backgroundRes: Int,
+    onClick: () -> Unit
 ) {
     Card(
-        onClick = { },
+        onClick = onClick,
         modifier = Modifier
             .height(500.dp)
             .width(250.dp)

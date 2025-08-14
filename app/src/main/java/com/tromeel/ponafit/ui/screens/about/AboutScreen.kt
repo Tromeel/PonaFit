@@ -61,7 +61,7 @@ fun AboutScreen(navController: NavController){
 
 
         Image(
-            painter = painterResource(R.drawable.pona),
+            painter = painterResource(R.drawable.ponaw),
             contentDescription = "logo",
             modifier = Modifier
                 .size(250.dp)
