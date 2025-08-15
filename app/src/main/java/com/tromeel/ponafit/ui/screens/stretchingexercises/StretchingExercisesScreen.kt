@@ -1,20 +1,39 @@
-package com.tromeel.ponafit.ui.screens.homeexercises
+package com.tromeel.ponafit.ui.screens.stretchingexercises
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -32,10 +51,9 @@ import com.tromeel.ponafit.navigation.ROUT_DASHBOARD
 import com.tromeel.ponafit.navigation.ROUT_HOME
 import com.tromeel.ponafit.ui.theme.Grin
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun HomeExercisesScreen(navController: NavController) {
 
+@Composable
+fun StretchingExercisesScreen(navController: NavController){
     var selectedIndex by remember { mutableStateOf(0) }
 
     Scaffold(
@@ -90,13 +108,13 @@ fun HomeExercisesScreen(navController: NavController) {
                             onClick = { }
                         ) {
 
-                                IconButton(onClick = { navController.navigate(ROUT_DASHBOARD) }) {
-                                    Icon(
-                                        imageVector = Icons.Default.ArrowBack,
-                                        contentDescription = "Back",
-                                        tint = Color.White
-                                    )
-                            
+                            IconButton(onClick = { navController.navigate(ROUT_DASHBOARD) }) {
+                                Icon(
+                                    imageVector = Icons.Default.ArrowBack,
+                                    contentDescription = "Back",
+                                    tint = Color.White
+                                )
+
 
                             }
 
@@ -105,18 +123,18 @@ fun HomeExercisesScreen(navController: NavController) {
                         Spacer(modifier = Modifier.height(20.dp)) // ✅ Space between arrow and title
 
                         Text(
-                            text = "Home Exercises",
+                            text = "Stretching and Mobility",
                             fontSize = 30.sp,
                             modifier = Modifier.padding(start = 20.dp, end = 20.dp),
                             fontWeight = FontWeight.Bold,
                             color = Color.White,
 
-                        )
+                            )
 
                         Spacer(modifier = Modifier.height(15.dp))
 
                         Text(
-                            text = "Can be done at Home with minimal equipment",
+                            text = "Enables one to Stretch and Move freely",
                             fontSize = 20.sp,
                             modifier = Modifier
                                 .padding(start = 20.dp),
@@ -127,7 +145,7 @@ fun HomeExercisesScreen(navController: NavController) {
                         Spacer(modifier = Modifier.height(10.dp))
 
                         Text(
-                            text = "Discover exercises tailored to your needs — whether you're at home, in the gym, recovering from an injury, or improving flexibility. Choose your category and start your journey to better mobility and strength.",
+                            text = "Stretching and mobility exercises improve flexibility, reduce stiffness, and keep your joints moving smoothly.\n",
                             fontSize = 15.sp,
                             modifier = Modifier
                                 .padding(start = 20.dp, end = 20.dp),
@@ -179,9 +197,9 @@ fun HomeExercisesScreen(navController: NavController) {
                             Column(
                                 horizontalAlignment = Alignment.CenterHorizontally,
 
-                            ) {
+                                ) {
                                 Image(
-                                    painter = painterResource(R.drawable.fullbody),
+                                    painter = painterResource(R.drawable.fullstretch),
                                     contentDescription = "shirt1",
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -192,16 +210,16 @@ fun HomeExercisesScreen(navController: NavController) {
                                 Spacer(modifier = Modifier.height(15.dp))
 
                                 Text(
-                                    text = "Full-Body Workouts",
+                                    text = "Full-Body Stretching",
                                     fontSize = 15.sp,
                                     fontWeight = FontWeight.Bold,
                                     color = Color.White,
 
-                                )
+                                    )
                                 Spacer(modifier = Modifier.height(10.dp))
 
                                 Text(
-                                    text = "Boost strength, improve balance, and burn calories with workouts that target all major muscle groups in one session.",
+                                    text = "Full-body stretching helps improve flexibility, release tension, and keep your entire body feeling loose and balanced.\n",
                                     fontSize = 15.sp,
                                     color = Color.White,
                                     textAlign = TextAlign.Center,
@@ -241,7 +259,7 @@ fun HomeExercisesScreen(navController: NavController) {
 
                                 ) {
                                 Image(
-                                    painter = painterResource(R.drawable.upperbody),
+                                    painter = painterResource(R.drawable.upperstretch),
                                     contentDescription = "shirt1",
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -252,7 +270,7 @@ fun HomeExercisesScreen(navController: NavController) {
                                 Spacer(modifier = Modifier.height(15.dp))
 
                                 Text(
-                                    text = "Upper-Body Strength",
+                                    text = "Upper-Body Mobility",
                                     fontSize = 15.sp,
                                     fontWeight = FontWeight.Bold,
                                     color = Color.White,
@@ -262,7 +280,7 @@ fun HomeExercisesScreen(navController: NavController) {
                                 Spacer(modifier = Modifier.height(10.dp))
 
                                 Text(
-                                    text = "Build strength and definition in your arms, shoulders, chest, and back with focused upper body training.",
+                                    text = "Upper-body mobility exercises improve shoulder, arm, and back movement, enhancing flexibility and posture.\n",
                                     fontSize = 15.sp,
                                     color = Color.White,
                                     textAlign = TextAlign.Center,
@@ -302,7 +320,7 @@ fun HomeExercisesScreen(navController: NavController) {
 
                                 ) {
                                 Image(
-                                    painter = painterResource(R.drawable.lowerbody),
+                                    painter = painterResource(R.drawable.lowerstretch),
                                     contentDescription = "shirt1",
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -313,7 +331,7 @@ fun HomeExercisesScreen(navController: NavController) {
                                 Spacer(modifier = Modifier.height(15.dp))
 
                                 Text(
-                                    text = "Lower Body Power",
+                                    text = "Lower-Body Mobility",
                                     fontSize = 15.sp,
                                     fontWeight = FontWeight.Bold,
                                     color = Color.White,
@@ -322,7 +340,7 @@ fun HomeExercisesScreen(navController: NavController) {
                                 Spacer(modifier = Modifier.height(10.dp))
 
                                 Text(
-                                    text = "Strengthen and tone your legs, glutes, and hips with powerful lower body exercises for balance and stability.",
+                                    text = "Lower-body mobility exercises boost hip, knee, and ankle flexibility, improving movement and stability.\n",
                                     fontSize = 15.sp,
                                     color = Color.White,
                                     textAlign = TextAlign.Center,
@@ -362,7 +380,7 @@ fun HomeExercisesScreen(navController: NavController) {
 
                                 ) {
                                 Image(
-                                    painter = painterResource(R.drawable.core),
+                                    painter = painterResource(R.drawable.warmup),
                                     contentDescription = "shirt1",
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -373,7 +391,7 @@ fun HomeExercisesScreen(navController: NavController) {
                                 Spacer(modifier = Modifier.height(15.dp))
 
                                 Text(
-                                    text = "Core and Abs",
+                                    text = "Dynamic Warm-ups",
                                     fontSize = 15.sp,
                                     fontWeight = FontWeight.Bold,
                                     color = Color.White,
@@ -382,7 +400,7 @@ fun HomeExercisesScreen(navController: NavController) {
                                 Spacer(modifier = Modifier.height(10.dp))
 
                                 Text(
-                                    text = "Build a strong, stable core and sculpt your abs with targeted workouts for strength and definition.",
+                                    text = "Dynamic warm-ups use active movements to increase blood flow, loosen muscles, and prepare your body for exercise.\n",
                                     fontSize = 15.sp,
                                     color = Color.White,
                                     textAlign = TextAlign.Center,
@@ -398,6 +416,68 @@ fun HomeExercisesScreen(navController: NavController) {
                     }
                     //End of card
                     Spacer(modifier = Modifier.width(10.dp))
+
+
+                    //Start of card
+                    Card(
+                        onClick = {},
+                        modifier = Modifier
+                            .width(200.dp)
+                            .height(300.dp),
+                        elevation = CardDefaults.elevatedCardElevation(5.dp)
+                        //colors = CardDefaults.
+                    ) {
+                        Box{
+                            Image(
+                                painter = painterResource(R.drawable.darkbg),
+                                contentDescription = null,
+                                modifier = Modifier.fillMaxSize(),
+                                contentScale = ContentScale.Crop
+                            )
+
+
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+
+                                ) {
+                                Image(
+                                    painter = painterResource(R.drawable.cooldown),
+                                    contentDescription = "shirt1",
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(150.dp),
+                                    contentScale = ContentScale.Crop
+                                )
+
+                                Spacer(modifier = Modifier.height(15.dp))
+
+                                Text(
+                                    text = "Cool-Down Stretches",
+                                    fontSize = 15.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color.White,
+
+                                    )
+                                Spacer(modifier = Modifier.height(10.dp))
+
+                                Text(
+                                    text = "Cooldown stretches help relax muscles, improve flexibility, and promote recovery after exercise.\n",
+                                    fontSize = 15.sp,
+                                    color = Color.White,
+                                    textAlign = TextAlign.Center,
+                                    modifier = Modifier
+                                        .padding(start = 10.dp, end = 10.dp),
+
+
+                                    )
+
+                            }
+
+                        }
+                    }
+                    //End of card
+                    Spacer(modifier = Modifier.width(10.dp))
+
 
 
 
@@ -409,10 +489,12 @@ fun HomeExercisesScreen(navController: NavController) {
         }
     )
     //End of Scaffold
+
+
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
-fun HomeExercisesScreenPreview() {
-    HomeExercisesScreen(navController = rememberNavController())
+fun StretchingExercisesScreenPreview(){
+    StretchingExercisesScreen(rememberNavController())
 }

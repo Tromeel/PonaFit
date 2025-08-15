@@ -25,8 +25,11 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
+import com.tromeel.ponafit.navigation.ROUT_GYMEXERCISES
 import com.tromeel.ponafit.navigation.ROUT_HOME
 import com.tromeel.ponafit.navigation.ROUT_HOMEEXERCISES
+import com.tromeel.ponafit.navigation.ROUT_REHAB
+import com.tromeel.ponafit.navigation.ROUT_STRETCHINGEXERCISES
 import com.tromeel.ponafit.ui.theme.Grin
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -111,25 +114,25 @@ fun DashboardScreen(navController: NavController) {
                         imageRes = R.drawable.gym,
                         title = "Gym Exercises",
                         description = "Make the most of gym machines and weights with guided workouts that target strength, endurance, and overall fitness.",
-                        taskCount = "15 tasks",
+                        taskCount = "4 tasks",
                         backgroundRes = R.drawable.darkbg,
-                        onClick = { navController.navigate("gym_exercises") }
+                        onClick = { navController.navigate(ROUT_GYMEXERCISES) }
                     )
                     ExerciseCard(
                         imageRes = R.drawable.stretch,
                         title = "Stretching and Mobility",
                         description = "Improve flexibility, posture, and joint health with gentle stretches and mobility drills designed for all fitness levels.",
-                        taskCount = "10 tasks",
+                        taskCount = "5 tasks",
                         backgroundRes = R.drawable.darkbg,
-                        onClick = { navController.navigate("stretching_mobility") }
+                        onClick = { navController.navigate(ROUT_STRETCHINGEXERCISES) }
                     )
                     ExerciseCard(
                         imageRes = R.drawable.rehab,
                         title = "Injury-Specific Rehab",
                         description = "Targeted physiotherapy routines to aid recovery from common injuries like knee, back, and shoulder issues—always guided step-by-step for safety.",
-                        taskCount = "8 tasks",
+                        taskCount = "7 tasks",
                         backgroundRes = R.drawable.darkbg,
-                        onClick = { navController.navigate("injury_rehab") }
+                        onClick = { navController.navigate(ROUT_REHAB) }
                     )
                 }
             }

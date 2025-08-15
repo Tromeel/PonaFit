@@ -1,20 +1,39 @@
-package com.tromeel.ponafit.ui.screens.homeexercises
+package com.tromeel.ponafit.ui.screens.gymexercises
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -32,10 +51,9 @@ import com.tromeel.ponafit.navigation.ROUT_DASHBOARD
 import com.tromeel.ponafit.navigation.ROUT_HOME
 import com.tromeel.ponafit.ui.theme.Grin
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun HomeExercisesScreen(navController: NavController) {
 
+@Composable
+fun GymExercisesScreen(navController: NavController){
     var selectedIndex by remember { mutableStateOf(0) }
 
     Scaffold(
@@ -90,13 +108,13 @@ fun HomeExercisesScreen(navController: NavController) {
                             onClick = { }
                         ) {
 
-                                IconButton(onClick = { navController.navigate(ROUT_DASHBOARD) }) {
-                                    Icon(
-                                        imageVector = Icons.Default.ArrowBack,
-                                        contentDescription = "Back",
-                                        tint = Color.White
-                                    )
-                            
+                            IconButton(onClick = { navController.navigate(ROUT_DASHBOARD) }) {
+                                Icon(
+                                    imageVector = Icons.Default.ArrowBack,
+                                    contentDescription = "Back",
+                                    tint = Color.White
+                                )
+
 
                             }
 
@@ -105,18 +123,18 @@ fun HomeExercisesScreen(navController: NavController) {
                         Spacer(modifier = Modifier.height(20.dp)) // ✅ Space between arrow and title
 
                         Text(
-                            text = "Home Exercises",
+                            text = "Gym Exercises",
                             fontSize = 30.sp,
                             modifier = Modifier.padding(start = 20.dp, end = 20.dp),
                             fontWeight = FontWeight.Bold,
                             color = Color.White,
 
-                        )
+                            )
 
                         Spacer(modifier = Modifier.height(15.dp))
 
                         Text(
-                            text = "Can be done at Home with minimal equipment",
+                            text = "Requires Gym Equipment",
                             fontSize = 20.sp,
                             modifier = Modifier
                                 .padding(start = 20.dp),
@@ -127,7 +145,7 @@ fun HomeExercisesScreen(navController: NavController) {
                         Spacer(modifier = Modifier.height(10.dp))
 
                         Text(
-                            text = "Discover exercises tailored to your needs — whether you're at home, in the gym, recovering from an injury, or improving flexibility. Choose your category and start your journey to better mobility and strength.",
+                            text = "Maximize your strength and endurance with guided gym exercises using machines, free weights, and professional equipment.",
                             fontSize = 15.sp,
                             modifier = Modifier
                                 .padding(start = 20.dp, end = 20.dp),
@@ -179,7 +197,7 @@ fun HomeExercisesScreen(navController: NavController) {
                             Column(
                                 horizontalAlignment = Alignment.CenterHorizontally,
 
-                            ) {
+                                ) {
                                 Image(
                                     painter = painterResource(R.drawable.fullbody),
                                     contentDescription = "shirt1",
@@ -197,7 +215,7 @@ fun HomeExercisesScreen(navController: NavController) {
                                     fontWeight = FontWeight.Bold,
                                     color = Color.White,
 
-                                )
+                                    )
                                 Spacer(modifier = Modifier.height(10.dp))
 
                                 Text(
@@ -409,10 +427,12 @@ fun HomeExercisesScreen(navController: NavController) {
         }
     )
     //End of Scaffold
+
+
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
-fun HomeExercisesScreenPreview() {
-    HomeExercisesScreen(navController = rememberNavController())
+fun GymExercisesScreenPreview(){
+    GymExercisesScreen(rememberNavController())
 }

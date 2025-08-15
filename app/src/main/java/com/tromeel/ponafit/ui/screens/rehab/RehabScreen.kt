@@ -1,20 +1,39 @@
-package com.tromeel.ponafit.ui.screens.homeexercises
+package com.tromeel.ponafit.ui.screens.rehab
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.horizontalScroll
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.calculateEndPadding
+import androidx.compose.foundation.layout.calculateStartPadding
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
-import androidx.compose.material3.*
-import androidx.compose.runtime.*
+import androidx.compose.material3.Card
+import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
+import androidx.compose.material3.NavigationBar
+import androidx.compose.material3.NavigationBarItem
+import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -32,10 +51,9 @@ import com.tromeel.ponafit.navigation.ROUT_DASHBOARD
 import com.tromeel.ponafit.navigation.ROUT_HOME
 import com.tromeel.ponafit.ui.theme.Grin
 
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun HomeExercisesScreen(navController: NavController) {
 
+@Composable
+fun RehabScreen(navController: NavController){
     var selectedIndex by remember { mutableStateOf(0) }
 
     Scaffold(
@@ -90,13 +108,13 @@ fun HomeExercisesScreen(navController: NavController) {
                             onClick = { }
                         ) {
 
-                                IconButton(onClick = { navController.navigate(ROUT_DASHBOARD) }) {
-                                    Icon(
-                                        imageVector = Icons.Default.ArrowBack,
-                                        contentDescription = "Back",
-                                        tint = Color.White
-                                    )
-                            
+                            IconButton(onClick = { navController.navigate(ROUT_DASHBOARD) }) {
+                                Icon(
+                                    imageVector = Icons.Default.ArrowBack,
+                                    contentDescription = "Back",
+                                    tint = Color.White
+                                )
+
 
                             }
 
@@ -105,18 +123,18 @@ fun HomeExercisesScreen(navController: NavController) {
                         Spacer(modifier = Modifier.height(20.dp)) // ✅ Space between arrow and title
 
                         Text(
-                            text = "Home Exercises",
+                            text = "Injury-Specific Rehab",
                             fontSize = 30.sp,
                             modifier = Modifier.padding(start = 20.dp, end = 20.dp),
                             fontWeight = FontWeight.Bold,
                             color = Color.White,
 
-                        )
+                            )
 
                         Spacer(modifier = Modifier.height(15.dp))
 
                         Text(
-                            text = "Can be done at Home with minimal equipment",
+                            text = "Enables one to target Injury Recovery efficiently",
                             fontSize = 20.sp,
                             modifier = Modifier
                                 .padding(start = 20.dp),
@@ -127,7 +145,7 @@ fun HomeExercisesScreen(navController: NavController) {
                         Spacer(modifier = Modifier.height(10.dp))
 
                         Text(
-                            text = "Discover exercises tailored to your needs — whether you're at home, in the gym, recovering from an injury, or improving flexibility. Choose your category and start your journey to better mobility and strength.",
+                            text = "Injury-specific rehab focuses on targeted exercises designed to restore strength, mobility, and function to the affected area, supporting a safe and effective recovery.\n",
                             fontSize = 15.sp,
                             modifier = Modifier
                                 .padding(start = 20.dp, end = 20.dp),
@@ -179,9 +197,9 @@ fun HomeExercisesScreen(navController: NavController) {
                             Column(
                                 horizontalAlignment = Alignment.CenterHorizontally,
 
-                            ) {
+                                ) {
                                 Image(
-                                    painter = painterResource(R.drawable.fullbody),
+                                    painter = painterResource(R.drawable.knee),
                                     contentDescription = "shirt1",
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -192,16 +210,16 @@ fun HomeExercisesScreen(navController: NavController) {
                                 Spacer(modifier = Modifier.height(15.dp))
 
                                 Text(
-                                    text = "Full-Body Workouts",
+                                    text = "Knee Rehab",
                                     fontSize = 15.sp,
                                     fontWeight = FontWeight.Bold,
                                     color = Color.White,
 
-                                )
+                                    )
                                 Spacer(modifier = Modifier.height(10.dp))
 
                                 Text(
-                                    text = "Boost strength, improve balance, and burn calories with workouts that target all major muscle groups in one session.",
+                                    text = "Knee rehab strengthens the muscles around the joint, improves flexibility, and restores stability to aid recovery and prevent future injuries.\n",
                                     fontSize = 15.sp,
                                     color = Color.White,
                                     textAlign = TextAlign.Center,
@@ -241,7 +259,7 @@ fun HomeExercisesScreen(navController: NavController) {
 
                                 ) {
                                 Image(
-                                    painter = painterResource(R.drawable.upperbody),
+                                    painter = painterResource(R.drawable.shoulder),
                                     contentDescription = "shirt1",
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -252,7 +270,7 @@ fun HomeExercisesScreen(navController: NavController) {
                                 Spacer(modifier = Modifier.height(15.dp))
 
                                 Text(
-                                    text = "Upper-Body Strength",
+                                    text = "Shoulder Rehab",
                                     fontSize = 15.sp,
                                     fontWeight = FontWeight.Bold,
                                     color = Color.White,
@@ -262,7 +280,7 @@ fun HomeExercisesScreen(navController: NavController) {
                                 Spacer(modifier = Modifier.height(10.dp))
 
                                 Text(
-                                    text = "Build strength and definition in your arms, shoulders, chest, and back with focused upper body training.",
+                                    text = "Shoulder rehab focuses on restoring mobility, strengthening supporting muscles, and reducing pain for a full range of motion and injury prevention.\n",
                                     fontSize = 15.sp,
                                     color = Color.White,
                                     textAlign = TextAlign.Center,
@@ -302,7 +320,7 @@ fun HomeExercisesScreen(navController: NavController) {
 
                                 ) {
                                 Image(
-                                    painter = painterResource(R.drawable.lowerbody),
+                                    painter = painterResource(R.drawable.back),
                                     contentDescription = "shirt1",
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -313,7 +331,7 @@ fun HomeExercisesScreen(navController: NavController) {
                                 Spacer(modifier = Modifier.height(15.dp))
 
                                 Text(
-                                    text = "Lower Body Power",
+                                    text = "Lower-Back Rehab",
                                     fontSize = 15.sp,
                                     fontWeight = FontWeight.Bold,
                                     color = Color.White,
@@ -322,7 +340,7 @@ fun HomeExercisesScreen(navController: NavController) {
                                 Spacer(modifier = Modifier.height(10.dp))
 
                                 Text(
-                                    text = "Strengthen and tone your legs, glutes, and hips with powerful lower body exercises for balance and stability.",
+                                    text = "Lower-back rehab focuses on restoring mobility, strengthening supporting muscles, and reducing pain for a full range of motion and injury prevention.\n",
                                     fontSize = 15.sp,
                                     color = Color.White,
                                     textAlign = TextAlign.Center,
@@ -362,7 +380,7 @@ fun HomeExercisesScreen(navController: NavController) {
 
                                 ) {
                                 Image(
-                                    painter = painterResource(R.drawable.core),
+                                    painter = painterResource(R.drawable.ankle),
                                     contentDescription = "shirt1",
                                     modifier = Modifier
                                         .fillMaxWidth()
@@ -373,7 +391,7 @@ fun HomeExercisesScreen(navController: NavController) {
                                 Spacer(modifier = Modifier.height(15.dp))
 
                                 Text(
-                                    text = "Core and Abs",
+                                    text = "Ankle and Foot Rehab",
                                     fontSize = 15.sp,
                                     fontWeight = FontWeight.Bold,
                                     color = Color.White,
@@ -382,7 +400,7 @@ fun HomeExercisesScreen(navController: NavController) {
                                 Spacer(modifier = Modifier.height(10.dp))
 
                                 Text(
-                                    text = "Build a strong, stable core and sculpt your abs with targeted workouts for strength and definition.",
+                                    text = "Ankle and foot rehab restores strength, balance, and flexibility to aid recovery and prevent future injuries.\n",
                                     fontSize = 15.sp,
                                     color = Color.White,
                                     textAlign = TextAlign.Center,
@@ -398,6 +416,192 @@ fun HomeExercisesScreen(navController: NavController) {
                     }
                     //End of card
                     Spacer(modifier = Modifier.width(10.dp))
+
+
+                    //Start of card
+                    Card(
+                        onClick = {},
+                        modifier = Modifier
+                            .width(200.dp)
+                            .height(300.dp),
+                        elevation = CardDefaults.elevatedCardElevation(5.dp)
+                        //colors = CardDefaults.
+                    ) {
+                        Box{
+                            Image(
+                                painter = painterResource(R.drawable.darkbg),
+                                contentDescription = null,
+                                modifier = Modifier.fillMaxSize(),
+                                contentScale = ContentScale.Crop
+                            )
+
+
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+
+                                ) {
+                                Image(
+                                    painter = painterResource(R.drawable.hip),
+                                    contentDescription = "shirt1",
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(150.dp),
+                                    contentScale = ContentScale.Crop
+                                )
+
+                                Spacer(modifier = Modifier.height(15.dp))
+
+                                Text(
+                                    text = "Hip Rehab",
+                                    fontSize = 15.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color.White,
+
+                                    )
+                                Spacer(modifier = Modifier.height(10.dp))
+
+                                Text(
+                                    text = "Hip rehab focuses on improving mobility, strength, and stability to support pain-free movement and daily activities.\n",
+                                    fontSize = 15.sp,
+                                    color = Color.White,
+                                    textAlign = TextAlign.Center,
+                                    modifier = Modifier
+                                        .padding(start = 10.dp, end = 10.dp),
+
+
+                                    )
+
+                            }
+
+                        }
+                    }
+                    //End of card
+                    Spacer(modifier = Modifier.width(10.dp))
+
+
+                    //Start of card
+                    Card(
+                        onClick = {},
+                        modifier = Modifier
+                            .width(200.dp)
+                            .height(300.dp),
+                        elevation = CardDefaults.elevatedCardElevation(5.dp)
+                        //colors = CardDefaults.
+                    ) {
+                        Box{
+                            Image(
+                                painter = painterResource(R.drawable.darkbg),
+                                contentDescription = null,
+                                modifier = Modifier.fillMaxSize(),
+                                contentScale = ContentScale.Crop
+                            )
+
+
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+
+                                ) {
+                                Image(
+                                    painter = painterResource(R.drawable.elbow),
+                                    contentDescription = "shirt1",
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(150.dp),
+                                    contentScale = ContentScale.Crop
+                                )
+
+                                Spacer(modifier = Modifier.height(15.dp))
+
+                                Text(
+                                    text = "Wrist and Elbow Rehab",
+                                    fontSize = 15.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color.White,
+
+                                    )
+                                Spacer(modifier = Modifier.height(10.dp))
+
+                                Text(
+                                    text = "Wrist and elbow rehab helps restore strength, flexibility, and function after injury, supporting smooth and pain-free movement.\n",
+                                    fontSize = 15.sp,
+                                    color = Color.White,
+                                    textAlign = TextAlign.Center,
+                                    modifier = Modifier
+                                        .padding(start = 10.dp, end = 10.dp),
+
+
+                                    )
+
+                            }
+
+                        }
+                    }
+                    //End of card
+                    Spacer(modifier = Modifier.width(10.dp))
+
+
+                    //Start of card
+                    Card(
+                        onClick = {},
+                        modifier = Modifier
+                            .width(200.dp)
+                            .height(300.dp),
+                        elevation = CardDefaults.elevatedCardElevation(5.dp)
+                        //colors = CardDefaults.
+                    ) {
+                        Box{
+                            Image(
+                                painter = painterResource(R.drawable.darkbg),
+                                contentDescription = null,
+                                modifier = Modifier.fillMaxSize(),
+                                contentScale = ContentScale.Crop
+                            )
+
+
+                            Column(
+                                horizontalAlignment = Alignment.CenterHorizontally,
+
+                                ) {
+                                Image(
+                                    painter = painterResource(R.drawable.neck),
+                                    contentDescription = "shirt1",
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .height(150.dp),
+                                    contentScale = ContentScale.Crop
+                                )
+
+                                Spacer(modifier = Modifier.height(15.dp))
+
+                                Text(
+                                    text = "Neck Rehab",
+                                    fontSize = 15.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color.White,
+
+                                    )
+                                Spacer(modifier = Modifier.height(10.dp))
+
+                                Text(
+                                    text = "Neck rehab focuses on relieving pain, improving mobility, and strengthening muscles to support better posture and daily movement.\n",
+                                    fontSize = 15.sp,
+                                    color = Color.White,
+                                    textAlign = TextAlign.Center,
+                                    modifier = Modifier
+                                        .padding(start = 10.dp, end = 10.dp),
+
+
+                                    )
+
+                            }
+
+                        }
+                    }
+                    //End of card
+                    Spacer(modifier = Modifier.width(10.dp))
+
+
+
 
 
 
@@ -409,10 +613,13 @@ fun HomeExercisesScreen(navController: NavController) {
         }
     )
     //End of Scaffold
+
+
+
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
-fun HomeExercisesScreenPreview() {
-    HomeExercisesScreen(navController = rememberNavController())
+fun RehabScreenPreview(){
+    RehabScreen(rememberNavController())
 }

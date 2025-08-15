@@ -6,6 +6,9 @@ const val ROUT_ABOUT = "about"
 const val ROUT_SPLASH = "splash"
 const val ROUT_DASHBOARD = "dashboard"
 const val ROUT_HOMEEXERCISES = "homeexercises"
+const val ROUT_GYMEXERCISES = "gymexercises"
+const val ROUT_STRETCHINGEXERCISES = "stretchingexercises"
+const val ROUT_REHAB = "rehab"
 
 
 

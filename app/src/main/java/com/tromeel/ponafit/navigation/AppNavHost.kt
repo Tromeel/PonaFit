@@ -13,9 +13,12 @@ import com.tromeel.ponafit.ui.screens.about.AboutScreen
 import com.tromeel.ponafit.ui.screens.auth.LoginScreen
 import com.tromeel.ponafit.ui.screens.auth.RegisterScreen
 import com.tromeel.ponafit.ui.screens.dashboard.DashboardScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GymExercisesScreen
 import com.tromeel.ponafit.ui.screens.home.HomeScreen
 import com.tromeel.ponafit.ui.screens.homeexercises.HomeExercisesScreen
+import com.tromeel.ponafit.ui.screens.rehab.RehabScreen
 import com.tromeel.ponafit.ui.screens.splash.SplashScreen
+import com.tromeel.ponafit.ui.screens.stretchingexercises.StretchingExercisesScreen
 import com.tromeel.ponafit.viewmodel.AuthViewModel
 import com.tromeel.swaggy.data.UserDatabase
 
@@ -50,6 +53,19 @@ fun AppNavHost(
         composable(ROUT_HOMEEXERCISES) {
             HomeExercisesScreen(navController)
         }
+
+
+        composable(ROUT_GYMEXERCISES) {
+            GymExercisesScreen(navController)
+        }
+        composable(ROUT_STRETCHINGEXERCISES) {
+            StretchingExercisesScreen(navController)
+        }
+
+        composable(ROUT_REHAB) {
+            RehabScreen(navController)
+        }
+
 
 
         //AUTHENTICATION
