@@ -15,7 +15,11 @@ import com.tromeel.ponafit.ui.screens.auth.RegisterScreen
 import com.tromeel.ponafit.ui.screens.dashboard.DashboardScreen
 import com.tromeel.ponafit.ui.screens.gymexercises.GymExercisesScreen
 import com.tromeel.ponafit.ui.screens.home.HomeScreen
+import com.tromeel.ponafit.ui.screens.homeexercises.AFullBodyWorkoutScreen
+import com.tromeel.ponafit.ui.screens.homeexercises.BFullBodyWorkoutScreen
+import com.tromeel.ponafit.ui.screens.homeexercises.DifficultyScreen1
 import com.tromeel.ponafit.ui.screens.homeexercises.HomeExercisesScreen
+import com.tromeel.ponafit.ui.screens.homeexercises.IFullBodyWorkoutScreen
 import com.tromeel.ponafit.ui.screens.rehab.RehabScreen
 import com.tromeel.ponafit.ui.screens.splash.SplashScreen
 import com.tromeel.ponafit.ui.screens.stretchingexercises.StretchingExercisesScreen
@@ -53,6 +57,22 @@ fun AppNavHost(
         composable(ROUT_HOMEEXERCISES) {
             HomeExercisesScreen(navController)
         }
+
+        composable(ROUT_BFULLBODYWORKOUT) {
+            BFullBodyWorkoutScreen(navController)
+        }
+
+
+        composable(ROUT_IFULLBODYWORKOUT) {
+            IFullBodyWorkoutScreen(navController)
+        }
+        composable(ROUT_AFULLBODYWORKOUT) {
+            AFullBodyWorkoutScreen(navController)
+        }
+        composable(ROUT_DIFFICULTY1) {
+            DifficultyScreen1(navController)
+        }
+
 
 
         composable(ROUT_GYMEXERCISES) {

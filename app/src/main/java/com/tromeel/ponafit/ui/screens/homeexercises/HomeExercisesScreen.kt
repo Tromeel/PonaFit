@@ -29,6 +29,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
 import com.tromeel.ponafit.navigation.ROUT_DASHBOARD
+import com.tromeel.ponafit.navigation.ROUT_DIFFICULTY1
 import com.tromeel.ponafit.navigation.ROUT_HOME
 import com.tromeel.ponafit.ui.theme.Grin
 
@@ -160,7 +161,9 @@ fun HomeExercisesScreen(navController: NavController) {
                 ){
                     //Start of card
                     Card(
-                        onClick = {},
+                        onClick = {
+                            navController.navigate(ROUT_DIFFICULTY1)
+                        },
                         modifier = Modifier
                             .width(200.dp)
                             .height(300.dp),
