@@ -4,8 +4,6 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -28,7 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
-import com.tromeel.ponafit.navigation.ROUT_DIFFICULTY1
+import com.tromeel.ponafit.navigation.ROUT_FDIFFICULTY
 import com.tromeel.ponafit.navigation.ROUT_HOME
 import com.tromeel.ponafit.ui.theme.Grin
 
@@ -74,7 +72,7 @@ fun BFullBodyWorkoutScreen(navController: NavController) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     IconButton(
-                        onClick = { navController.navigate(ROUT_DIFFICULTY1) },
+                        onClick = { navController.navigate(ROUT_FDIFFICULTY) },
                         modifier = Modifier.align(Alignment.Start)
                     ) {
                         Icon(
@@ -107,7 +105,7 @@ fun BFullBodyWorkoutScreen(navController: NavController) {
                         modifier = Modifier.padding(bottom = 20.dp)
                     )
 
-                    // Workout List
+                    // Workout List (8 Workouts)
                     WorkoutCard(
                         title = "Jumping Jacks",
                         description = "A cardio warm-up to increase heart rate.",
@@ -158,6 +156,58 @@ fun BFullBodyWorkoutScreen(navController: NavController) {
                         ),
                         sets = "3 sets",
                         reps = "Hold for 20–30 sec"
+                    )
+
+                    WorkoutCard(
+                        title = "Lunges",
+                        description = "Strengthens legs, glutes, and improves balance.",
+                        steps = listOf(
+                            "Stand tall with feet hip-width apart.",
+                            "Step forward with one leg and lower hips until both knees are bent at 90°.",
+                            "Push through your front heel to return to standing.",
+                            "Alternate legs and repeat."
+                        ),
+                        sets = "3 sets",
+                        reps = "10 reps per leg"
+                    )
+
+                    WorkoutCard(
+                        title = "Glute Bridges",
+                        description = "Strengthens glutes and lower back.",
+                        steps = listOf(
+                            "Lie on your back with knees bent and feet flat on the floor.",
+                            "Keep arms at your sides with palms down.",
+                            "Lift your hips until shoulders, hips, and knees form a straight line.",
+                            "Squeeze glutes and lower slowly."
+                        ),
+                        sets = "3 sets",
+                        reps = "12–15 reps"
+                    )
+
+                    WorkoutCard(
+                        title = "Mountain Climbers",
+                        description = "Cardio move to strengthen core and legs.",
+                        steps = listOf(
+                            "Start in a push-up position with hands under shoulders.",
+                            "Drive one knee toward your chest.",
+                            "Quickly switch legs as if running in place.",
+                            "Keep your back straight and core engaged."
+                        ),
+                        sets = "3 sets",
+                        reps = "20–30 seconds"
+                    )
+
+                    WorkoutCard(
+                        title = "Superman Hold",
+                        description = "Strengthens back and core.",
+                        steps = listOf(
+                            "Lie face down with arms extended in front of you.",
+                            "Simultaneously lift arms, chest, and legs off the ground.",
+                            "Hold for a moment while squeezing your back muscles.",
+                            "Slowly lower to starting position."
+                        ),
+                        sets = "3 sets",
+                        reps = "Hold for 15–20 sec"
                     )
                 }
             }

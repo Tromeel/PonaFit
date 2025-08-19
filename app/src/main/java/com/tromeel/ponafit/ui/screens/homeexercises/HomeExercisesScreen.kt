@@ -28,9 +28,12 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
+import com.tromeel.ponafit.navigation.ROUT_CDIFFICULTY
 import com.tromeel.ponafit.navigation.ROUT_DASHBOARD
-import com.tromeel.ponafit.navigation.ROUT_DIFFICULTY1
+import com.tromeel.ponafit.navigation.ROUT_FDIFFICULTY
 import com.tromeel.ponafit.navigation.ROUT_HOME
+import com.tromeel.ponafit.navigation.ROUT_LDIFFICULTY
+import com.tromeel.ponafit.navigation.ROUT_UDIFFICULTY
 import com.tromeel.ponafit.ui.theme.Grin
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -162,7 +165,7 @@ fun HomeExercisesScreen(navController: NavController) {
                     //Start of card
                     Card(
                         onClick = {
-                            navController.navigate(ROUT_DIFFICULTY1)
+                            navController.navigate(ROUT_FDIFFICULTY)
                         },
                         modifier = Modifier
                             .width(200.dp)
@@ -223,7 +226,7 @@ fun HomeExercisesScreen(navController: NavController) {
 
                     //Start of card
                     Card(
-                        onClick = {},
+                        onClick = {navController.navigate(ROUT_UDIFFICULTY)},
                         modifier = Modifier
                             .width(200.dp)
                             .height(300.dp),
@@ -284,7 +287,7 @@ fun HomeExercisesScreen(navController: NavController) {
 
                     //Start of card
                     Card(
-                        onClick = {},
+                        onClick = {navController.navigate(ROUT_LDIFFICULTY)},
                         modifier = Modifier
                             .width(200.dp)
                             .height(300.dp),
@@ -344,7 +347,7 @@ fun HomeExercisesScreen(navController: NavController) {
 
                     //Start of card
                     Card(
-                        onClick = {},
+                        onClick = {navController.navigate(ROUT_CDIFFICULTY)},
                         modifier = Modifier
                             .width(200.dp)
                             .height(300.dp),
@@ -407,6 +410,7 @@ fun HomeExercisesScreen(navController: NavController) {
 
 
                 }
+
 
             }
         }

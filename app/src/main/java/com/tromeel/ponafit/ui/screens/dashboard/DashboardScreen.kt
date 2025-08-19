@@ -134,6 +134,9 @@ fun DashboardScreen(navController: NavController) {
                         backgroundRes = R.drawable.darkbg,
                         onClick = { navController.navigate(ROUT_REHAB) }
                     )
+
+                    // ✅ Spacer at the end so last card has padding
+                    Spacer(modifier = Modifier.width(20.dp))
                 }
             }
         }

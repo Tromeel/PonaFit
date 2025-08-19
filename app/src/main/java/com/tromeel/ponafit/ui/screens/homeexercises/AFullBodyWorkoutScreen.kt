@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
-import com.tromeel.ponafit.navigation.ROUT_DIFFICULTY1
+import com.tromeel.ponafit.navigation.ROUT_FDIFFICULTY
 import com.tromeel.ponafit.navigation.ROUT_HOME
 import com.tromeel.ponafit.ui.theme.Grin
 
@@ -71,7 +71,7 @@ fun AFullBodyWorkoutScreen(navController: NavController) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     IconButton(
-                        onClick = { navController.navigate(ROUT_DIFFICULTY1) },
+                        onClick = { navController.navigate(ROUT_FDIFFICULTY) },
                         modifier = Modifier.align(Alignment.Start)
                     ) {
                         Icon(

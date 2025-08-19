@@ -1,5 +1,7 @@
 package com.tromeel.ponafit.ui.screens.homeexercises
 
+
+
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
@@ -25,17 +27,20 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
-import com.tromeel.ponafit.navigation.ROUT_AFULLBODYWORKOUT
-import com.tromeel.ponafit.navigation.ROUT_BFULLBODYWORKOUT
+import com.tromeel.ponafit.navigation.ROUT_ACORE
+import com.tromeel.ponafit.navigation.ROUT_ALOWERBODY
+import com.tromeel.ponafit.navigation.ROUT_BCORE
+import com.tromeel.ponafit.navigation.ROUT_BLOWERBODY
 import com.tromeel.ponafit.navigation.ROUT_HOME
 import com.tromeel.ponafit.navigation.ROUT_HOMEEXERCISES
-import com.tromeel.ponafit.navigation.ROUT_IFULLBODYWORKOUT
+import com.tromeel.ponafit.navigation.ROUT_ICORE
+import com.tromeel.ponafit.navigation.ROUT_ILOWERBODY
 import com.tromeel.ponafit.ui.theme.Grin
 
 @Composable
-fun DifficultyScreen1(navController: NavController) {
+fun CDifficultyScreen(navController: NavController) {
     var selectedIndex by remember { mutableStateOf(0) }
-//scafold
+    // ✅ Scaffold
     Scaffold(
         bottomBar = {
             NavigationBar(containerColor = Grin) {
@@ -71,7 +76,7 @@ fun DifficultyScreen1(navController: NavController) {
                         .fillMaxSize()
                         .padding(paddingValues)
                 ) {
-                    // Back Button
+                    // 🔙 Back Button
                     IconButton(
                         onClick = { navController.navigate(ROUT_HOMEEXERCISES) },
                         modifier = Modifier.align(Alignment.Start)
@@ -88,7 +93,7 @@ fun DifficultyScreen1(navController: NavController) {
 
                     Spacer(modifier = Modifier.height(50.dp))
 
-                    // Title
+                    // 🏋️ Title
                     Text(
                         text = "Choose Your Difficulty",
                         fontSize = 30.sp,
@@ -99,7 +104,7 @@ fun DifficultyScreen1(navController: NavController) {
 
                     Spacer(modifier = Modifier.height(10.dp))
 
-                    // Subtitle
+                    // 📖 Subtitle
                     Text(
                         text = "Select a difficulty level that matches your fitness and progress at your own pace—start easy, challenge yourself, and move up when ready.",
                         fontSize = 15.sp,
@@ -112,7 +117,7 @@ fun DifficultyScreen1(navController: NavController) {
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    // Horizontal scrollable row for cards
+                    // 🔄 Horizontal scrollable row for cards
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -120,9 +125,9 @@ fun DifficultyScreen1(navController: NavController) {
                             .padding(start = 16.dp, end = 16.dp),
                         horizontalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
-                        BeginnerCard(navController)
-                        IntermediateCard(navController)
-                        AdvancedCard(navController)
+                        BCard(navController)
+                        ICard(navController)
+                        ACard(navController)
                     }
 
                     Spacer(modifier = Modifier.height(30.dp))
@@ -141,14 +146,13 @@ fun DifficultyScreen1(navController: NavController) {
             }
         }
     )
-    //end scafolf
 }
 
 // ✅ Beginner Card
 @Composable
-fun BeginnerCard(navController: NavController) {
+fun BCard(navController: NavController) {
     Card(
-        onClick = { navController.navigate(ROUT_BFULLBODYWORKOUT) },
+        onClick = {navController.navigate(ROUT_BCORE) },
         modifier = Modifier
             .width(250.dp)
             .height(400.dp),
@@ -201,9 +205,9 @@ fun BeginnerCard(navController: NavController) {
 
 // ✅ Intermediate Card
 @Composable
-fun IntermediateCard(navController: NavController) {
+fun ICard(navController: NavController) {
     Card(
-        onClick = {navController.navigate(ROUT_IFULLBODYWORKOUT)  },
+        onClick = {navController.navigate(ROUT_ICORE) },
         modifier = Modifier
             .width(250.dp)
             .height(400.dp),
@@ -256,9 +260,9 @@ fun IntermediateCard(navController: NavController) {
 
 // ✅ Advanced Card
 @Composable
-fun AdvancedCard(navController: NavController) {
+fun ACard(navController: NavController) {
     Card(
-        onClick = { navController.navigate(ROUT_AFULLBODYWORKOUT) },
+        onClick = { navController.navigate(ROUT_ACORE) },
         modifier = Modifier
             .width(250.dp)
             .height(400.dp),
@@ -311,6 +315,6 @@ fun AdvancedCard(navController: NavController) {
 
 @Preview(showBackground = true)
 @Composable
-fun DifficultyScreenPreview() {
-    DifficultyScreen1(rememberNavController())
+fun CDifficultyScreenPreview() {
+    CDifficultyScreen(rememberNavController())
 }

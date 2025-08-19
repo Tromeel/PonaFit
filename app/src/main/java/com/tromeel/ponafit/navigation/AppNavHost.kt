@@ -15,11 +15,23 @@ import com.tromeel.ponafit.ui.screens.auth.RegisterScreen
 import com.tromeel.ponafit.ui.screens.dashboard.DashboardScreen
 import com.tromeel.ponafit.ui.screens.gymexercises.GymExercisesScreen
 import com.tromeel.ponafit.ui.screens.home.HomeScreen
+import com.tromeel.ponafit.ui.screens.homeexercises.ACoreScreen
 import com.tromeel.ponafit.ui.screens.homeexercises.AFullBodyWorkoutScreen
+import com.tromeel.ponafit.ui.screens.homeexercises.ALowerBodyScreen
+import com.tromeel.ponafit.ui.screens.homeexercises.AUpperBodyScreen
+import com.tromeel.ponafit.ui.screens.homeexercises.BCoreScreen
 import com.tromeel.ponafit.ui.screens.homeexercises.BFullBodyWorkoutScreen
-import com.tromeel.ponafit.ui.screens.homeexercises.DifficultyScreen1
+import com.tromeel.ponafit.ui.screens.homeexercises.BLowerBodyScreen
+import com.tromeel.ponafit.ui.screens.homeexercises.BUpperBodyScreen
+import com.tromeel.ponafit.ui.screens.homeexercises.CDifficultyScreen
+import com.tromeel.ponafit.ui.screens.homeexercises.FDifficultyScreen
 import com.tromeel.ponafit.ui.screens.homeexercises.HomeExercisesScreen
+import com.tromeel.ponafit.ui.screens.homeexercises.ICoreScreen
 import com.tromeel.ponafit.ui.screens.homeexercises.IFullBodyWorkoutScreen
+import com.tromeel.ponafit.ui.screens.homeexercises.ILowerBodyScreen
+import com.tromeel.ponafit.ui.screens.homeexercises.IUpperBodyScreen
+import com.tromeel.ponafit.ui.screens.homeexercises.LDifficultyScreen
+import com.tromeel.ponafit.ui.screens.homeexercises.UDifficultyScreen
 import com.tromeel.ponafit.ui.screens.rehab.RehabScreen
 import com.tromeel.ponafit.ui.screens.splash.SplashScreen
 import com.tromeel.ponafit.ui.screens.stretchingexercises.StretchingExercisesScreen
@@ -58,20 +70,95 @@ fun AppNavHost(
             HomeExercisesScreen(navController)
         }
 
+        ///BEGINNER WORKOUTS
+
         composable(ROUT_BFULLBODYWORKOUT) {
             BFullBodyWorkoutScreen(navController)
         }
+        composable(ROUT_BUPPERBODY) {
+            BUpperBodyScreen(navController)
+        }
+        composable(ROUT_BLOWERBODY) {
+            BLowerBodyScreen(navController)
+        }
+
+        composable(ROUT_BCORE) {
+            BCoreScreen(navController)
+        }
+
+
+
+
+
+        //INTERMEDIATE WORKOUTS
 
 
         composable(ROUT_IFULLBODYWORKOUT) {
             IFullBodyWorkoutScreen(navController)
         }
+
+        composable(ROUT_IUPPERBODY) {
+            IUpperBodyScreen(navController)
+        }
+        composable(ROUT_ILOWERBODY) {
+            ILowerBodyScreen(navController)
+        }
+        composable(ROUT_ICORE) {
+            ICoreScreen(navController)
+        }
+
+
+
+
+        //ADVANCED WORKOUTS
         composable(ROUT_AFULLBODYWORKOUT) {
             AFullBodyWorkoutScreen(navController)
         }
-        composable(ROUT_DIFFICULTY1) {
-            DifficultyScreen1(navController)
+
+        composable(ROUT_AUPPERBODY) {
+            AUpperBodyScreen(navController)
         }
+
+
+        composable(ROUT_ALOWERBODY) {
+            ALowerBodyScreen(navController)
+        }
+
+        composable(ROUT_ACORE) {
+            ACoreScreen(navController)
+        }
+
+
+
+
+
+
+        //DIFFICULTY SCREENS
+        composable(ROUT_FDIFFICULTY) {
+            FDifficultyScreen(navController)
+        }
+        composable(ROUT_UDIFFICULTY) {
+            UDifficultyScreen(navController)
+        }
+
+        composable(ROUT_LDIFFICULTY) {
+            LDifficultyScreen(navController)
+        }
+
+        composable(ROUT_CDIFFICULTY) {
+            CDifficultyScreen(navController)
+        }
+
+
+
+
+
+
+
+
+
+
+
 
 
 

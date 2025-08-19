@@ -1,10 +1,9 @@
 package com.tromeel.ponafit.ui.screens.homeexercises
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
@@ -16,8 +15,8 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -27,12 +26,12 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
-import com.tromeel.ponafit.navigation.ROUT_FDIFFICULTY
+import com.tromeel.ponafit.navigation.ROUT_CDIFFICULTY
 import com.tromeel.ponafit.navigation.ROUT_HOME
 import com.tromeel.ponafit.ui.theme.Grin
 
 @Composable
-fun IFullBodyWorkoutScreen(navController: NavController) {
+fun ICoreScreen(navController: NavController) {
     var selectedIndex by remember { mutableStateOf(0) }
 
     Scaffold(
@@ -73,7 +72,7 @@ fun IFullBodyWorkoutScreen(navController: NavController) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     IconButton(
-                        onClick = { navController.navigate(ROUT_FDIFFICULTY) },
+                        onClick = { navController.navigate(ROUT_CDIFFICULTY) },
                         modifier = Modifier.align(Alignment.Start)
                     ) {
                         Icon(
@@ -87,9 +86,8 @@ fun IFullBodyWorkoutScreen(navController: NavController) {
                     }
                     Spacer(modifier = Modifier.height(30.dp))
 
-                    // Title
                     Text(
-                        text = "Intermediate Full Body Workouts",
+                        text = "Intermediate Abs & Core Workouts",
                         fontSize = 26.sp,
                         fontWeight = FontWeight.Bold,
                         color = Grin,
@@ -98,118 +96,104 @@ fun IFullBodyWorkoutScreen(navController: NavController) {
                     )
                     Spacer(modifier = Modifier.height(10.dp))
 
-
                     Text(
-                        text = "Intermediate full-body workouts are a great way to build strength, improve fitness, and stay active without needing equipment. These exercises focus on all major muscle groups, helping you improve balance, flexibility, and endurance from the comfort of your home.",
+                        text = "Take your core training to the next level with these intermediate exercises. Designed to challenge your strength and endurance, these moves build stability, burn calories, and sculpt your abs at home—no equipment needed.",
                         fontSize = 20.sp,
                         color = Grin,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.padding(bottom = 20.dp)
                     )
 
-                    // Workout List
-                    IntermediateWorkoutCard(
-                        title = "Burpees",
-                        description = "A full-body exercise for strength and cardio.",
+                    // ✅ Intermediate Abs & Core Workouts
+                    AbsCoreWorkoutCard1(
+                        title = "V-Ups",
+                        description = "Engages both upper and lower abs simultaneously.",
                         steps = listOf(
-                            "Start standing tall with feet shoulder-width apart.",
-                            "Drop into a squat, place hands on the floor.",
-                            "Kick feet back into a push-up position.",
-                            "Do one push-up, then jump back up explosively."
+                            "Lie flat with arms extended overhead and legs straight.",
+                            "Lift arms and legs together to form a V shape.",
+                            "Reach hands toward feet.",
+                            "Lower slowly and repeat."
                         ),
-                        sets = "4 sets",
-                        reps = "10–12 reps"
-                    )
-
-                    IntermediateWorkoutCard(
-                        title = "Jump Squats",
-                        description = "Builds explosive power in legs and glutes.",
-                        steps = listOf(
-                            "Stand with feet shoulder-width apart.",
-                            "Perform a squat keeping chest upright.",
-                            "Push through your heels and jump explosively.",
-                            "Land softly and go right into the next rep."
-                        ),
-                        sets = "4 sets",
+                        sets = "3 sets",
                         reps = "12–15 reps"
                     )
 
-                    IntermediateWorkoutCard(
-                        title = "Decline Push-Ups",
-                        description = "Targets upper chest and shoulders.",
-                        steps = listOf(
-                            "Place your feet on a raised surface like a chair.",
-                            "Hands on the ground, slightly wider than shoulders.",
-                            "Lower your chest toward the ground.",
-                            "Push back up while keeping body aligned."
-                        ),
-                        sets = "4 sets",
-                        reps = "10–15 reps"
-                    )
-
-                    IntermediateWorkoutCard(
+                    AbsCoreWorkoutCard1(
                         title = "Side Plank with Hip Dips",
-                        description = "Strengthens core, obliques, and stabilizers.",
+                        description = "Strengthens obliques and improves balance.",
                         steps = listOf(
-                            "Lie on your side with elbow under shoulder.",
-                            "Lift hips into a straight line position.",
-                            "Lower hips slightly toward the ground.",
-                            "Raise them back up and repeat."
+                            "Start in a side plank position on your elbow.",
+                            "Lower hips toward the ground without touching.",
+                            "Lift hips back up to starting position.",
+                            "Repeat before switching sides."
                         ),
                         sets = "3 sets",
-                        reps = "12 reps each side"
+                        reps = "10–12 reps each side"
                     )
 
-                    IntermediateWorkoutCard(
-                        title = "Bulgarian Split Squats",
-                        description = "Single-leg exercise for balance and strength.",
+                    AbsCoreWorkoutCard1(
+                        title = "Flutter Kicks",
+                        description = "Targets lower abs with controlled leg movement.",
                         steps = listOf(
-                            "Stand a few feet in front of a bench or chair.",
-                            "Place one foot on the bench behind you.",
-                            "Lower your hips until front thigh is parallel.",
-                            "Push through front heel to rise back up."
+                            "Lie flat with hands under your hips.",
+                            "Lift legs slightly off the floor.",
+                            "Kick legs up and down in a fluttering motion.",
+                            "Keep core engaged throughout."
                         ),
                         sets = "3 sets",
-                        reps = "10–12 reps each leg"
+                        reps = "20–30 seconds"
                     )
 
-                    IntermediateWorkoutCard(
-                        title = "Pike Push-Ups",
-                        description = "Focuses on shoulders and upper body strength.",
-                        steps = listOf(
-                            "Start in a downward dog position.",
-                            "Hands shoulder-width apart, hips raised high.",
-                            "Lower head toward the ground by bending elbows.",
-                            "Push back up to the start position."
-                        ),
-                        sets = "3 sets",
-                        reps = "8–12 reps"
-                    )
-
-                    IntermediateWorkoutCard(
-                        title = "Bicycle Crunches",
-                        description = "Core workout targeting abs and obliques.",
-                        steps = listOf(
-                            "Lie flat on your back with hands behind your head.",
-                            "Lift knees to a tabletop position.",
-                            "Bring right elbow toward left knee while extending right leg.",
-                            "Switch sides in a pedaling motion."
-                        ),
-                        sets = "3 sets",
-                        reps = "15–20 reps each side"
-                    )
-
-                    IntermediateWorkoutCard(
+                    AbsCoreWorkoutCard1(
                         title = "Plank to Shoulder Tap",
-                        description = "Improves stability and core strength.",
+                        description = "Builds stability and core control.",
                         steps = listOf(
-                            "Start in a high plank with hands under shoulders.",
-                            "Lift one hand and tap the opposite shoulder.",
-                            "Alternate sides while keeping hips steady.",
-                            "Engage your core throughout."
+                            "Start in a high plank position.",
+                            "Lift one hand and tap opposite shoulder.",
+                            "Alternate hands while keeping hips stable.",
+                            "Avoid rotating your torso."
                         ),
                         sets = "3 sets",
                         reps = "12–16 reps each side"
+                    )
+
+                    AbsCoreWorkoutCard1(
+                        title = "Reverse Crunch",
+                        description = "Excellent for targeting the lower abs.",
+                        steps = listOf(
+                            "Lie on your back with knees bent at 90°.",
+                            "Lift hips off the floor while pulling knees toward chest.",
+                            "Lower slowly without touching the floor.",
+                            "Repeat with control."
+                        ),
+                        sets = "3 sets",
+                        reps = "12–15 reps"
+                    )
+
+                    AbsCoreWorkoutCard1(
+                        title = "Plank Jacks",
+                        description = "Dynamic plank variation to build endurance.",
+                        steps = listOf(
+                            "Start in plank position.",
+                            "Jump feet apart and back together, like a jumping jack.",
+                            "Keep core tight and back straight.",
+                            "Maintain steady breathing."
+                        ),
+                        sets = "3 sets",
+                        reps = "20–30 seconds"
+                    )
+
+                    AbsCoreWorkoutCard1(
+                        title = "Toe Touches",
+                        description = "Strengthens upper abs and improves flexibility.",
+                        steps = listOf(
+                            "Lie flat with legs raised straight up.",
+                            "Reach hands toward toes, lifting shoulders off the floor.",
+                            "Lower slowly while keeping legs raised.",
+                            "Repeat with control."
+                        ),
+                        sets = "3 sets",
+                        reps = "12–15 reps"
                     )
                 }
             }
@@ -217,9 +201,9 @@ fun IFullBodyWorkoutScreen(navController: NavController) {
     )
 }
 
-// ✅ Reusable Workout Card Design (with darkbg background)
+// ✅ Reusable Card for Abs & Core
 @Composable
-fun IntermediateWorkoutCard(
+fun AbsCoreWorkoutCard1(
     title: String,
     description: String,
     steps: List<String>,
@@ -230,20 +214,29 @@ fun IntermediateWorkoutCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 8.dp),
-        shape = RoundedCornerShape(16.dp),
-        elevation = CardDefaults.cardElevation(8.dp)
+        elevation = CardDefaults.cardElevation(6.dp),
+        shape = RoundedCornerShape(16.dp)
     ) {
         Box(
             modifier = Modifier
-                .fillMaxSize()
-                .paint(
-                    painter = painterResource(R.drawable.darkbg), // background image
-                    contentScale = ContentScale.Crop
-                )
-                .clip(RoundedCornerShape(16.dp))
-                .padding(16.dp)
+                .fillMaxWidth()
+                .heightIn(min = 200.dp)
         ) {
-            Column {
+            Image(
+                painter = painterResource(R.drawable.darkbg),
+                contentDescription = null,
+                modifier = Modifier
+                    .matchParentSize()
+                    .clip(RoundedCornerShape(16.dp)),
+                contentScale = ContentScale.Crop
+            )
+
+            Column(
+                modifier = Modifier
+                    .padding(16.dp)
+                    .fillMaxWidth(),
+                verticalArrangement = Arrangement.SpaceBetween
+            ) {
                 Text(
                     text = title,
                     fontSize = 20.sp,
@@ -261,7 +254,6 @@ fun IntermediateWorkoutCard(
 
                 Spacer(modifier = Modifier.height(10.dp))
 
-                // Steps list
                 steps.forEachIndexed { index, step ->
                     Text(
                         text = "${index + 1}. $step",
@@ -277,18 +269,8 @@ fun IntermediateWorkoutCard(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
-                    Text(
-                        text = "Sets: $sets",
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 14.sp,
-                        color = Color.White
-                    )
-                    Text(
-                        text = "Reps: $reps",
-                        fontWeight = FontWeight.Medium,
-                        fontSize = 14.sp,
-                        color = Color.White
-                    )
+                    Text(text = "Sets: $sets", fontWeight = FontWeight.Medium, fontSize = 14.sp, color = Color.White)
+                    Text(text = "Reps: $reps", fontWeight = FontWeight.Medium, fontSize = 14.sp, color = Color.White)
                 }
             }
         }
@@ -297,6 +279,6 @@ fun IntermediateWorkoutCard(
 
 @Preview
 @Composable
-fun IntermediateScreenPreview() {
-    IFullBodyWorkoutScreen(rememberNavController())
+fun ICoreScreenPreview() {
+    ICoreScreen(rememberNavController())
 }
