@@ -1,4 +1,4 @@
-package com.tromeel.ponafit.ui.screens.homeexercises
+package com.tromeel.ponafit.ui.screens.gymexercises
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -26,14 +26,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
-import com.tromeel.ponafit.navigation.ROUT_FDIFFICULTY
+import com.tromeel.ponafit.navigation.ROUT_GLDIFFICULTY
+import com.tromeel.ponafit.navigation.ROUT_GUDIFFICULTY
 import com.tromeel.ponafit.navigation.ROUT_HOME
-import com.tromeel.ponafit.navigation.ROUT_LDIFFICULTY
-import com.tromeel.ponafit.navigation.ROUT_UDIFFICULTY
 import com.tromeel.ponafit.ui.theme.Grin
 
 @Composable
-fun BUpperBodyScreen(navController: NavController) {
+fun GBLowerBodyScreen(navController: NavController) {
     var selectedIndex by remember { mutableStateOf(0) }
 
     Scaffold(
@@ -74,7 +73,7 @@ fun BUpperBodyScreen(navController: NavController) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     IconButton(
-                        onClick = { navController.navigate(ROUT_UDIFFICULTY) },
+                        onClick = { navController.navigate(ROUT_GLDIFFICULTY) },
                         modifier = Modifier.align(Alignment.Start)
                     ) {
                         Icon(
@@ -89,7 +88,7 @@ fun BUpperBodyScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(30.dp))
 
                     Text(
-                        text = "Beginner Upper Body Workouts",
+                        text = "Beginner Lower Body Workouts (Gym)",
                         fontSize = 26.sp,
                         fontWeight = FontWeight.Bold,
                         color = Grin,
@@ -99,103 +98,103 @@ fun BUpperBodyScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(10.dp))
 
                     Text(
-                        text = "Beginner upper-body workouts at home help build strength in your chest, arms, shoulders, and back using just your bodyweight. These simple exercises improve posture, stability, and overall fitness without needing any equipment.",
+                        text = "These beginner-friendly lower body workouts use basic gym machines and weights. They are designed to build strength, improve stability, and increase endurance safely for new lifters.",
                         fontSize = 20.sp,
                         color = Grin,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.padding(bottom = 20.dp)
                     )
 
-                    // ✅ Workout List (7 total)
-                    UpperBodyWorkoutCard(
-                        title = "Wall Push-Ups",
-                        description = "Great for beginners to strengthen chest and arms.",
+                    // ✅ Beginner Lower Body Workouts
+                    GymBLCard(
+                        title = "Leg Press (Machine)",
+                        description = "Strengthens quads, hamstrings, and glutes with controlled range.",
                         steps = listOf(
-                            "Stand facing a wall with arms extended at shoulder height.",
-                            "Place palms flat on the wall, slightly wider than shoulders.",
-                            "Bend elbows and lean chest toward the wall.",
-                            "Push back to starting position."
+                            "Sit on the leg press machine with feet shoulder-width on the platform.",
+                            "Push the platform upward until legs are extended but not locked.",
+                            "Lower slowly until knees are at 90 degrees.",
+                            "Press back up with control."
                         ),
                         sets = "3 sets",
-                        reps = "10–15 reps"
+                        reps = "10–12 reps"
                     )
 
-                    UpperBodyWorkoutCard(
-                        title = "Arm Circles",
-                        description = "Improves shoulder mobility and endurance.",
+                    GymBLCard(
+                        title = "Bodyweight or Assisted Squats",
+                        description = "Great for beginners to learn squat movement safely.",
                         steps = listOf(
-                            "Stand upright with arms extended to the sides.",
-                            "Rotate arms forward in small circles.",
-                            "Gradually make circles bigger.",
-                            "Repeat in the opposite direction."
+                            "Stand with feet shoulder-width apart.",
+                            "Hold onto a support or use a Smith machine bar for balance.",
+                            "Lower hips down as if sitting in a chair.",
+                            "Push back up through heels."
                         ),
                         sets = "3 sets",
-                        reps = "15–20 sec each"
+                        reps = "10–12 reps"
                     )
 
-                    UpperBodyWorkoutCard(
-                        title = "Modified Knee Push-Ups",
-                        description = "Strengthens chest, shoulders, and triceps.",
+                    GymBLCard(
+                        title = "Leg Curl (Machine)",
+                        description = "Isolates and strengthens hamstrings.",
                         steps = listOf(
-                            "Start in a push-up position but with knees on the floor.",
-                            "Hands should be shoulder-width apart.",
-                            "Lower chest toward the ground by bending elbows.",
-                            "Push back up to starting position."
+                            "Sit or lie on the leg curl machine.",
+                            "Hook ankles under padded lever.",
+                            "Curl legs back as far as possible.",
+                            "Slowly return to start position."
                         ),
                         sets = "3 sets",
-                        reps = "8–12 reps"
+                        reps = "10–12 reps"
                     )
 
-                    UpperBodyWorkoutCard(
-                        title = "Superman Hold",
-                        description = "Strengthens back and shoulders.",
+                    GymBLCard(
+                        title = "Leg Extension (Machine)",
+                        description = "Focuses on building quad strength.",
                         steps = listOf(
-                            "Lie face down on the floor with arms extended forward.",
-                            "Lift arms, chest, and legs slightly off the ground.",
-                            "Hold for a few seconds while squeezing your back.",
-                            "Slowly return to the starting position."
+                            "Sit on the leg extension machine with shins under padded bar.",
+                            "Extend legs forward until straight.",
+                            "Hold for 1–2 seconds at the top.",
+                            "Lower slowly back down."
                         ),
                         sets = "3 sets",
-                        reps = "Hold for 10–15 sec"
+                        reps = "10–12 reps"
                     )
 
-                    UpperBodyWorkoutCard(
-                        title = "Shoulder Shrugs",
-                        description = "Helps relax and strengthen shoulder muscles.",
+                    GymBLCard(
+                        title = "Glute Bridges (Weighted Optional)",
+                        description = "Activates glutes and strengthens hips.",
                         steps = listOf(
-                            "Stand upright with arms relaxed by your sides.",
-                            "Lift your shoulders up toward your ears.",
-                            "Hold for 1–2 seconds, then release slowly.",
-                            "Repeat steadily without rushing."
+                            "Lie on your back with knees bent and feet flat.",
+                            "Place barbell or weight plate across hips if desired.",
+                            "Lift hips upward until body forms a straight line.",
+                            "Lower slowly back down."
                         ),
                         sets = "3 sets",
                         reps = "12–15 reps"
                     )
 
-                    UpperBodyWorkoutCard(
-                        title = "Chair Dips",
-                        description = "Works on triceps and shoulders using a sturdy chair.",
+                    GymBLCard(
+                        title = "Standing Calf Raises (Machine)",
+                        description = "Builds calf muscles and ankle strength.",
                         steps = listOf(
-                            "Sit on the edge of a chair with hands gripping the sides.",
-                            "Walk your feet slightly forward and slide off the seat.",
-                            "Lower your body by bending elbows to 90 degrees.",
-                            "Push back up to starting position."
+                            "Stand on calf raise machine with toes on platform.",
+                            "Lower heels below platform level.",
+                            "Push up onto toes and squeeze calves.",
+                            "Slowly return down."
                         ),
                         sets = "3 sets",
-                        reps = "8–12 reps"
+                        reps = "12–15 reps"
                     )
 
-                    UpperBodyWorkoutCard(
-                        title = "Front Arm Raises",
-                        description = "Strengthens shoulders and improves control.",
+                    GymBLCard(
+                        title = "Hip Abduction (Machine)",
+                        description = "Strengthens outer thighs and glutes.",
                         steps = listOf(
-                            "Stand upright with arms down at your sides.",
-                            "Lift both arms forward until shoulder height.",
-                            "Pause briefly, then lower arms slowly.",
-                            "Keep movements controlled without swinging."
+                            "Sit on the hip abduction machine with legs inside pads.",
+                            "Push legs outward slowly.",
+                            "Hold for 1–2 seconds.",
+                            "Return with control."
                         ),
                         sets = "3 sets",
-                        reps = "10–12 reps"
+                        reps = "12–15 reps"
                     )
                 }
             }
@@ -203,9 +202,9 @@ fun BUpperBodyScreen(navController: NavController) {
     )
 }
 
-// ✅ Reusable Card Composable
+// ✅ Reusable Card with Background Image
 @Composable
-fun UpperBodyWorkoutCard(
+fun GymBLCard(
     title: String,
     description: String,
     steps: List<String>,
@@ -281,6 +280,6 @@ fun UpperBodyWorkoutCard(
 
 @Preview
 @Composable
-fun BUpperBodyScreenPreview() {
-    BUpperBodyScreen(rememberNavController())
+fun GBLowerBodyScreenPreview() {
+    GBLowerBodyScreen(rememberNavController())
 }

@@ -47,8 +47,13 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
+import com.tromeel.ponafit.navigation.ROUT_COOLDOWN
 import com.tromeel.ponafit.navigation.ROUT_DASHBOARD
+import com.tromeel.ponafit.navigation.ROUT_DYNAMICWARMUPS
+import com.tromeel.ponafit.navigation.ROUT_FULLBODYSTRETCHING
 import com.tromeel.ponafit.navigation.ROUT_HOME
+import com.tromeel.ponafit.navigation.ROUT_LOWERBODYSTRETCHING
+import com.tromeel.ponafit.navigation.ROUT_UPPERBODYSTRETCHING
 import com.tromeel.ponafit.ui.theme.Grin
 
 
@@ -178,7 +183,7 @@ fun StretchingExercisesScreen(navController: NavController){
                 ){
                     //Start of card
                     Card(
-                        onClick = {},
+                        onClick = {navController.navigate(ROUT_FULLBODYSTRETCHING)},
                         modifier = Modifier
                             .width(200.dp)
                             .height(300.dp),
@@ -238,7 +243,7 @@ fun StretchingExercisesScreen(navController: NavController){
 
                     //Start of card
                     Card(
-                        onClick = {},
+                        onClick = {navController.navigate(ROUT_UPPERBODYSTRETCHING)},
                         modifier = Modifier
                             .width(200.dp)
                             .height(300.dp),
@@ -299,7 +304,7 @@ fun StretchingExercisesScreen(navController: NavController){
 
                     //Start of card
                     Card(
-                        onClick = {},
+                        onClick = {navController.navigate(ROUT_LOWERBODYSTRETCHING)},
                         modifier = Modifier
                             .width(200.dp)
                             .height(300.dp),
@@ -359,7 +364,7 @@ fun StretchingExercisesScreen(navController: NavController){
 
                     //Start of card
                     Card(
-                        onClick = {},
+                        onClick = {navController.navigate(ROUT_DYNAMICWARMUPS)},
                         modifier = Modifier
                             .width(200.dp)
                             .height(300.dp),
@@ -420,7 +425,7 @@ fun StretchingExercisesScreen(navController: NavController){
 
                     //Start of card
                     Card(
-                        onClick = {},
+                        onClick = {navController.navigate(ROUT_COOLDOWN)},
                         modifier = Modifier
                             .width(200.dp)
                             .height(300.dp),

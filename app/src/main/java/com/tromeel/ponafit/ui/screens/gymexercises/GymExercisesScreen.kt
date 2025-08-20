@@ -48,6 +48,10 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
 import com.tromeel.ponafit.navigation.ROUT_DASHBOARD
+import com.tromeel.ponafit.navigation.ROUT_GCDIFFICULTY
+import com.tromeel.ponafit.navigation.ROUT_GFDIFFICULTY
+import com.tromeel.ponafit.navigation.ROUT_GLDIFFICULTY
+import com.tromeel.ponafit.navigation.ROUT_GUDIFFICULTY
 import com.tromeel.ponafit.navigation.ROUT_HOME
 import com.tromeel.ponafit.ui.theme.Grin
 
@@ -105,7 +109,7 @@ fun GymExercisesScreen(navController: NavController){
                         modifier = Modifier.padding(20.dp)
                     ) {
                         IconButton(
-                            onClick = { }
+                            onClick = {navController.navigate(ROUT_HOME) }
                         ) {
 
                             IconButton(onClick = { navController.navigate(ROUT_DASHBOARD) }) {
@@ -178,7 +182,7 @@ fun GymExercisesScreen(navController: NavController){
                 ){
                     //Start of card
                     Card(
-                        onClick = {},
+                        onClick = {navController.navigate(ROUT_GFDIFFICULTY)},
                         modifier = Modifier
                             .width(200.dp)
                             .height(300.dp),
@@ -238,7 +242,7 @@ fun GymExercisesScreen(navController: NavController){
 
                     //Start of card
                     Card(
-                        onClick = {},
+                        onClick = {navController.navigate(ROUT_GUDIFFICULTY)},
                         modifier = Modifier
                             .width(200.dp)
                             .height(300.dp),
@@ -299,7 +303,7 @@ fun GymExercisesScreen(navController: NavController){
 
                     //Start of card
                     Card(
-                        onClick = {},
+                        onClick = {navController.navigate(ROUT_GLDIFFICULTY)},
                         modifier = Modifier
                             .width(200.dp)
                             .height(300.dp),
@@ -359,7 +363,7 @@ fun GymExercisesScreen(navController: NavController){
 
                     //Start of card
                     Card(
-                        onClick = {},
+                        onClick = {navController.navigate(ROUT_GCDIFFICULTY)},
                         modifier = Modifier
                             .width(200.dp)
                             .height(300.dp),

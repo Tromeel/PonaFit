@@ -10,9 +10,26 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.repository.UserRepository
 import com.tromeel.ponafit.ui.screens.about.AboutScreen
+import com.tromeel.ponafit.ui.screens.account.AccountScreen
 import com.tromeel.ponafit.ui.screens.auth.LoginScreen
 import com.tromeel.ponafit.ui.screens.auth.RegisterScreen
 import com.tromeel.ponafit.ui.screens.dashboard.DashboardScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GACoreScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GAFullBodyScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GALowerBodyScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GAUpperBodyScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GBCoreScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GBFullBodyScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GBLowerBodyScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GBUpperBodyScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GCDifficultyScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GFDifficultyScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GICoreScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GIFullBodyScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GILowerBodyScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GIUpperBodyScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GLDifficultyScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GUDifficultyScreen
 import com.tromeel.ponafit.ui.screens.gymexercises.GymExercisesScreen
 import com.tromeel.ponafit.ui.screens.home.HomeScreen
 import com.tromeel.ponafit.ui.screens.homeexercises.ACoreScreen
@@ -34,7 +51,12 @@ import com.tromeel.ponafit.ui.screens.homeexercises.LDifficultyScreen
 import com.tromeel.ponafit.ui.screens.homeexercises.UDifficultyScreen
 import com.tromeel.ponafit.ui.screens.rehab.RehabScreen
 import com.tromeel.ponafit.ui.screens.splash.SplashScreen
+import com.tromeel.ponafit.ui.screens.stretchingexercises.CoolDownScreen
+import com.tromeel.ponafit.ui.screens.stretchingexercises.DynamicWarmUpsScreen
+import com.tromeel.ponafit.ui.screens.stretchingexercises.FullBodyStretchingScreen
+import com.tromeel.ponafit.ui.screens.stretchingexercises.LowerBodyStretchingScreen
 import com.tromeel.ponafit.ui.screens.stretchingexercises.StretchingExercisesScreen
+import com.tromeel.ponafit.ui.screens.stretchingexercises.UpperBodyStretchingScreen
 import com.tromeel.ponafit.viewmodel.AuthViewModel
 import com.tromeel.swaggy.data.UserDatabase
 
@@ -69,12 +91,28 @@ fun AppNavHost(
         composable(ROUT_HOMEEXERCISES) {
             HomeExercisesScreen(navController)
         }
+        composable(ROUT_ACCOUNT) {
+            AccountScreen(navController)
+        }
 
         ///BEGINNER WORKOUTS
 
         composable(ROUT_BFULLBODYWORKOUT) {
             BFullBodyWorkoutScreen(navController)
         }
+
+        composable(ROUT_GBFULLBODY) {
+            GBFullBodyScreen(navController)
+        }
+
+        composable(ROUT_GBUPPERBODY) {
+            GBUpperBodyScreen(navController)
+        }
+
+        composable(ROUT_GBLOWERBODY) {
+            GBLowerBodyScreen(navController)
+        }
+
         composable(ROUT_BUPPERBODY) {
             BUpperBodyScreen(navController)
         }
@@ -84,6 +122,10 @@ fun AppNavHost(
 
         composable(ROUT_BCORE) {
             BCoreScreen(navController)
+        }
+
+        composable(ROUT_GBCORE) {
+            GBCoreScreen(navController)
         }
 
 
@@ -107,6 +149,26 @@ fun AppNavHost(
             ICoreScreen(navController)
         }
 
+        composable(ROUT_GIFULLBODY) {
+            GIFullBodyScreen(navController)
+        }
+
+        composable(ROUT_GIUPPERBODY) {
+            GIUpperBodyScreen(navController)
+        }
+
+
+        composable(ROUT_GILOWERBODY) {
+            GILowerBodyScreen(navController)
+        }
+
+        composable(ROUT_GICORE) {
+            GICoreScreen(navController)
+        }
+
+
+
+
 
 
 
@@ -129,6 +191,27 @@ fun AppNavHost(
         }
 
 
+        composable(ROUT_GAFULLBODY) {
+            GAFullBodyScreen(navController)
+        }
+
+        composable(ROUT_GAUPPERBODY) {
+            GAUpperBodyScreen(navController)
+        }
+
+        composable(ROUT_GALOWERBODY) {
+            GALowerBodyScreen(navController)
+        }
+        composable(ROUT_GACORE) {
+            GACoreScreen(navController)
+        }
+
+
+
+
+
+
+
 
 
 
@@ -137,6 +220,21 @@ fun AppNavHost(
         composable(ROUT_FDIFFICULTY) {
             FDifficultyScreen(navController)
         }
+        composable(ROUT_GFDIFFICULTY) {
+            GFDifficultyScreen(navController)
+        }
+
+        composable(ROUT_GUDIFFICULTY) {
+            GUDifficultyScreen(navController)
+        }
+        composable(ROUT_GLDIFFICULTY) {
+            GLDifficultyScreen(navController)
+        }
+
+        composable(ROUT_GCDIFFICULTY) {
+            GCDifficultyScreen(navController)
+        }
+
         composable(ROUT_UDIFFICULTY) {
             UDifficultyScreen(navController)
         }
@@ -148,6 +246,36 @@ fun AppNavHost(
         composable(ROUT_CDIFFICULTY) {
             CDifficultyScreen(navController)
         }
+
+
+
+
+        //STRETCHING EXERCISE
+        composable(ROUT_STRETCHINGEXERCISES) {
+            StretchingExercisesScreen(navController)
+        }
+
+        composable(ROUT_FULLBODYSTRETCHING) {
+            FullBodyStretchingScreen(navController)
+        }
+
+        composable(ROUT_UPPERBODYSTRETCHING) {
+            UpperBodyStretchingScreen(navController)
+        }
+
+        composable(ROUT_LOWERBODYSTRETCHING) {
+            LowerBodyStretchingScreen(navController)
+        }
+
+        composable(ROUT_DYNAMICWARMUPS) {
+            DynamicWarmUpsScreen(navController)
+        }
+
+        composable(ROUT_COOLDOWN) {
+            CoolDownScreen(navController)
+        }
+
+
 
 
 
@@ -165,9 +293,7 @@ fun AppNavHost(
         composable(ROUT_GYMEXERCISES) {
             GymExercisesScreen(navController)
         }
-        composable(ROUT_STRETCHINGEXERCISES) {
-            StretchingExercisesScreen(navController)
-        }
+
 
         composable(ROUT_REHAB) {
             RehabScreen(navController)

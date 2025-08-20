@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -25,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
+import com.tromeel.ponafit.navigation.ROUT_ACCOUNT
 import com.tromeel.ponafit.navigation.ROUT_GYMEXERCISES
 import com.tromeel.ponafit.navigation.ROUT_HOME
 import com.tromeel.ponafit.navigation.ROUT_HOMEEXERCISES
@@ -36,6 +38,7 @@ import com.tromeel.ponafit.ui.theme.Grin
 @Composable
 fun DashboardScreen(navController: NavController) {
     var selectedIndex by remember { mutableStateOf(0) }
+
 
     Scaffold(
         bottomBar = {
@@ -53,7 +56,8 @@ fun DashboardScreen(navController: NavController) {
                     icon = { Icon(Icons.Default.Person, contentDescription = "Profile", tint = Color.Black) },
                     label = { Text("Profile", color = Color.Black) },
                     selected = selectedIndex == 2,
-                    onClick = { selectedIndex = 2 }
+                    onClick = { selectedIndex = 2
+                    navController.navigate(ROUT_ACCOUNT)}
                 )
             }
         },

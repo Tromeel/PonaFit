@@ -1,4 +1,4 @@
-package com.tromeel.ponafit.ui.screens.homeexercises
+package com.tromeel.ponafit.ui.screens.gymexercises
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -25,17 +25,19 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
-import com.tromeel.ponafit.navigation.ROUT_ALOWERBODY
-import com.tromeel.ponafit.navigation.ROUT_BLOWERBODY
+import com.tromeel.ponafit.navigation.ROUT_GACORE
+import com.tromeel.ponafit.navigation.ROUT_GALOWERBODY
+import com.tromeel.ponafit.navigation.ROUT_GBCORE
+import com.tromeel.ponafit.navigation.ROUT_GBLOWERBODY
+import com.tromeel.ponafit.navigation.ROUT_GICORE
+import com.tromeel.ponafit.navigation.ROUT_GILOWERBODY
+import com.tromeel.ponafit.navigation.ROUT_GYMEXERCISES
 import com.tromeel.ponafit.navigation.ROUT_HOME
-import com.tromeel.ponafit.navigation.ROUT_HOMEEXERCISES
-import com.tromeel.ponafit.navigation.ROUT_ILOWERBODY
 import com.tromeel.ponafit.ui.theme.Grin
 
 @Composable
-fun LDifficultyScreen(navController: NavController) {
+fun GCDifficultyScreen(navController: NavController) {
     var selectedIndex by remember { mutableStateOf(0) }
-    // ✅ Scaffold
     Scaffold(
         bottomBar = {
             NavigationBar(containerColor = Grin) {
@@ -71,9 +73,8 @@ fun LDifficultyScreen(navController: NavController) {
                         .fillMaxSize()
                         .padding(paddingValues)
                 ) {
-                    // 🔙 Back Button
                     IconButton(
-                        onClick = { navController.navigate(ROUT_HOMEEXERCISES) },
+                        onClick = { navController.navigate(ROUT_GYMEXERCISES) },
                         modifier = Modifier.align(Alignment.Start)
                     ) {
                         Icon(
@@ -88,7 +89,6 @@ fun LDifficultyScreen(navController: NavController) {
 
                     Spacer(modifier = Modifier.height(50.dp))
 
-                    // 🏋️ Title
                     Text(
                         text = "Choose Your Difficulty",
                         fontSize = 30.sp,
@@ -99,7 +99,6 @@ fun LDifficultyScreen(navController: NavController) {
 
                     Spacer(modifier = Modifier.height(10.dp))
 
-                    // 📖 Subtitle
                     Text(
                         text = "Select a difficulty level that matches your fitness and progress at your own pace—start easy, challenge yourself, and move up when ready.",
                         fontSize = 15.sp,
@@ -112,7 +111,6 @@ fun LDifficultyScreen(navController: NavController) {
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    // 🔄 Horizontal scrollable row for cards
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -120,9 +118,9 @@ fun LDifficultyScreen(navController: NavController) {
                             .padding(start = 16.dp, end = 16.dp),
                         horizontalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
-                        BCard1(navController)
-                        ICard1(navController)
-                        ACard1(navController)
+                        CBegCard(navController)
+                        CIntCard(navController)
+                        CAdvCard(navController)
                     }
 
                     Spacer(modifier = Modifier.height(30.dp))
@@ -145,9 +143,9 @@ fun LDifficultyScreen(navController: NavController) {
 
 // ✅ Beginner Card
 @Composable
-fun BCard1(navController: NavController) {
+fun CBegCard(navController: NavController) {
     Card(
-        onClick = {navController.navigate(ROUT_BLOWERBODY) },
+        onClick = { navController.navigate(ROUT_GBCORE) },
         modifier = Modifier
             .width(250.dp)
             .height(400.dp),
@@ -200,9 +198,9 @@ fun BCard1(navController: NavController) {
 
 // ✅ Intermediate Card
 @Composable
-fun ICard1(navController: NavController) {
+fun CIntCard(navController: NavController) {
     Card(
-        onClick = {navController.navigate(ROUT_ILOWERBODY) },
+        onClick = { navController.navigate(ROUT_GICORE) },
         modifier = Modifier
             .width(250.dp)
             .height(400.dp),
@@ -255,9 +253,9 @@ fun ICard1(navController: NavController) {
 
 // ✅ Advanced Card
 @Composable
-fun ACard1(navController: NavController) {
+fun CAdvCard(navController: NavController) {
     Card(
-        onClick = { navController.navigate(ROUT_ALOWERBODY) },
+        onClick = { navController.navigate(ROUT_GACORE) },
         modifier = Modifier
             .width(250.dp)
             .height(400.dp),
@@ -310,6 +308,6 @@ fun ACard1(navController: NavController) {
 
 @Preview(showBackground = true)
 @Composable
-fun LDifficultyScreenPreview() {
-    LDifficultyScreen(rememberNavController())
+fun GCDifficultyScreenPreview() {
+    GCDifficultyScreen(rememberNavController())
 }

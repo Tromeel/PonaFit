@@ -1,4 +1,4 @@
-package com.tromeel.ponafit.ui.screens.homeexercises
+package com.tromeel.ponafit.ui.screens.gymexercises
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -26,14 +26,12 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
-import com.tromeel.ponafit.navigation.ROUT_FDIFFICULTY
+import com.tromeel.ponafit.navigation.ROUT_GFDIFFICULTY
 import com.tromeel.ponafit.navigation.ROUT_HOME
-import com.tromeel.ponafit.navigation.ROUT_LDIFFICULTY
-import com.tromeel.ponafit.navigation.ROUT_UDIFFICULTY
 import com.tromeel.ponafit.ui.theme.Grin
 
 @Composable
-fun BUpperBodyScreen(navController: NavController) {
+fun GIFullBodyScreen(navController: NavController) {
     var selectedIndex by remember { mutableStateOf(0) }
 
     Scaffold(
@@ -74,7 +72,7 @@ fun BUpperBodyScreen(navController: NavController) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     IconButton(
-                        onClick = { navController.navigate(ROUT_UDIFFICULTY) },
+                        onClick = { navController.navigate(ROUT_GFDIFFICULTY) },
                         modifier = Modifier.align(Alignment.Start)
                     ) {
                         Icon(
@@ -89,7 +87,7 @@ fun BUpperBodyScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(30.dp))
 
                     Text(
-                        text = "Beginner Upper Body Workouts",
+                        text = "Intermediate Full Body Workouts (Gym)",
                         fontSize = 26.sp,
                         fontWeight = FontWeight.Bold,
                         color = Grin,
@@ -99,100 +97,100 @@ fun BUpperBodyScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(10.dp))
 
                     Text(
-                        text = "Beginner upper-body workouts at home help build strength in your chest, arms, shoulders, and back using just your bodyweight. These simple exercises improve posture, stability, and overall fitness without needing any equipment.",
+                        text = "Push your strength and endurance further with these intermediate-level gym workouts. Perfect for those who already know the basics and are ready to progress with more challenging equipment-based exercises.",
                         fontSize = 20.sp,
                         color = Grin,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.padding(bottom = 20.dp)
                     )
 
-                    // ✅ Workout List (7 total)
-                    UpperBodyWorkoutCard(
-                        title = "Wall Push-Ups",
-                        description = "Great for beginners to strengthen chest and arms.",
+                    // ✅ Intermediate Gym Full Body Workouts
+                    GymWorkoutCard(
+                        title = "Barbell Squat",
+                        description = "Builds strength in legs and glutes while engaging core stability.",
                         steps = listOf(
-                            "Stand facing a wall with arms extended at shoulder height.",
-                            "Place palms flat on the wall, slightly wider than shoulders.",
-                            "Bend elbows and lean chest toward the wall.",
-                            "Push back to starting position."
+                            "Position the barbell on your upper back (not neck).",
+                            "Stand with feet shoulder-width apart.",
+                            "Lower hips down and back until thighs are parallel to the floor.",
+                            "Push through heels to return to standing."
                         ),
-                        sets = "3 sets",
-                        reps = "10–15 reps"
+                        sets = "4 sets",
+                        reps = "8–10 reps"
                     )
 
-                    UpperBodyWorkoutCard(
-                        title = "Arm Circles",
-                        description = "Improves shoulder mobility and endurance.",
+                    GymWorkoutCard(
+                        title = "Deadlift",
+                        description = "Powerful movement for back, legs, and overall strength.",
                         steps = listOf(
-                            "Stand upright with arms extended to the sides.",
-                            "Rotate arms forward in small circles.",
-                            "Gradually make circles bigger.",
-                            "Repeat in the opposite direction."
+                            "Stand with feet hip-width apart with barbell over mid-foot.",
+                            "Bend at hips and knees, grip the bar just outside knees.",
+                            "Keep back flat, chest up, and lift bar by extending hips and knees.",
+                            "Lower bar back down with control."
                         ),
-                        sets = "3 sets",
-                        reps = "15–20 sec each"
+                        sets = "4 sets",
+                        reps = "6–8 reps"
                     )
 
-                    UpperBodyWorkoutCard(
-                        title = "Modified Knee Push-Ups",
-                        description = "Strengthens chest, shoulders, and triceps.",
+                    GymWorkoutCard(
+                        title = "Incline Dumbbell Press",
+                        description = "Targets upper chest and shoulders effectively.",
                         steps = listOf(
-                            "Start in a push-up position but with knees on the floor.",
-                            "Hands should be shoulder-width apart.",
-                            "Lower chest toward the ground by bending elbows.",
-                            "Push back up to starting position."
+                            "Lie on an incline bench holding dumbbells at chest level.",
+                            "Press the dumbbells upward until arms are extended.",
+                            "Lower slowly to starting position.",
+                            "Keep your core tight throughout."
                         ),
                         sets = "3 sets",
-                        reps = "8–12 reps"
+                        reps = "8–10 reps"
                     )
 
-                    UpperBodyWorkoutCard(
-                        title = "Superman Hold",
-                        description = "Strengthens back and shoulders.",
+                    GymWorkoutCard(
+                        title = "Pull-Ups (Assisted if needed)",
+                        description = "Excellent bodyweight and back-building exercise.",
                         steps = listOf(
-                            "Lie face down on the floor with arms extended forward.",
-                            "Lift arms, chest, and legs slightly off the ground.",
-                            "Hold for a few seconds while squeezing your back.",
-                            "Slowly return to the starting position."
+                            "Grip pull-up bar slightly wider than shoulder-width.",
+                            "Pull body upward until chin clears the bar.",
+                            "Lower slowly under control.",
+                            "Use assisted machine if needed."
                         ),
                         sets = "3 sets",
-                        reps = "Hold for 10–15 sec"
+                        reps = "6–8 reps"
                     )
 
-                    UpperBodyWorkoutCard(
-                        title = "Shoulder Shrugs",
-                        description = "Helps relax and strengthen shoulder muscles.",
+                    GymWorkoutCard(
+                        title = "Seated Dumbbell Shoulder Press",
+                        description = "Strengthens shoulders with added weight challenge.",
                         steps = listOf(
-                            "Stand upright with arms relaxed by your sides.",
-                            "Lift your shoulders up toward your ears.",
-                            "Hold for 1–2 seconds, then release slowly.",
-                            "Repeat steadily without rushing."
+                            "Sit upright with dumbbells at shoulder height.",
+                            "Press overhead until arms are extended.",
+                            "Lower back to starting position with control.",
+                            "Avoid arching your back."
                         ),
                         sets = "3 sets",
-                        reps = "12–15 reps"
+                        reps = "8–10 reps"
                     )
 
-                    UpperBodyWorkoutCard(
-                        title = "Chair Dips",
-                        description = "Works on triceps and shoulders using a sturdy chair.",
+                    GymWorkoutCard(
+                        title = "Cable Row",
+                        description = "Works back, biceps, and improves posture.",
                         steps = listOf(
-                            "Sit on the edge of a chair with hands gripping the sides.",
-                            "Walk your feet slightly forward and slide off the seat.",
-                            "Lower your body by bending elbows to 90 degrees.",
-                            "Push back up to starting position."
+                            "Sit at cable machine with feet braced.",
+                            "Grip handle and pull towards torso.",
+                            "Squeeze shoulder blades together.",
+                            "Return to starting position slowly."
                         ),
                         sets = "3 sets",
-                        reps = "8–12 reps"
+                        reps = "10 reps"
                     )
 
-                    UpperBodyWorkoutCard(
-                        title = "Front Arm Raises",
-                        description = "Strengthens shoulders and improves control.",
+                    GymWorkoutCard(
+                        title = "Hanging Leg Raise",
+                        description = "Advanced core exercise for abdominal strength.",
                         steps = listOf(
-                            "Stand upright with arms down at your sides.",
-                            "Lift both arms forward until shoulder height.",
-                            "Pause briefly, then lower arms slowly.",
-                            "Keep movements controlled without swinging."
+                            "Hang from pull-up bar with straight arms.",
+                            "Raise legs until parallel to the floor.",
+                            "Lower back down slowly.",
+                            "Avoid swinging your body."
                         ),
                         sets = "3 sets",
                         reps = "10–12 reps"
@@ -203,9 +201,9 @@ fun BUpperBodyScreen(navController: NavController) {
     )
 }
 
-// ✅ Reusable Card Composable
+// ✅ Reusable Card with dark background
 @Composable
-fun UpperBodyWorkoutCard(
+fun GymWorkoutCard(
     title: String,
     description: String,
     steps: List<String>,
@@ -239,21 +237,9 @@ fun UpperBodyWorkoutCard(
                     .fillMaxWidth(),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(
-                    text = title,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White
-                )
-
+                Text(text = title, fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.White)
                 Spacer(modifier = Modifier.height(4.dp))
-
-                Text(
-                    text = description,
-                    fontSize = 14.sp,
-                    color = Color.LightGray
-                )
-
+                Text(text = description, fontSize = 14.sp, color = Color.LightGray)
                 Spacer(modifier = Modifier.height(10.dp))
 
                 steps.forEachIndexed { index, step ->
@@ -266,7 +252,6 @@ fun UpperBodyWorkoutCard(
                 }
 
                 Spacer(modifier = Modifier.height(10.dp))
-
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
@@ -281,6 +266,6 @@ fun UpperBodyWorkoutCard(
 
 @Preview
 @Composable
-fun BUpperBodyScreenPreview() {
-    BUpperBodyScreen(rememberNavController())
+fun GIFullBodyScreenPreview() {
+    GIFullBodyScreen(rememberNavController())
 }

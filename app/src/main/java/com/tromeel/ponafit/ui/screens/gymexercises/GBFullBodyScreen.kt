@@ -1,4 +1,4 @@
-package com.tromeel.ponafit.ui.screens.homeexercises
+package com.tromeel.ponafit.ui.screens.gymexercises
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -26,14 +26,12 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
-import com.tromeel.ponafit.navigation.ROUT_FDIFFICULTY
+import com.tromeel.ponafit.navigation.ROUT_GFDIFFICULTY
 import com.tromeel.ponafit.navigation.ROUT_HOME
-import com.tromeel.ponafit.navigation.ROUT_LDIFFICULTY
-import com.tromeel.ponafit.navigation.ROUT_UDIFFICULTY
 import com.tromeel.ponafit.ui.theme.Grin
 
 @Composable
-fun BUpperBodyScreen(navController: NavController) {
+fun GBFullBodyScreen(navController: NavController) {
     var selectedIndex by remember { mutableStateOf(0) }
 
     Scaffold(
@@ -74,7 +72,7 @@ fun BUpperBodyScreen(navController: NavController) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     IconButton(
-                        onClick = { navController.navigate(ROUT_UDIFFICULTY) },
+                        onClick = { navController.navigate(ROUT_GFDIFFICULTY) },
                         modifier = Modifier.align(Alignment.Start)
                     ) {
                         Icon(
@@ -89,7 +87,7 @@ fun BUpperBodyScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(30.dp))
 
                     Text(
-                        text = "Beginner Upper Body Workouts",
+                        text = "Beginner Full Body Workouts (Gym)",
                         fontSize = 26.sp,
                         fontWeight = FontWeight.Bold,
                         color = Grin,
@@ -99,103 +97,104 @@ fun BUpperBodyScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(10.dp))
 
                     Text(
-                        text = "Beginner upper-body workouts at home help build strength in your chest, arms, shoulders, and back using just your bodyweight. These simple exercises improve posture, stability, and overall fitness without needing any equipment.",
+                        text = "Start your fitness journey with these simple yet effective full-body workouts. Designed for beginners at the gym to build strength, improve endurance, and boost confidence.",
                         fontSize = 20.sp,
                         color = Grin,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.padding(bottom = 20.dp)
                     )
 
-                    // ✅ Workout List (7 total)
-                    UpperBodyWorkoutCard(
-                        title = "Wall Push-Ups",
-                        description = "Great for beginners to strengthen chest and arms.",
+                    // ✅ Beginner Gym Full Body Workouts (7 Exercises)
+                    GymBeginnerWorkoutCard(
+                        title = "Leg Press",
+                        description = "Great for building leg strength without needing balance.",
                         steps = listOf(
-                            "Stand facing a wall with arms extended at shoulder height.",
-                            "Place palms flat on the wall, slightly wider than shoulders.",
-                            "Bend elbows and lean chest toward the wall.",
-                            "Push back to starting position."
-                        ),
-                        sets = "3 sets",
-                        reps = "10–15 reps"
-                    )
-
-                    UpperBodyWorkoutCard(
-                        title = "Arm Circles",
-                        description = "Improves shoulder mobility and endurance.",
-                        steps = listOf(
-                            "Stand upright with arms extended to the sides.",
-                            "Rotate arms forward in small circles.",
-                            "Gradually make circles bigger.",
-                            "Repeat in the opposite direction."
-                        ),
-                        sets = "3 sets",
-                        reps = "15–20 sec each"
-                    )
-
-                    UpperBodyWorkoutCard(
-                        title = "Modified Knee Push-Ups",
-                        description = "Strengthens chest, shoulders, and triceps.",
-                        steps = listOf(
-                            "Start in a push-up position but with knees on the floor.",
-                            "Hands should be shoulder-width apart.",
-                            "Lower chest toward the ground by bending elbows.",
-                            "Push back up to starting position."
-                        ),
-                        sets = "3 sets",
-                        reps = "8–12 reps"
-                    )
-
-                    UpperBodyWorkoutCard(
-                        title = "Superman Hold",
-                        description = "Strengthens back and shoulders.",
-                        steps = listOf(
-                            "Lie face down on the floor with arms extended forward.",
-                            "Lift arms, chest, and legs slightly off the ground.",
-                            "Hold for a few seconds while squeezing your back.",
-                            "Slowly return to the starting position."
-                        ),
-                        sets = "3 sets",
-                        reps = "Hold for 10–15 sec"
-                    )
-
-                    UpperBodyWorkoutCard(
-                        title = "Shoulder Shrugs",
-                        description = "Helps relax and strengthen shoulder muscles.",
-                        steps = listOf(
-                            "Stand upright with arms relaxed by your sides.",
-                            "Lift your shoulders up toward your ears.",
-                            "Hold for 1–2 seconds, then release slowly.",
-                            "Repeat steadily without rushing."
-                        ),
-                        sets = "3 sets",
-                        reps = "12–15 reps"
-                    )
-
-                    UpperBodyWorkoutCard(
-                        title = "Chair Dips",
-                        description = "Works on triceps and shoulders using a sturdy chair.",
-                        steps = listOf(
-                            "Sit on the edge of a chair with hands gripping the sides.",
-                            "Walk your feet slightly forward and slide off the seat.",
-                            "Lower your body by bending elbows to 90 degrees.",
-                            "Push back up to starting position."
-                        ),
-                        sets = "3 sets",
-                        reps = "8–12 reps"
-                    )
-
-                    UpperBodyWorkoutCard(
-                        title = "Front Arm Raises",
-                        description = "Strengthens shoulders and improves control.",
-                        steps = listOf(
-                            "Stand upright with arms down at your sides.",
-                            "Lift both arms forward until shoulder height.",
-                            "Pause briefly, then lower arms slowly.",
-                            "Keep movements controlled without swinging."
+                            "Sit on the machine with your back flat.",
+                            "Place your feet shoulder-width apart on the platform.",
+                            "Push the platform up and release the safety.",
+                            "Lower slowly until knees are at 90°, then push back up."
                         ),
                         sets = "3 sets",
                         reps = "10–12 reps"
+                    )
+
+                    GymBeginnerWorkoutCard(
+                        title = "Lat Pulldown",
+                        description = "Targets your back and arms effectively.",
+                        steps = listOf(
+                            "Sit at the pulldown machine and grip the bar slightly wider than shoulders.",
+                            "Pull the bar down to your chest.",
+                            "Control the bar as you return it slowly upward.",
+                            "Keep your back straight throughout."
+                        ),
+                        sets = "3 sets",
+                        reps = "10–12 reps"
+                    )
+
+                    GymBeginnerWorkoutCard(
+                        title = "Chest Press Machine",
+                        description = "Safe way to work your chest and triceps.",
+                        steps = listOf(
+                            "Sit on the machine with back against the pad.",
+                            "Grip the handles at chest level.",
+                            "Push the handles forward until arms are extended.",
+                            "Return slowly with control."
+                        ),
+                        sets = "3 sets",
+                        reps = "10–12 reps"
+                    )
+
+                    GymBeginnerWorkoutCard(
+                        title = "Dumbbell Shoulder Press",
+                        description = "Strengthens shoulders and improves posture.",
+                        steps = listOf(
+                            "Sit on a bench with dumbbells at shoulder height.",
+                            "Press the dumbbells upward until arms are straight.",
+                            "Lower back down slowly.",
+                            "Keep core engaged."
+                        ),
+                        sets = "3 sets",
+                        reps = "8–10 reps"
+                    )
+
+                    GymBeginnerWorkoutCard(
+                        title = "Seated Row Machine",
+                        description = "Strengthens back, biceps, and improves posture.",
+                        steps = listOf(
+                            "Sit with feet on the footrests and grip the handles.",
+                            "Pull the handles towards your torso.",
+                            "Squeeze your shoulder blades together.",
+                            "Slowly return to starting position."
+                        ),
+                        sets = "3 sets",
+                        reps = "10–12 reps"
+                    )
+
+                    GymBeginnerWorkoutCard(
+                        title = "Leg Curl Machine",
+                        description = "Works your hamstrings safely while seated or lying down.",
+                        steps = listOf(
+                            "Adjust the machine to fit your legs comfortably.",
+                            "Place ankles under the padded lever.",
+                            "Curl your legs back as far as possible.",
+                            "Return slowly to starting position."
+                        ),
+                        sets = "3 sets",
+                        reps = "10–12 reps"
+                    )
+
+                    // 🔄 Replaced Plank Hold with Cable Woodchopper
+                    GymBeginnerWorkoutCard(
+                        title = "Cable Woodchopper",
+                        description = "Excellent core exercise using the cable machine to build rotational strength.",
+                        steps = listOf(
+                            "Set the cable handle to shoulder height.",
+                            "Stand sideways to the machine with feet shoulder-width apart.",
+                            "Grip the handle with both hands and pull it diagonally across your body.",
+                            "Slowly return to the starting position with control."
+                        ),
+                        sets = "3 sets",
+                        reps = "10–12 reps each side"
                     )
                 }
             }
@@ -203,9 +202,9 @@ fun BUpperBodyScreen(navController: NavController) {
     )
 }
 
-// ✅ Reusable Card Composable
+// ✅ Reusable Card for Gym Workouts
 @Composable
-fun UpperBodyWorkoutCard(
+fun GymBeginnerWorkoutCard(
     title: String,
     description: String,
     steps: List<String>,
@@ -281,6 +280,6 @@ fun UpperBodyWorkoutCard(
 
 @Preview
 @Composable
-fun BUpperBodyScreenPreview() {
-    BUpperBodyScreen(rememberNavController())
+fun GBFullBodyScreenPreview() {
+    GBFullBodyScreen(rememberNavController())
 }

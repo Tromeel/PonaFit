@@ -1,4 +1,4 @@
-package com.tromeel.ponafit.ui.screens.homeexercises
+package com.tromeel.ponafit.ui.screens.gymexercises
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
@@ -26,14 +26,12 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
-import com.tromeel.ponafit.navigation.ROUT_FDIFFICULTY
+import com.tromeel.ponafit.navigation.ROUT_GCDIFFICULTY
 import com.tromeel.ponafit.navigation.ROUT_HOME
-import com.tromeel.ponafit.navigation.ROUT_LDIFFICULTY
-import com.tromeel.ponafit.navigation.ROUT_UDIFFICULTY
 import com.tromeel.ponafit.ui.theme.Grin
 
 @Composable
-fun BUpperBodyScreen(navController: NavController) {
+fun GACoreScreen(navController: NavController) {
     var selectedIndex by remember { mutableStateOf(0) }
 
     Scaffold(
@@ -74,7 +72,7 @@ fun BUpperBodyScreen(navController: NavController) {
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     IconButton(
-                        onClick = { navController.navigate(ROUT_UDIFFICULTY) },
+                        onClick = { navController.navigate(ROUT_GCDIFFICULTY) },
                         modifier = Modifier.align(Alignment.Start)
                     ) {
                         Icon(
@@ -89,7 +87,7 @@ fun BUpperBodyScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(30.dp))
 
                     Text(
-                        text = "Beginner Upper Body Workouts",
+                        text = "Advanced Abs & Core Workouts (Gym)",
                         fontSize = 26.sp,
                         fontWeight = FontWeight.Bold,
                         color = Grin,
@@ -99,100 +97,95 @@ fun BUpperBodyScreen(navController: NavController) {
                     Spacer(modifier = Modifier.height(10.dp))
 
                     Text(
-                        text = "Beginner upper-body workouts at home help build strength in your chest, arms, shoulders, and back using just your bodyweight. These simple exercises improve posture, stability, and overall fitness without needing any equipment.",
+                        text = "These advanced gym workouts are designed to build maximum strength, stability, and definition in your abs and core. They use resistance, explosive power, and balance challenges for elite-level conditioning.",
                         fontSize = 20.sp,
                         color = Grin,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.padding(bottom = 20.dp)
                     )
 
-                    // ✅ Workout List (7 total)
-                    UpperBodyWorkoutCard(
-                        title = "Wall Push-Ups",
-                        description = "Great for beginners to strengthen chest and arms.",
+                    // ✅ Advanced Abs & Core Workouts
+                    GymBLCard5(
+                        title = "Weighted Decline Sit-Ups",
+                        description = "High-resistance sit-ups for explosive core strength.",
                         steps = listOf(
-                            "Stand facing a wall with arms extended at shoulder height.",
-                            "Place palms flat on the wall, slightly wider than shoulders.",
-                            "Bend elbows and lean chest toward the wall.",
-                            "Push back to starting position."
+                            "Lie on a decline bench with feet secured.",
+                            "Hold a heavy plate or dumbbell behind your head.",
+                            "Perform sit-ups with slow controlled motion."
                         ),
-                        sets = "3 sets",
-                        reps = "10–15 reps"
+                        sets = "4 sets",
+                        reps = "10–12 reps"
                     )
 
-                    UpperBodyWorkoutCard(
-                        title = "Arm Circles",
-                        description = "Improves shoulder mobility and endurance.",
+                    GymBLCard5(
+                        title = "Hanging Toes-to-Bar",
+                        description = "An advanced core move targeting lower abs and hip flexors.",
                         steps = listOf(
-                            "Stand upright with arms extended to the sides.",
-                            "Rotate arms forward in small circles.",
-                            "Gradually make circles bigger.",
-                            "Repeat in the opposite direction."
+                            "Hang from a pull-up bar with a strong grip.",
+                            "Raise legs fully until toes touch the bar.",
+                            "Lower slowly under control."
                         ),
-                        sets = "3 sets",
-                        reps = "15–20 sec each"
-                    )
-
-                    UpperBodyWorkoutCard(
-                        title = "Modified Knee Push-Ups",
-                        description = "Strengthens chest, shoulders, and triceps.",
-                        steps = listOf(
-                            "Start in a push-up position but with knees on the floor.",
-                            "Hands should be shoulder-width apart.",
-                            "Lower chest toward the ground by bending elbows.",
-                            "Push back up to starting position."
-                        ),
-                        sets = "3 sets",
+                        sets = "4 sets",
                         reps = "8–12 reps"
                     )
 
-                    UpperBodyWorkoutCard(
-                        title = "Superman Hold",
-                        description = "Strengthens back and shoulders.",
+                    GymBLCard5(
+                        title = "Weighted Ab Wheel Rollouts",
+                        description = "Advanced rollout with added resistance for deep core engagement.",
                         steps = listOf(
-                            "Lie face down on the floor with arms extended forward.",
-                            "Lift arms, chest, and legs slightly off the ground.",
-                            "Hold for a few seconds while squeezing your back.",
-                            "Slowly return to the starting position."
+                            "Hold an ab wheel and kneel on the floor.",
+                            "Have a partner place a weight plate on your back.",
+                            "Roll forward fully without arching your spine.",
+                            "Return under control."
                         ),
-                        sets = "3 sets",
-                        reps = "Hold for 10–15 sec"
+                        sets = "3–4 sets",
+                        reps = "8–10 reps"
                     )
 
-                    UpperBodyWorkoutCard(
-                        title = "Shoulder Shrugs",
-                        description = "Helps relax and strengthen shoulder muscles.",
+                    GymBLCard5(
+                        title = "Cable Woodchoppers (Heavy)",
+                        description = "Explosive rotational strength for obliques and core stability.",
                         steps = listOf(
-                            "Stand upright with arms relaxed by your sides.",
-                            "Lift your shoulders up toward your ears.",
-                            "Hold for 1–2 seconds, then release slowly.",
-                            "Repeat steadily without rushing."
+                            "Set cable to high pulley position.",
+                            "Pull across your body diagonally with power.",
+                            "Control the return slowly."
                         ),
                         sets = "3 sets",
-                        reps = "12–15 reps"
+                        reps = "12 reps per side"
                     )
 
-                    UpperBodyWorkoutCard(
-                        title = "Chair Dips",
-                        description = "Works on triceps and shoulders using a sturdy chair.",
+                    GymBLCard5(
+                        title = "Dragon Flags",
+                        description = "Elite core strength move popularized by Bruce Lee.",
                         steps = listOf(
-                            "Sit on the edge of a chair with hands gripping the sides.",
-                            "Walk your feet slightly forward and slide off the seat.",
-                            "Lower your body by bending elbows to 90 degrees.",
-                            "Push back up to starting position."
+                            "Lie on a bench and hold behind your head for support.",
+                            "Lift your whole body straight upward.",
+                            "Lower slowly, keeping core braced."
                         ),
                         sets = "3 sets",
-                        reps = "8–12 reps"
+                        reps = "6–8 reps"
                     )
 
-                    UpperBodyWorkoutCard(
-                        title = "Front Arm Raises",
-                        description = "Strengthens shoulders and improves control.",
+                    GymBLCard5(
+                        title = "Landmine Oblique Twists",
+                        description = "Heavy rotational power move using a landmine barbell setup.",
                         steps = listOf(
-                            "Stand upright with arms down at your sides.",
-                            "Lift both arms forward until shoulder height.",
-                            "Pause briefly, then lower arms slowly.",
-                            "Keep movements controlled without swinging."
+                            "Stand with feet shoulder-width apart holding the landmine bar.",
+                            "Rotate torso explosively side to side.",
+                            "Engage obliques and keep arms extended."
+                        ),
+                        sets = "3 sets",
+                        reps = "10–12 reps per side"
+                    )
+
+                    GymBLCard5(
+                        title = "Weighted Stability Ball Pike",
+                        description = "Combines balance and strength for advanced core control.",
+                        steps = listOf(
+                            "Start in plank with feet on a stability ball.",
+                            "Place a weight vest or plate on your back for added resistance.",
+                            "Pull hips upward into a pike position.",
+                            "Lower slowly back to plank."
                         ),
                         sets = "3 sets",
                         reps = "10–12 reps"
@@ -203,9 +196,9 @@ fun BUpperBodyScreen(navController: NavController) {
     )
 }
 
-// ✅ Reusable Card Composable
+// ✅ Reusable Card with Background Image
 @Composable
-fun UpperBodyWorkoutCard(
+fun GymBLCard5(
     title: String,
     description: String,
     steps: List<String>,
@@ -281,6 +274,6 @@ fun UpperBodyWorkoutCard(
 
 @Preview
 @Composable
-fun BUpperBodyScreenPreview() {
-    BUpperBodyScreen(rememberNavController())
+fun GACoreScreenPreview() {
+    GACoreScreen(rememberNavController())
 }
