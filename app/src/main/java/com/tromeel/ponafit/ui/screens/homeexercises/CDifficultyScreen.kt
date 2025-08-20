@@ -1,7 +1,5 @@
 package com.tromeel.ponafit.ui.screens.homeexercises
 
-
-
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
@@ -28,19 +26,15 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
 import com.tromeel.ponafit.navigation.ROUT_ACORE
-import com.tromeel.ponafit.navigation.ROUT_ALOWERBODY
 import com.tromeel.ponafit.navigation.ROUT_BCORE
-import com.tromeel.ponafit.navigation.ROUT_BLOWERBODY
 import com.tromeel.ponafit.navigation.ROUT_HOME
 import com.tromeel.ponafit.navigation.ROUT_HOMEEXERCISES
 import com.tromeel.ponafit.navigation.ROUT_ICORE
-import com.tromeel.ponafit.navigation.ROUT_ILOWERBODY
 import com.tromeel.ponafit.ui.theme.Grin
 
 @Composable
 fun CDifficultyScreen(navController: NavController) {
     var selectedIndex by remember { mutableStateOf(0) }
-    // ✅ Scaffold
     Scaffold(
         bottomBar = {
             NavigationBar(containerColor = Grin) {
@@ -76,7 +70,6 @@ fun CDifficultyScreen(navController: NavController) {
                         .fillMaxSize()
                         .padding(paddingValues)
                 ) {
-                    // 🔙 Back Button
                     IconButton(
                         onClick = { navController.navigate(ROUT_HOMEEXERCISES) },
                         modifier = Modifier.align(Alignment.Start)
@@ -93,7 +86,6 @@ fun CDifficultyScreen(navController: NavController) {
 
                     Spacer(modifier = Modifier.height(50.dp))
 
-                    // 🏋️ Title
                     Text(
                         text = "Choose Your Difficulty",
                         fontSize = 30.sp,
@@ -104,7 +96,6 @@ fun CDifficultyScreen(navController: NavController) {
 
                     Spacer(modifier = Modifier.height(10.dp))
 
-                    // 📖 Subtitle
                     Text(
                         text = "Select a difficulty level that matches your fitness and progress at your own pace—start easy, challenge yourself, and move up when ready.",
                         fontSize = 15.sp,
@@ -117,7 +108,6 @@ fun CDifficultyScreen(navController: NavController) {
 
                     Spacer(modifier = Modifier.height(20.dp))
 
-                    // 🔄 Horizontal scrollable row for cards
                     Row(
                         modifier = Modifier
                             .fillMaxWidth()
@@ -125,9 +115,9 @@ fun CDifficultyScreen(navController: NavController) {
                             .padding(start = 16.dp, end = 16.dp),
                         horizontalArrangement = Arrangement.spacedBy(16.dp)
                     ) {
-                        BCard(navController)
-                        ICard(navController)
-                        ACard(navController)
+                        BCCard(navController)
+                        ICCard(navController)
+                        ACCard(navController)
                     }
 
                     Spacer(modifier = Modifier.height(30.dp))
@@ -150,9 +140,9 @@ fun CDifficultyScreen(navController: NavController) {
 
 // ✅ Beginner Card
 @Composable
-fun BCard(navController: NavController) {
+fun BCCard(navController: NavController) {
     Card(
-        onClick = {navController.navigate(ROUT_BCORE) },
+        onClick = { navController.navigate(ROUT_BCORE) },
         modifier = Modifier
             .width(250.dp)
             .height(400.dp),
@@ -165,7 +155,6 @@ fun BCard(navController: NavController) {
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
             )
-
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
@@ -180,18 +169,14 @@ fun BCard(navController: NavController) {
                         .height(200.dp),
                     contentScale = ContentScale.Crop
                 )
-
                 Spacer(modifier = Modifier.height(15.dp))
-
                 Text(
                     text = "Beginner Workouts",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
                 )
-
                 Spacer(modifier = Modifier.height(10.dp))
-
                 Text(
                     text = "Simple full-body movements to build strength, flexibility, and confidence at home.",
                     fontSize = 14.sp,
@@ -205,9 +190,9 @@ fun BCard(navController: NavController) {
 
 // ✅ Intermediate Card
 @Composable
-fun ICard(navController: NavController) {
+fun ICCard(navController: NavController) {
     Card(
-        onClick = {navController.navigate(ROUT_ICORE) },
+        onClick = { navController.navigate(ROUT_ICORE) },
         modifier = Modifier
             .width(250.dp)
             .height(400.dp),
@@ -220,7 +205,6 @@ fun ICard(navController: NavController) {
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
             )
-
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
@@ -235,18 +219,14 @@ fun ICard(navController: NavController) {
                         .height(200.dp),
                     contentScale = ContentScale.Crop
                 )
-
                 Spacer(modifier = Modifier.height(15.dp))
-
                 Text(
                     text = "Intermediate Workouts",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
                 )
-
                 Spacer(modifier = Modifier.height(10.dp))
-
                 Text(
                     text = "Take it up a notch with more challenging routines to build endurance and power.",
                     fontSize = 14.sp,
@@ -260,7 +240,7 @@ fun ICard(navController: NavController) {
 
 // ✅ Advanced Card
 @Composable
-fun ACard(navController: NavController) {
+fun ACCard(navController: NavController) {
     Card(
         onClick = { navController.navigate(ROUT_ACORE) },
         modifier = Modifier
@@ -275,7 +255,6 @@ fun ACard(navController: NavController) {
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
             )
-
             Column(
                 horizontalAlignment = Alignment.CenterHorizontally,
                 modifier = Modifier
@@ -290,18 +269,14 @@ fun ACard(navController: NavController) {
                         .height(200.dp),
                     contentScale = ContentScale.Crop
                 )
-
                 Spacer(modifier = Modifier.height(15.dp))
-
                 Text(
                     text = "Advanced Workouts",
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Bold,
                     color = Color.White
                 )
-
                 Spacer(modifier = Modifier.height(10.dp))
-
                 Text(
                     text = "Push your limits with high-intensity exercises designed for strength and endurance.",
                     fontSize = 14.sp,

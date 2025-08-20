@@ -6,7 +6,7 @@ const val ROUT_ABOUT = "about"
 const val ROUT_SPLASH = "splash"
 const val ROUT_DASHBOARD = "dashboard"
 
-const val ROUT_GYMEXERCISES = "gymexercises"
+
 const val ROUT_STRETCHINGEXERCISES = "stretchingexercises"
 const val ROUT_REHAB = "rehab"
 
@@ -34,3 +34,23 @@ const val ROUT_FDIFFICULTY = "fdifficulty"
 const val ROUT_UDIFFICULTY = "udifficulty"
 const val ROUT_LDIFFICULTY = "ldifficulty"
 const val ROUT_CDIFFICULTY = "cdifficulty"
+
+
+//Gymexercise
+const val ROUT_GYMEXERCISES = "gymexercises"
+const val ROUT_GFDIFFICULTY = "gfdifficulty"
+const val ROUT_GUDIFFICULTY = "gudifficulty"
+const val ROUT_GLDIFFICULTY = "gldifficulty"
+const val ROUT_GCDIFFICULTY = "gcdifficulty"
+const val ROUT_GBFULLBODY = "gbfullbody"
+const val ROUT_GBUPPERBODY = "gbupperbody"
+const val ROUT_GBLOWERBODY = "gblowerbody"
+const val ROUT_GBCORE = "gbcore"
+const val ROUT_GIFULLBODY = "gifullbody"
+const val ROUT_GIUPPERBODY = "giupperbody"
+const val ROUT_GILOWERBODY = "gilowerbody"
+const val ROUT_GICORE = "gicore"
+const val ROUT_GACORE = "gacore"
+const val ROUT_GAFULLBODY = "gafullbody"
+const val ROUT_GAUPPERBODY = "gaupperbody"
+const val ROUT_GALOWERBODY = "galowerbody"

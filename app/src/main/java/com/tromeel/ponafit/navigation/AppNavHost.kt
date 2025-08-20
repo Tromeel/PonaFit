@@ -13,6 +13,22 @@ import com.tromeel.ponafit.ui.screens.about.AboutScreen
 import com.tromeel.ponafit.ui.screens.auth.LoginScreen
 import com.tromeel.ponafit.ui.screens.auth.RegisterScreen
 import com.tromeel.ponafit.ui.screens.dashboard.DashboardScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GACoreScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GAFullBodyScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GALowerBodyScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GAUpperBodyScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GBCoreScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GBFullBodyScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GBLowerBodyScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GBUpperBodyScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GCDifficultyScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GFDifficultyScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GICoreScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GIFullBodyScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GILowerBodyScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GIUpperBodyScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GLDifficultyScreen
+import com.tromeel.ponafit.ui.screens.gymexercises.GUDifficultyScreen
 import com.tromeel.ponafit.ui.screens.gymexercises.GymExercisesScreen
 import com.tromeel.ponafit.ui.screens.home.HomeScreen
 import com.tromeel.ponafit.ui.screens.homeexercises.ACoreScreen
@@ -75,6 +91,19 @@ fun AppNavHost(
         composable(ROUT_BFULLBODYWORKOUT) {
             BFullBodyWorkoutScreen(navController)
         }
+
+        composable(ROUT_GBFULLBODY) {
+            GBFullBodyScreen(navController)
+        }
+
+        composable(ROUT_GBUPPERBODY) {
+            GBUpperBodyScreen(navController)
+        }
+
+        composable(ROUT_GBLOWERBODY) {
+            GBLowerBodyScreen(navController)
+        }
+
         composable(ROUT_BUPPERBODY) {
             BUpperBodyScreen(navController)
         }
@@ -84,6 +113,10 @@ fun AppNavHost(
 
         composable(ROUT_BCORE) {
             BCoreScreen(navController)
+        }
+
+        composable(ROUT_GBCORE) {
+            GBCoreScreen(navController)
         }
 
 
@@ -107,6 +140,26 @@ fun AppNavHost(
             ICoreScreen(navController)
         }
 
+        composable(ROUT_GIFULLBODY) {
+            GIFullBodyScreen(navController)
+        }
+
+        composable(ROUT_GIUPPERBODY) {
+            GIUpperBodyScreen(navController)
+        }
+
+
+        composable(ROUT_GILOWERBODY) {
+            GILowerBodyScreen(navController)
+        }
+
+        composable(ROUT_GICORE) {
+            GICoreScreen(navController)
+        }
+
+
+
+
 
 
 
@@ -129,6 +182,27 @@ fun AppNavHost(
         }
 
 
+        composable(ROUT_GAFULLBODY) {
+            GAFullBodyScreen(navController)
+        }
+
+        composable(ROUT_GAUPPERBODY) {
+            GAUpperBodyScreen(navController)
+        }
+
+        composable(ROUT_GALOWERBODY) {
+            GALowerBodyScreen(navController)
+        }
+        composable(ROUT_GACORE) {
+            GACoreScreen(navController)
+        }
+
+
+
+
+
+
+
 
 
 
@@ -137,6 +211,21 @@ fun AppNavHost(
         composable(ROUT_FDIFFICULTY) {
             FDifficultyScreen(navController)
         }
+        composable(ROUT_GFDIFFICULTY) {
+            GFDifficultyScreen(navController)
+        }
+
+        composable(ROUT_GUDIFFICULTY) {
+            GUDifficultyScreen(navController)
+        }
+        composable(ROUT_GLDIFFICULTY) {
+            GLDifficultyScreen(navController)
+        }
+
+        composable(ROUT_GCDIFFICULTY) {
+            GCDifficultyScreen(navController)
+        }
+
         composable(ROUT_UDIFFICULTY) {
             UDifficultyScreen(navController)
         }
