@@ -7,6 +7,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
@@ -38,7 +39,6 @@ import com.tromeel.ponafit.viewmodel.ExerciseViewModel
 fun CoolDownScreen(navController: NavController) {
     var selectedIndex by remember { mutableStateOf(0) }
 
-    // ✅ Setup DB + Repository + ViewModel manually
     val context = LocalContext.current
     val dao = remember { DatabaseProvider.getDatabase(context).exerciseTrackingDao() }
     val repo = remember { ExerciseRepository(dao) }
@@ -64,7 +64,6 @@ fun CoolDownScreen(navController: NavController) {
                 )
             }
         },
-
         content = { paddingValues ->
             Box(
                 modifier = Modifier
@@ -114,143 +113,78 @@ fun CoolDownScreen(navController: NavController) {
                         modifier = Modifier.padding(bottom = 20.dp)
                     )
 
-                    // ✅ 10 Cool Down Exercises
-                    StretchCard4(
-                        title = "Standing Forward Fold",
-                        muscles = "Hamstrings, lower back",
-                        benefits = "Relieves tension in the back and legs",
-                        steps = listOf(
+                    // =================== Cool Down Exercises ===================
+                    val exercises = listOf(
+                        Triple("Standing Forward Fold", "20–30 seconds", listOf(
                             "Stand with feet hip-width apart.",
                             "Bend forward at the hips.",
                             "Let arms hang or hold opposite elbows."
-                        ),
-                        duration = "20–30 seconds",
-                        safetyTips = "Bend knees slightly if needed."
-                    ) { name, duration -> vm.trackExercise(name, duration) }
-
-                    StretchCard4(
-                        title = "Seated Hamstring Stretch",
-                        muscles = "Hamstrings, calves",
-                        benefits = "Improves flexibility in the back of legs",
-                        steps = listOf(
+                        )),
+                        Triple("Seated Hamstring Stretch", "20–30 seconds per side", listOf(
                             "Sit with one leg extended forward.",
                             "Reach toward your toes.",
                             "Keep back straight."
-                        ),
-                        duration = "20–30 seconds per side",
-                        safetyTips = "Avoid bouncing."
-                    ) { name, duration -> vm.trackExercise(name, duration) }
-
-                    StretchCard4(
-                        title = "Child’s Pose",
-                        muscles = "Back, hips, shoulders",
-                        benefits = "Promotes relaxation and stretches spine",
-                        steps = listOf(
+                        )),
+                        Triple("Child’s Pose", "30–60 seconds", listOf(
                             "Kneel on the floor.",
                             "Sit back on heels and extend arms forward.",
                             "Relax forehead on mat."
-                        ),
-                        duration = "30–60 seconds",
-                        safetyTips = "Keep breathing deeply."
-                    ) { name, duration -> vm.trackExercise(name, duration) }
-
-                    StretchCard4(
-                        title = "Cat-Cow Stretch",
-                        muscles = "Spine, back, core",
-                        benefits = "Improves spinal flexibility",
-                        steps = listOf(
+                        )),
+                        Triple("Cat-Cow Stretch", "6–8 slow cycles", listOf(
                             "Start on hands and knees.",
                             "Arch back upward (cat).",
                             "Drop belly down and lift chest (cow)."
-                        ),
-                        duration = "6–8 slow cycles",
-                        safetyTips = "Move smoothly with breath."
-                    ) { name, duration -> vm.trackExercise(name, duration) }
-
-                    StretchCard4(
-                        title = "Quadriceps Stretch",
-                        muscles = "Quads, hip flexors",
-                        benefits = "Relieves tightness in front thighs",
-                        steps = listOf(
+                        )),
+                        Triple("Quadriceps Stretch", "20–30 seconds per side", listOf(
                             "Stand on one leg.",
                             "Pull other foot toward glutes.",
                             "Hold ankle gently."
-                        ),
-                        duration = "20–30 seconds per side",
-                        safetyTips = "Hold onto support if needed."
-                    ) { name, duration -> vm.trackExercise(name, duration) }
-
-                    StretchCard4(
-                        title = "Shoulder Stretch",
-                        muscles = "Shoulders, upper back",
-                        benefits = "Releases shoulder tension",
-                        steps = listOf(
+                        )),
+                        Triple("Shoulder Stretch", "20–30 seconds per side", listOf(
                             "Bring one arm across chest.",
                             "Hold with opposite hand.",
                             "Keep shoulders relaxed."
-                        ),
-                        duration = "20–30 seconds per side",
-                        safetyTips = "Do not force the stretch."
-                    ) { name, duration -> vm.trackExercise(name, duration) }
-
-                    StretchCard4(
-                        title = "Triceps Stretch",
-                        muscles = "Triceps, shoulders",
-                        benefits = "Improves arm flexibility",
-                        steps = listOf(
+                        )),
+                        Triple("Triceps Stretch", "20–30 seconds per side", listOf(
                             "Raise one arm overhead.",
                             "Bend elbow and touch upper back.",
                             "Use other hand to press gently."
-                        ),
-                        duration = "20–30 seconds per side",
-                        safetyTips = "Keep neck neutral."
-                    ) { name, duration -> vm.trackExercise(name, duration) }
-
-                    StretchCard4(
-                        title = "Calf Stretch",
-                        muscles = "Calves, ankles",
-                        benefits = "Relieves tight calves",
-                        steps = listOf(
+                        )),
+                        Triple("Calf Stretch", "20–30 seconds per side", listOf(
                             "Stand facing a wall.",
                             "Step one leg back.",
                             "Press heel into the ground."
-                        ),
-                        duration = "20–30 seconds per side",
-                        safetyTips = "Keep back leg straight."
-                    ) { name, duration -> vm.trackExercise(name, duration) }
-
-                    StretchCard4(
-                        title = "Seated Spinal Twist",
-                        muscles = "Spine, obliques",
-                        benefits = "Improves spinal mobility",
-                        steps = listOf(
+                        )),
+                        Triple("Seated Spinal Twist", "20–30 seconds per side", listOf(
                             "Sit with legs extended.",
                             "Cross one leg over the other.",
                             "Twist torso toward bent knee."
-                        ),
-                        duration = "20–30 seconds per side",
-                        safetyTips = "Keep back straight during twist."
-                    ) { name, duration -> vm.trackExercise(name, duration) }
-
-                    StretchCard4(
-                        title = "Butterfly Stretch",
-                        muscles = "Inner thighs, hips",
-                        benefits = "Opens hips and improves flexibility",
-                        steps = listOf(
+                        )),
+                        Triple("Butterfly Stretch", "30–45 seconds", listOf(
                             "Sit with soles of feet together.",
                             "Hold feet with hands.",
                             "Gently press knees toward floor."
-                        ),
-                        duration = "30–45 seconds",
-                        safetyTips = "Avoid forcing knees down."
-                    ) { name, duration -> vm.trackExercise(name, duration) }
+                        ))
+                    )
+
+                    exercises.forEach { (title, duration, steps) ->
+                        StretchCard4(
+                            title = title,
+                            muscles = "",
+                            benefits = "",
+                            steps = steps,
+                            duration = duration,
+                            safetyTips = "",
+                            onTrack = { name, dur -> vm.trackExercise(name, dur) }
+                        )
+                    }
                 }
             }
         }
     )
 }
 
-// ✅ Reusable Stretch Card with Tracking
+// =================== StretchCard4 with Done Toggle ===================
 @Composable
 fun StretchCard4(
     title: String,
@@ -261,6 +195,8 @@ fun StretchCard4(
     safetyTips: String,
     onTrack: (String, String) -> Unit
 ) {
+    var isDone by remember { mutableStateOf(false) }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
@@ -288,32 +224,36 @@ fun StretchCard4(
                     .fillMaxWidth(),
                 verticalArrangement = Arrangement.SpaceBetween
             ) {
-                Text(text = title, fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                Text(title, fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.White)
 
                 Spacer(modifier = Modifier.height(4.dp))
-                Text(text = "Muscles: $muscles", fontSize = 13.sp, color = Color.LightGray)
-                Text(text = "Benefits: $benefits", fontSize = 13.sp, color = Color.LightGray)
+                Text("Muscles: $muscles", fontSize = 13.sp, color = Color.LightGray)
+                Text("Benefits: $benefits", fontSize = 13.sp, color = Color.LightGray)
 
                 Spacer(modifier = Modifier.height(6.dp))
                 steps.forEachIndexed { index, step ->
-                    Text(
-                        text = "${index + 1}. $step",
-                        fontSize = 13.sp,
-                        color = Color.White,
-                        modifier = Modifier.padding(bottom = 2.dp)
-                    )
+                    Text("${index + 1}. $step", fontSize = 13.sp, color = Color.White, modifier = Modifier.padding(bottom = 2.dp))
                 }
 
                 Spacer(modifier = Modifier.height(6.dp))
-                Text(text = "Duration/Reps: $duration", fontSize = 13.sp, color = Color.LightGray)
-                Text(text = "Safety Tips: $safetyTips", fontSize = 13.sp, color = Color.LightGray)
+                Text("Duration/Reps: $duration", fontSize = 13.sp, color = Color.LightGray)
+                Text("Safety Tips: $safetyTips", fontSize = 13.sp, color = Color.LightGray)
 
                 Spacer(modifier = Modifier.height(10.dp))
                 Button(
-                    onClick = { onTrack(title, duration) },
+                    onClick = {
+                        isDone = true
+                        onTrack(title, duration)
+                    },
                     colors = ButtonDefaults.buttonColors(containerColor = Grin)
                 ) {
-                    Text("Mark as Done", color = Color.Black, fontWeight = FontWeight.Bold)
+                    if (isDone) {
+                        Icon(Icons.Default.Check, contentDescription = "Done", tint = Color.Black, modifier = Modifier.size(20.dp))
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Text("Done", color = Color.Black, fontWeight = FontWeight.Bold)
+                    } else {
+                        Text("Mark as Done", color = Color.Black, fontWeight = FontWeight.Bold)
+                    }
                 }
             }
         }

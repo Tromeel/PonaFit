@@ -69,7 +69,7 @@ import com.tromeel.ponafit.viewmodel.ExerciseViewModel
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = ROUT_HISTORY
+    startDestination: String = ROUT_COOLDOWN
 ) {
     val context = LocalContext.current
 
