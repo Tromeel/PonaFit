@@ -113,69 +113,100 @@ fun CoolDownScreen(navController: NavController) {
                         modifier = Modifier.padding(bottom = 20.dp)
                     )
 
-                    // =================== Cool Down Exercises ===================
+                    // =================== Cool Down Exercises with Instructions ===================
                     val exercises = listOf(
-                        Triple("Standing Forward Fold", "20–30 seconds", listOf(
-                            "Stand with feet hip-width apart.",
-                            "Bend forward at the hips.",
-                            "Let arms hang or hold opposite elbows."
-                        )),
-                        Triple("Seated Hamstring Stretch", "20–30 seconds per side", listOf(
-                            "Sit with one leg extended forward.",
-                            "Reach toward your toes.",
-                            "Keep back straight."
-                        )),
-                        Triple("Child’s Pose", "30–60 seconds", listOf(
-                            "Kneel on the floor.",
-                            "Sit back on heels and extend arms forward.",
-                            "Relax forehead on mat."
-                        )),
-                        Triple("Cat-Cow Stretch", "6–8 slow cycles", listOf(
-                            "Start on hands and knees.",
-                            "Arch back upward (cat).",
-                            "Drop belly down and lift chest (cow)."
-                        )),
-                        Triple("Quadriceps Stretch", "20–30 seconds per side", listOf(
-                            "Stand on one leg.",
-                            "Pull other foot toward glutes.",
-                            "Hold ankle gently."
-                        )),
-                        Triple("Shoulder Stretch", "20–30 seconds per side", listOf(
-                            "Bring one arm across chest.",
-                            "Hold with opposite hand.",
-                            "Keep shoulders relaxed."
-                        )),
-                        Triple("Triceps Stretch", "20–30 seconds per side", listOf(
-                            "Raise one arm overhead.",
-                            "Bend elbow and touch upper back.",
-                            "Use other hand to press gently."
-                        )),
-                        Triple("Calf Stretch", "20–30 seconds per side", listOf(
-                            "Stand facing a wall.",
-                            "Step one leg back.",
-                            "Press heel into the ground."
-                        )),
-                        Triple("Seated Spinal Twist", "20–30 seconds per side", listOf(
-                            "Sit with legs extended.",
-                            "Cross one leg over the other.",
-                            "Twist torso toward bent knee."
-                        )),
-                        Triple("Butterfly Stretch", "30–45 seconds", listOf(
-                            "Sit with soles of feet together.",
-                            "Hold feet with hands.",
-                            "Gently press knees toward floor."
-                        ))
+                        mapOf(
+                            "title" to "Standing Forward Fold",
+                            "duration" to "20–30 seconds",
+                            "muscles" to "Hamstrings, calves, lower back",
+                            "benefits" to "Stretches the back and legs, improves flexibility, relieves tension",
+                            "safety" to "Keep knees slightly bent if tight hamstrings",
+                            "steps" to "Stand tall → Exhale and hinge forward from hips → Let arms hang → Hold position breathing deeply"
+                        ),
+                        mapOf(
+                            "title" to "Seated Hamstring Stretch",
+                            "duration" to "20–30 seconds per side",
+                            "muscles" to "Hamstrings, calves",
+                            "benefits" to "Improves flexibility and range of motion in the legs",
+                            "safety" to "Do not force reach; keep back straight",
+                            "steps" to "Sit on floor → Extend one leg, bend other foot to inner thigh → Reach toward extended foot → Switch sides"
+                        ),
+                        mapOf(
+                            "title" to "Child’s Pose",
+                            "duration" to "30–60 seconds",
+                            "muscles" to "Spine, shoulders, hips",
+                            "benefits" to "Relaxes the back, stretches hips and shoulders, calms the mind",
+                            "safety" to "Avoid if you have knee injuries",
+                            "steps" to "Kneel on mat → Sit back on heels → Extend arms forward → Rest forehead on floor"
+                        ),
+                        mapOf(
+                            "title" to "Cat-Cow Stretch",
+                            "duration" to "6–8 slow cycles",
+                            "muscles" to "Spine, core",
+                            "benefits" to "Increases spinal flexibility, relieves tension in back and neck",
+                            "safety" to "Move slowly and avoid jerky motions",
+                            "steps" to "Start on hands and knees → Inhale arch back (Cow) → Exhale round spine (Cat) → Repeat slowly"
+                        ),
+                        mapOf(
+                            "title" to "Quadriceps Stretch",
+                            "duration" to "20–30 seconds per side",
+                            "muscles" to "Quadriceps, hip flexors",
+                            "benefits" to "Improves leg flexibility, reduces tightness in quads",
+                            "safety" to "Keep knees together and avoid arching lower back",
+                            "steps" to "Stand tall → Bend one knee, hold ankle → Pull heel toward glutes → Keep knees aligned → Switch sides"
+                        ),
+                        mapOf(
+                            "title" to "Shoulder Stretch",
+                            "duration" to "20–30 seconds per side",
+                            "muscles" to "Deltoids, upper back",
+                            "benefits" to "Relieves tension in shoulders, improves upper body mobility",
+                            "safety" to "Do not overstretch; keep shoulders down",
+                            "steps" to "Bring one arm across chest → Use other arm to pull it closer → Hold → Switch sides"
+                        ),
+                        mapOf(
+                            "title" to "Triceps Stretch",
+                            "duration" to "20–30 seconds per side",
+                            "muscles" to "Triceps, shoulders",
+                            "benefits" to "Improves arm flexibility, relieves tension in upper arms",
+                            "safety" to "Keep neck relaxed and avoid twisting torso",
+                            "steps" to "Raise one arm overhead → Bend elbow and reach hand down back → Use other hand to press elbow → Switch sides"
+                        ),
+                        mapOf(
+                            "title" to "Calf Stretch",
+                            "duration" to "20–30 seconds per side",
+                            "muscles" to "Calves, Achilles tendon",
+                            "benefits" to "Relieves calf tightness, improves ankle flexibility",
+                            "safety" to "Do not lock back knee; keep heel on floor",
+                            "steps" to "Stand facing wall → Step one foot back → Press heel down → Hold stretch → Switch sides"
+                        ),
+                        mapOf(
+                            "title" to "Seated Spinal Twist",
+                            "duration" to "20–30 seconds per side",
+                            "muscles" to "Spine, obliques",
+                            "benefits" to "Improves spinal mobility and digestion, stretches torso",
+                            "safety" to "Move gently; avoid forcing twist",
+                            "steps" to "Sit tall with legs extended → Cross one leg over other → Place hand behind back → Twist gently → Switch sides"
+                        ),
+                        mapOf(
+                            "title" to "Butterfly Stretch",
+                            "duration" to "30–45 seconds",
+                            "muscles" to "Inner thighs, hips",
+                            "benefits" to "Opens hips, stretches inner thighs, improves posture",
+                            "safety" to "Keep spine straight and avoid bouncing knees",
+                            "steps" to "Sit with feet together → Pull heels toward pelvis → Hold feet → Gently press knees toward floor"
+                        )
                     )
 
-                    exercises.forEach { (title, duration, steps) ->
+                    exercises.forEach { ex ->
                         StretchCard4(
-                            title = title,
-                            muscles = "",
-                            benefits = "",
-                            steps = steps,
-                            duration = duration,
-                            safetyTips = "",
-                            onTrack = { name, dur -> vm.trackExercise(name, dur) }
+                            title = ex["title"]!!,
+                            muscles = ex["muscles"]!!,
+                            benefits = ex["benefits"]!!,
+                            steps = ex["steps"]!!.split("→"), // split into list
+                            duration = ex["duration"]!!,
+                            safetyTips = ex["safety"]!!,
+                            onTrack = { name, dur -> vm.trackExercise(name, dur) },
+                            onUndo = { name -> vm.removeExerciseFromHistory(name) }
                         )
                     }
                 }
@@ -184,7 +215,7 @@ fun CoolDownScreen(navController: NavController) {
     )
 }
 
-// =================== StretchCard4 with Done Toggle ===================
+// =================== StretchCard4 with Instructions, Bigger Size ===================
 @Composable
 fun StretchCard4(
     title: String,
@@ -193,66 +224,79 @@ fun StretchCard4(
     steps: List<String>,
     duration: String,
     safetyTips: String,
-    onTrack: (String, String) -> Unit
+    onTrack: (String, String) -> Unit,
+    onUndo: (String) -> Unit
 ) {
     var isDone by remember { mutableStateOf(false) }
 
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        elevation = CardDefaults.cardElevation(6.dp),
-        shape = RoundedCornerShape(16.dp)
+            .padding(vertical = 14.dp)
+            .heightIn(min = 280.dp), // increased min height for content
+        elevation = CardDefaults.cardElevation(10.dp),
+        shape = RoundedCornerShape(18.dp)
     ) {
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .heightIn(min = 240.dp)
+            modifier = Modifier.fillMaxWidth()
         ) {
             Image(
                 painter = painterResource(R.drawable.darkbg),
                 contentDescription = null,
                 modifier = Modifier
                     .matchParentSize()
-                    .clip(RoundedCornerShape(16.dp)),
+                    .clip(RoundedCornerShape(18.dp)),
                 contentScale = ContentScale.Crop
             )
 
             Column(
                 modifier = Modifier
-                    .padding(16.dp)
+                    .padding(20.dp)
                     .fillMaxWidth(),
-                verticalArrangement = Arrangement.SpaceBetween
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Text(title, fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                Text(title, fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                Text("Muscles: $muscles", fontSize = 14.sp, color = Color.LightGray)
+                Text("Benefits: $benefits", fontSize = 14.sp, color = Color.LightGray)
 
-                Spacer(modifier = Modifier.height(4.dp))
-                Text("Muscles: $muscles", fontSize = 13.sp, color = Color.LightGray)
-                Text("Benefits: $benefits", fontSize = 13.sp, color = Color.LightGray)
-
-                Spacer(modifier = Modifier.height(6.dp))
+                Text("Instructions:", fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Color.White)
                 steps.forEachIndexed { index, step ->
-                    Text("${index + 1}. $step", fontSize = 13.sp, color = Color.White, modifier = Modifier.padding(bottom = 2.dp))
+                    Text("${index + 1}. ${step.trim()}", fontSize = 14.sp, color = Color.White)
                 }
 
-                Spacer(modifier = Modifier.height(6.dp))
-                Text("Duration/Reps: $duration", fontSize = 13.sp, color = Color.LightGray)
-                Text("Safety Tips: $safetyTips", fontSize = 13.sp, color = Color.LightGray)
+                Text("Duration/Reps: $duration", fontSize = 14.sp, color = Color.LightGray)
+                Text("Safety Tips: $safetyTips", fontSize = 14.sp, color = Color.LightGray)
 
-                Spacer(modifier = Modifier.height(10.dp))
-                Button(
-                    onClick = {
-                        isDone = true
-                        onTrack(title, duration)
-                    },
-                    colors = ButtonDefaults.buttonColors(containerColor = Grin)
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
+                    Button(
+                        onClick = {
+                            isDone = true
+                            onTrack(title, duration)
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = Grin)
+                    ) {
+                        if (isDone) {
+                            Icon(Icons.Default.Check, contentDescription = "Done", tint = Color.White, modifier = Modifier.size(20.dp))
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text("Done", color = Color.White, fontWeight = FontWeight.Bold)
+                        } else {
+                            Text("Mark as Done", color = Color.White, fontWeight = FontWeight.Bold)
+                        }
+                    }
+
                     if (isDone) {
-                        Icon(Icons.Default.Check, contentDescription = "Done", tint = Color.Black, modifier = Modifier.size(20.dp))
-                        Spacer(modifier = Modifier.width(6.dp))
-                        Text("Done", color = Color.Black, fontWeight = FontWeight.Bold)
-                    } else {
-                        Text("Mark as Done", color = Color.Black, fontWeight = FontWeight.Bold)
+                        Button(
+                            onClick = {
+                                isDone = false
+                                onUndo(title)
+                            },
+                            colors = ButtonDefaults.buttonColors(containerColor = Grin)
+                        ) {
+                            Text("Undo", color = Color.White, fontWeight = FontWeight.Bold)
+                        }
                     }
                 }
             }

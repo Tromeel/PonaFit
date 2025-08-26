@@ -1,6 +1,5 @@
 package com.tromeel.ponafit.data
 
-
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
@@ -19,4 +18,8 @@ interface ExerciseTrackingDao {
 
     @Query("DELETE FROM exercise_tracking")
     suspend fun clearAll()
+
+    // ✅ Delete a single exercise by its name
+    @Query("DELETE FROM exercise_tracking WHERE exerciseName = :name")
+    suspend fun deleteExerciseByName(name: String)
 }

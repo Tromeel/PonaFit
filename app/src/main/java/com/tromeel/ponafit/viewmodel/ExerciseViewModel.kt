@@ -1,7 +1,5 @@
 package com.tromeel.ponafit.viewmodel
 
-
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.tromeel.ponafit.model.ExerciseTrackingEntity
@@ -20,6 +18,12 @@ class ExerciseViewModel(private val repo: ExerciseRepository) : ViewModel() {
             repo.insertTracking(
                 ExerciseTrackingEntity(exerciseName = name, duration = duration)
             )
+        }
+    }
+
+    fun removeExerciseFromHistory(name: String) {
+        viewModelScope.launch {
+            repo.deleteExerciseByName(name)
         }
     }
 
