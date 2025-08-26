@@ -8,6 +8,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
@@ -29,20 +30,12 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
 import com.tromeel.ponafit.data.DatabaseProvider
+import com.tromeel.ponafit.navigation.ROUT_HISTORY
 import com.tromeel.ponafit.navigation.ROUT_HOME
 import com.tromeel.ponafit.navigation.ROUT_STRETCHINGEXERCISES
 import com.tromeel.ponafit.repository.ExerciseRepository
 import com.tromeel.ponafit.ui.theme.Grin
 import com.tromeel.ponafit.viewmodel.ExerciseViewModel
-
-data class Exercise(
-    val title: String,
-    val muscles: String,
-    val benefits: String,
-    val steps: List<String>,
-    val duration: String,
-    val safetyTips: String
-)
 
 @Composable
 fun FullBodyStretchingScreen(navController: NavController) {
@@ -63,6 +56,15 @@ fun FullBodyStretchingScreen(navController: NavController) {
                     onClick = {
                         selectedIndex = 0
                         navController.navigate(ROUT_HOME)
+                    }
+                )
+                NavigationBarItem(
+                    icon = { Icon(Icons.Default.History, contentDescription = "History", tint = Color.Black) },
+                    label = { Text("History", color = Color.Black) },
+                    selected = selectedIndex == 1,
+                    onClick = {
+                        selectedIndex = 1
+                        navController.navigate(ROUT_HISTORY)
                     }
                 )
                 NavigationBarItem(
@@ -123,44 +125,77 @@ fun FullBodyStretchingScreen(navController: NavController) {
                     )
 
                     val exercises = listOf(
-                        Exercise(
-                            title = "Standing Full Body Stretch",
-                            muscles = "Spine, shoulders, arms, calves",
-                            benefits = "Improves posture, relieves stiffness, energizes the body",
-                            steps = listOf(
-                                "Stand tall with feet shoulder-width apart.",
-                                "Inhale and raise both arms overhead.",
-                                "Stretch upward as if reaching for the ceiling.",
-                                "Hold briefly, then exhale and relax."
-                            ),
-                            duration = "20–30 seconds, 2–3 times",
-                            safetyTips = "Keep core engaged, avoid over-arching the back"
+                        mapOf(
+                            "title" to "Standing Full Body Stretch",
+                            "duration" to "20–30 seconds, 2–3 times",
+                            "muscles" to "Spine, shoulders, arms, calves",
+                            "benefits" to "Improves posture, relieves stiffness, energizes the body",
+                            "safety" to "Keep core engaged, avoid over-arching the back",
+                            "steps" to "Stand tall with feet shoulder-width apart → Inhale and raise both arms overhead → Stretch upward as if reaching for the ceiling → Hold briefly, then exhale and relax"
                         ),
-                        Exercise(
-                            title = "Cat-Cow Stretch",
-                            muscles = "Spine, lower back, neck",
-                            benefits = "Increases spinal flexibility, relieves back tension",
-                            steps = listOf(
-                                "Begin on hands and knees in a tabletop position.",
-                                "Inhale, arch your back, and lift your head (Cow).",
-                                "Exhale, round your spine, and tuck your chin (Cat).",
-                                "Flow smoothly between the two positions."
-                            ),
-                            duration = "8–10 cycles",
-                            safetyTips = "Move slowly, avoid jerky motions"
+                        mapOf(
+                            "title" to "Cat-Cow Stretch",
+                            "duration" to "8–10 cycles",
+                            "muscles" to "Spine, lower back, neck",
+                            "benefits" to "Increases spinal flexibility, relieves back tension",
+                            "safety" to "Move slowly, avoid jerky motions",
+                            "steps" to "Begin on hands and knees in tabletop → Inhale, arch back & lift head (Cow) → Exhale, round spine & tuck chin (Cat) → Flow smoothly between positions"
+                        ),
+                        mapOf(
+                            "title" to "Seated Forward Fold",
+                            "duration" to "20–30 seconds",
+                            "muscles" to "Hamstrings, spine",
+                            "benefits" to "Stretches hamstrings and back, relaxes mind",
+                            "safety" to "Keep spine long, avoid bouncing",
+                            "steps" to "Sit with legs extended → Inhale, lengthen spine → Exhale, hinge forward from hips and reach toward toes → Hold and breathe"
+                        ),
+                        mapOf(
+                            "title" to "Chest Opener Stretch",
+                            "duration" to "15–20 seconds per side",
+                            "muscles" to "Chest, shoulders",
+                            "benefits" to "Opens chest, improves posture",
+                            "safety" to "Avoid shoulder strain",
+                            "steps" to "Stand tall → Clasp hands behind back → Lift hands slightly while opening chest → Hold and breathe"
+                        ),
+                        mapOf(
+                            "title" to "Side Stretch",
+                            "duration" to "15–20 seconds per side",
+                            "muscles" to "Obliques, shoulders",
+                            "benefits" to "Relieves side body tension",
+                            "safety" to "Keep hips squared",
+                            "steps" to "Stand tall → Reach right arm overhead → Lean to the left side → Hold, then switch sides"
+                        ),
+                        mapOf(
+                            "title" to "Hip Flexor Stretch",
+                            "duration" to "20–30 seconds per side",
+                            "muscles" to "Hip flexors, quads",
+                            "benefits" to "Reduces hip tightness",
+                            "safety" to "Avoid arching lower back",
+                            "steps" to "Lunge forward with right leg → Keep back leg straight → Push hips forward gently → Hold, then switch sides"
+                        ),
+                        mapOf(
+                            "title" to "Child's Pose",
+                            "duration" to "30–40 seconds",
+                            "muscles" to "Spine, back, shoulders",
+                            "benefits" to "Relaxes spine and shoulders, calms mind",
+                            "safety" to "Avoid forcing knees together",
+                            "steps" to "Kneel on floor → Sit back on heels → Stretch arms forward → Rest forehead on mat and breathe"
                         )
-                        // Add remaining exercises here...
                     )
 
                     exercises.forEach { ex ->
-                        StretchCardTracked(
-                            title = ex.title,
-                            muscles = ex.muscles,
-                            benefits = ex.benefits,
-                            steps = ex.steps,
-                            duration = ex.duration,
-                            safetyTips = ex.safetyTips,
-                            onTrack = { name, dur -> vm.trackExercise(name, dur) },
+                        StretchCard4(
+                            title = ex["title"]!!,
+                            muscles = ex["muscles"]!!,
+                            benefits = ex["benefits"]!!,
+                            steps = ex["steps"]!!.split("→"),
+                            duration = ex["duration"]!!,
+                            safetyTips = ex["safety"]!!,
+                            mainCategory = "Stretching Exercises",
+                            subCategory = "Full Body",
+                            onTrack = { name, dur, main, sub ->
+                                vm.trackExercise(name, dur, main, sub)
+                            },
                             onUndo = { name -> vm.removeExerciseFromHistory(name) }
                         )
                     }
@@ -168,90 +203,6 @@ fun FullBodyStretchingScreen(navController: NavController) {
             }
         }
     )
-}
-
-@Composable
-fun StretchCardTracked(
-    title: String,
-    muscles: String,
-    benefits: String,
-    steps: List<String>,
-    duration: String,
-    safetyTips: String,
-    onTrack: (String, String) -> Unit,
-    onUndo: (String) -> Unit
-) {
-    var isDone by remember { mutableStateOf(false) }
-
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp)
-            .heightIn(min = 220.dp),
-        elevation = CardDefaults.cardElevation(6.dp),
-        shape = RoundedCornerShape(16.dp)
-    ) {
-        Box(modifier = Modifier.fillMaxWidth()) {
-            Image(
-                painter = painterResource(R.drawable.darkbg),
-                contentDescription = null,
-                modifier = Modifier
-                    .matchParentSize()
-                    .clip(RoundedCornerShape(16.dp)),
-                contentScale = ContentScale.Crop
-            )
-
-            Column(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(6.dp)
-            ) {
-                Text(title, fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.White)
-                Text("Muscles: $muscles", fontSize = 13.sp, color = Color.LightGray)
-                Text("Benefits: $benefits", fontSize = 13.sp, color = Color.LightGray)
-
-                steps.forEachIndexed { index, step ->
-                    Text("${index + 1}. $step", fontSize = 13.sp, color = Color.White)
-                }
-
-                Text("Duration/Reps: $duration", fontSize = 13.sp, color = Color.LightGray)
-                Text("Safety Tips: $safetyTips", fontSize = 13.sp, color = Color.LightGray)
-
-                Spacer(modifier = Modifier.height(6.dp))
-
-                Row(horizontalArrangement = Arrangement.spacedBy(12.dp)) {
-                    Button(
-                        onClick = {
-                            isDone = true
-                            onTrack(title, duration)
-                        },
-                        colors = ButtonDefaults.buttonColors(containerColor = Grin)
-                    ) {
-                        if (isDone) {
-                            Icon(Icons.Default.Check, contentDescription = "Done", tint = Color.White, modifier = Modifier.size(20.dp))
-                            Spacer(modifier = Modifier.width(6.dp))
-                            Text("Done", color = Color.White, fontWeight = FontWeight.Bold)
-                        } else {
-                            Text("Mark as Done", color = Color.White, fontWeight = FontWeight.Bold)
-                        }
-                    }
-
-                    if (isDone) {
-                        Button(
-                            onClick = {
-                                isDone = false
-                                onUndo(title)
-                            },
-                            colors = ButtonDefaults.buttonColors(containerColor = Grin)
-                        ) {
-                            Text("Undo", color = Color.White, fontWeight = FontWeight.Bold)
-                        }
-                    }
-                }
-            }
-        }
-    }
 }
 
 @Preview

@@ -8,6 +8,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
@@ -29,6 +30,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
 import com.tromeel.ponafit.data.DatabaseProvider
+import com.tromeel.ponafit.navigation.ROUT_HISTORY
 import com.tromeel.ponafit.navigation.ROUT_HOME
 import com.tromeel.ponafit.navigation.ROUT_STRETCHINGEXERCISES
 import com.tromeel.ponafit.repository.ExerciseRepository
@@ -54,6 +56,15 @@ fun DynamicWarmUpsScreen(navController: NavController) {
                     onClick = {
                         selectedIndex = 0
                         navController.navigate(ROUT_HOME)
+                    }
+                )
+                NavigationBarItem(
+                    icon = { Icon(Icons.Default.History, contentDescription = "History", tint = Color.Black) },
+                    label = { Text("History", color = Color.Black) },
+                    selected = selectedIndex == 1,
+                    onClick = {
+                        selectedIndex = 1
+                        navController.navigate(ROUT_HISTORY)
                     }
                 )
                 NavigationBarItem(
@@ -146,8 +157,31 @@ fun DynamicWarmUpsScreen(navController: NavController) {
                             "duration" to "8–10 reps per side",
                             "safety" to "Keep front knee over ankle",
                             "steps" to "Step into a forward lunge → Twist torso toward front leg → Return and switch sides"
+                        ),
+                        mapOf(
+                            "title" to "Butt Kicks",
+                            "muscles" to "Hamstrings, calves",
+                            "benefits" to "Activates posterior chain, warms up legs",
+                            "duration" to "30 seconds",
+                            "safety" to "Land softly on balls of feet",
+                            "steps" to "Jog in place → Kick heels toward glutes → Maintain upright posture"
+                        ),
+                        mapOf(
+                            "title" to "Side Lunges",
+                            "muscles" to "Adductors, quads, glutes",
+                            "benefits" to "Improves lateral mobility and flexibility",
+                            "duration" to "8–10 reps per side",
+                            "safety" to "Keep back straight, avoid twisting knee",
+                            "steps" to "Step to side → Bend leading knee → Push hips back → Return"
+                        ),
+                        mapOf(
+                            "title" to "Torso Twists",
+                            "muscles" to "Obliques, spine",
+                            "benefits" to "Mobilizes spine and core",
+                            "duration" to "10–15 twists per side",
+                            "safety" to "Keep hips stable",
+                            "steps" to "Stand feet shoulder-width → Twist torso left and right → Move smoothly"
                         )
-                        // Add the remaining 6 exercises similarly...
                     )
 
                     exercises.forEach { ex ->
@@ -155,10 +189,14 @@ fun DynamicWarmUpsScreen(navController: NavController) {
                             title = ex["title"]!!,
                             muscles = ex["muscles"]!!,
                             benefits = ex["benefits"]!!,
-                            steps = ex["steps"]!!.split("→"),
+                            steps = ex["steps"]!!.split("→").map { it.trim() },
                             duration = ex["duration"]!!,
                             safetyTips = ex["safety"]!!,
-                            onTrack = { name, dur -> vm.trackExercise(name, dur) },
+                            mainCategory = "Stretching Exercises",
+                            subCategory = "Dynamic Warm-Ups",
+                            onTrack = { name, dur, main, sub ->
+                                vm.trackExercise(name, dur, main, sub)
+                            },
                             onUndo = { name -> vm.removeExerciseFromHistory(name) }
                         )
                     }
@@ -166,93 +204,6 @@ fun DynamicWarmUpsScreen(navController: NavController) {
             }
         }
     )
-}
-
-// Reusable Card for Dynamic Warm-Ups
-@Composable
-fun StretchCard3(
-    title: String,
-    muscles: String,
-    benefits: String,
-    steps: List<String>,
-    duration: String,
-    safetyTips: String,
-    onTrack: (String, String) -> Unit,
-    onUndo: (String) -> Unit
-) {
-    var isDone by remember { mutableStateOf(false) }
-
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 14.dp)
-            .heightIn(min = 280.dp),
-        elevation = CardDefaults.cardElevation(10.dp),
-        shape = RoundedCornerShape(18.dp)
-    ) {
-        Box(modifier = Modifier.fillMaxWidth()) {
-            Image(
-                painter = painterResource(R.drawable.darkbg),
-                contentDescription = null,
-                modifier = Modifier
-                    .matchParentSize()
-                    .clip(RoundedCornerShape(18.dp)),
-                contentScale = ContentScale.Crop
-            )
-
-            Column(
-                modifier = Modifier
-                    .padding(20.dp)
-                    .fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                Text(title, fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Color.White)
-                Text("Muscles: $muscles", fontSize = 14.sp, color = Color.LightGray)
-                Text("Benefits: $benefits", fontSize = 14.sp, color = Color.LightGray)
-
-                Text("Instructions:", fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Color.White)
-                steps.forEachIndexed { index, step ->
-                    Text("${index + 1}. ${step.trim()}", fontSize = 14.sp, color = Color.White)
-                }
-
-                Text("Duration/Reps: $duration", fontSize = 14.sp, color = Color.LightGray)
-                Text("Safety Tips: $safetyTips", fontSize = 14.sp, color = Color.LightGray)
-
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Button(
-                        onClick = {
-                            isDone = true
-                            onTrack(title, duration)
-                        },
-                        colors = ButtonDefaults.buttonColors(containerColor = Grin)
-                    ) {
-                        if (isDone) {
-                            Icon(Icons.Default.Check, contentDescription = "Done", tint = Color.White, modifier = Modifier.size(20.dp))
-                            Spacer(modifier = Modifier.width(6.dp))
-                            Text("Done", color = Color.White, fontWeight = FontWeight.Bold)
-                        } else {
-                            Text("Mark as Done", color = Color.White, fontWeight = FontWeight.Bold)
-                        }
-                    }
-
-                    if (isDone) {
-                        Button(
-                            onClick = {
-                                isDone = false
-                                onUndo(title)
-                            },
-                            colors = ButtonDefaults.buttonColors(containerColor = Grin)
-                        ) {
-                            Text("Undo", color = Color.White, fontWeight = FontWeight.Bold)
-                        }
-                    }
-                }
-            }
-        }
-    }
 }
 
 @Preview

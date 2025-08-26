@@ -12,6 +12,13 @@ class ExerciseRepository(private val dao: ExerciseTrackingDao) {
 
     suspend fun clearAll() = dao.clearAll()
 
-    // ✅ Add repository method to delete exercise by name
     suspend fun deleteExerciseByName(name: String) = dao.deleteExerciseByName(name)
+
+    // ✅ Get exercises by main category (e.g. "Home Exercises", "Rehab")
+    fun getTrackingByMainCategory(mainCategory: String): Flow<List<ExerciseTrackingEntity>> =
+        dao.getTrackingByMainCategory(mainCategory)
+
+    // ✅ Get exercises by subcategory (e.g. "Upperbody Workouts", "Knee Rehab")
+    fun getTrackingBySubCategory(subCategory: String): Flow<List<ExerciseTrackingEntity>> =
+        dao.getTrackingBySubCategory(subCategory)
 }

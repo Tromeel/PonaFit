@@ -1,10 +1,7 @@
 package com.tromeel.ponafit.repository
 
-import com.tromeel.ponafit.data.DatabaseProvider
-
-
 import android.content.Context
-
+import com.tromeel.ponafit.data.DatabaseProvider
 
 object RepositoryProvider {
     @Volatile

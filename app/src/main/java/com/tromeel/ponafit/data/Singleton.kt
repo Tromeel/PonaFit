@@ -4,16 +4,20 @@ import android.content.Context
 import androidx.room.Room
 
 object DatabaseProvider {
+    @Volatile
     private var db: AppDatabase? = null
 
     fun getDatabase(context: Context): AppDatabase {
-        if (db == null) {
-            db = Room.databaseBuilder(
+        return db ?: synchronized(this) {
+            val instance = Room.databaseBuilder(
                 context.applicationContext,
                 AppDatabase::class.java,
                 "ponafit_db"
-            ).build()
+            )
+                .fallbackToDestructiveMigration() // ✅ ensures schema updates don't crash
+                .build()
+            db = instance
+            instance
         }
-        return db!!
     }
 }

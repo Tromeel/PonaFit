@@ -1,7 +1,5 @@
 package com.tromeel.ponafit.viewmodel
 
-
-
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.tromeel.ponafit.repository.ExerciseRepository
@@ -12,9 +10,12 @@ class ExerciseViewModelFactory(
 
     @Suppress("UNCHECKED_CAST")
     override fun <T : ViewModel> create(modelClass: Class<T>): T {
-        if (modelClass.isAssignableFrom(ExerciseViewModel::class.java)) {
-            return ExerciseViewModel(repository) as T
+        return when {
+            modelClass.isAssignableFrom(ExerciseViewModel::class.java) -> {
+                // ✅ Creates the updated ExerciseViewModel with category support for HistoryScreen
+                ExerciseViewModel(repository) as T
+            }
+            else -> throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
         }
-        throw IllegalArgumentException("Unknown ViewModel class: ${modelClass.name}")
     }
 }

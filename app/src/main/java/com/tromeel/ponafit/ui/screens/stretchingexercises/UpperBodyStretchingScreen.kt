@@ -8,6 +8,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
@@ -29,6 +30,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
 import com.tromeel.ponafit.data.DatabaseProvider
+import com.tromeel.ponafit.navigation.ROUT_HISTORY
 import com.tromeel.ponafit.navigation.ROUT_HOME
 import com.tromeel.ponafit.navigation.ROUT_STRETCHINGEXERCISES
 import com.tromeel.ponafit.repository.ExerciseRepository
@@ -51,10 +53,13 @@ fun UpperBodyStretchingScreen(navController: NavController) {
                     icon = { Icon(Icons.Default.Home, contentDescription = "Home", tint = Color.Black) },
                     label = { Text("Home", color = Color.Black) },
                     selected = selectedIndex == 0,
-                    onClick = {
-                        selectedIndex = 0
-                        navController.navigate(ROUT_HOME)
-                    }
+                    onClick = { selectedIndex = 0; navController.navigate(ROUT_HOME) }
+                )
+                NavigationBarItem(
+                    icon = { Icon(Icons.Default.History, contentDescription = "History", tint = Color.Black) },
+                    label = { Text("History", color = Color.Black) },
+                    selected = selectedIndex == 1,
+                    onClick = { selectedIndex = 1; navController.navigate(ROUT_HISTORY) }
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.Person, contentDescription = "Profile", tint = Color.Black) },
@@ -88,9 +93,7 @@ fun UpperBodyStretchingScreen(navController: NavController) {
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = "Back",
                             tint = Grin,
-                            modifier = Modifier
-                                .size(40.dp)
-                                .padding(start = 10.dp, top = 10.dp)
+                            modifier = Modifier.size(40.dp).padding(start = 10.dp, top = 10.dp)
                         )
                     }
 
@@ -126,30 +129,68 @@ fun UpperBodyStretchingScreen(navController: NavController) {
                             "title" to "Shoulder Rolls",
                             "muscles" to "Shoulders, traps",
                             "benefits" to "Increases shoulder mobility and relieves tightness",
-                            "steps" to "Sit or stand tall → Roll shoulders slowly forward in a circular motion → Repeat backward",
-                            "duration" to "8–10 rolls in each direction",
+                            "steps" to "Sit or stand tall → Roll shoulders slowly forward → Repeat backward",
+                            "duration" to "8–10 rolls each direction",
                             "safety" to "Keep movements slow and controlled"
                         ),
                         mapOf(
                             "title" to "Triceps Stretch",
                             "muscles" to "Triceps, shoulders",
                             "benefits" to "Loosens tight triceps and improves arm mobility",
-                            "steps" to "Raise one arm overhead → Bend elbow and reach hand down your back → Use other hand to press elbow gently",
+                            "steps" to "Raise one arm overhead → Bend elbow → Reach hand down back → Use other hand to press elbow gently",
                             "duration" to "20–30 seconds per arm",
                             "safety" to "Avoid arching lower back"
+                        ),
+                        mapOf(
+                            "title" to "Chest Stretch",
+                            "muscles" to "Chest, shoulders",
+                            "benefits" to "Opens chest and relieves shoulder tightness",
+                            "steps" to "Stand tall → Clasp hands behind back → Lift hands slightly → Hold and breathe",
+                            "duration" to "15–20 seconds",
+                            "safety" to "Avoid straining shoulders"
+                        ),
+                        mapOf(
+                            "title" to "Upper Back Stretch",
+                            "muscles" to "Upper back, shoulders",
+                            "benefits" to "Reduces tension in upper back",
+                            "steps" to "Interlace fingers → Extend arms forward → Round upper back → Hold",
+                            "duration" to "15–20 seconds",
+                            "safety" to "Keep shoulders relaxed"
+                        ),
+                        mapOf(
+                            "title" to "Bicep Stretch",
+                            "muscles" to "Biceps, shoulders",
+                            "benefits" to "Stretches front of arms and shoulders",
+                            "steps" to "Extend arms behind you → Clasp hands → Lift slightly → Hold",
+                            "duration" to "15–20 seconds",
+                            "safety" to "Avoid overextending elbows"
+                        ),
+                        mapOf(
+                            "title" to "Scapular Retraction",
+                            "muscles" to "Upper back, shoulders",
+                            "benefits" to "Improves posture, strengthens shoulder blades",
+                            "steps" to "Sit or stand tall → Squeeze shoulder blades together → Hold → Release",
+                            "duration" to "10–15 repetitions",
+                            "safety" to "Avoid shrugging shoulders"
                         )
-                        // Add remaining exercises similarly...
                     )
 
                     exercises.forEach { ex ->
-                        StretchCardTracked(
+                        StretchCard4(
                             title = ex["title"]!!,
                             muscles = ex["muscles"]!!,
                             benefits = ex["benefits"]!!,
                             steps = ex["steps"]!!.split("→").map { it.trim() },
                             duration = ex["duration"]!!,
                             safetyTips = ex["safety"]!!,
-                            onTrack = { name, dur -> vm.trackExercise(name, dur) },
+                            onTrack = { name, dur, main, sub ->
+                                vm.trackExercise(
+                                    name,
+                                    dur,
+                                    mainCategory = "Stretching Exercises",
+                                    subCategory = "Upper Body"
+                                )
+                            },
                             onUndo = { name -> vm.removeExerciseFromHistory(name) }
                         )
                     }
@@ -160,14 +201,14 @@ fun UpperBodyStretchingScreen(navController: NavController) {
 }
 
 @Composable
-fun StretchCardTracked2(
+fun StretchCard5(
     title: String,
     muscles: String,
     benefits: String,
     steps: List<String>,
     duration: String,
     safetyTips: String,
-    onTrack: (String, String) -> Unit,
+    onTrack: (String, String, String, String) -> Unit,
     onUndo: (String) -> Unit
 ) {
     var isDone by remember { mutableStateOf(false) }
@@ -180,9 +221,7 @@ fun StretchCardTracked2(
         elevation = CardDefaults.cardElevation(10.dp),
         shape = RoundedCornerShape(18.dp)
     ) {
-        Box(
-            modifier = Modifier.fillMaxWidth()
-        ) {
+        Box(modifier = Modifier.fillMaxWidth()) {
             Image(
                 painter = painterResource(R.drawable.darkbg),
                 contentDescription = null,
@@ -217,7 +256,7 @@ fun StretchCardTracked2(
                     Button(
                         onClick = {
                             isDone = true
-                            onTrack(title, duration)
+                            onTrack(title, duration, "Stretching Exercises", "Upper Body")
                         },
                         colors = ButtonDefaults.buttonColors(containerColor = Grin)
                     ) {

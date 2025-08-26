@@ -8,6 +8,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
@@ -29,6 +30,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
 import com.tromeel.ponafit.data.DatabaseProvider
+import com.tromeel.ponafit.navigation.ROUT_HISTORY
 import com.tromeel.ponafit.navigation.ROUT_HOME
 import com.tromeel.ponafit.navigation.ROUT_STRETCHINGEXERCISES
 import com.tromeel.ponafit.repository.ExerciseRepository
@@ -57,6 +59,15 @@ fun LowerBodyStretchingScreen(navController: NavController) {
                     }
                 )
                 NavigationBarItem(
+                    icon = { Icon(Icons.Default.History, contentDescription = "History", tint = Color.Black) },
+                    label = { Text("History", color = Color.Black) },
+                    selected = selectedIndex == 1,
+                    onClick = {
+                        selectedIndex = 1
+                        navController.navigate(ROUT_HISTORY)
+                    }
+                )
+                NavigationBarItem(
                     icon = { Icon(Icons.Default.Person, contentDescription = "Profile", tint = Color.Black) },
                     label = { Text("Profile", color = Color.Black) },
                     selected = selectedIndex == 2,
@@ -64,6 +75,7 @@ fun LowerBodyStretchingScreen(navController: NavController) {
                 )
             }
         },
+
         content = { paddingValues ->
             Box(
                 modifier = Modifier
@@ -106,59 +118,88 @@ fun LowerBodyStretchingScreen(navController: NavController) {
                     )
 
                     Text(
-                        text = "These stretches target hips, hamstrings, quads, glutes, calves, and ankles—helping with flexibility, mobility, and recovery.",
+                        text = "Lower body stretches improve flexibility, mobility, and recovery for your hips, hamstrings, calves, and quads.",
                         fontSize = 18.sp,
                         color = Grin,
                         textAlign = TextAlign.Center,
                         modifier = Modifier.padding(bottom = 20.dp)
                     )
 
-                    // =================== Lower Body Exercises ===================
                     val exercises = listOf(
                         mapOf(
-                            "title" to "Standing Quad Stretch",
-                            "muscles" to "Quadriceps",
-                            "benefits" to "Relieves tight thighs, improves flexibility",
-                            "steps" to "Stand on one leg → Pull the other foot toward your glutes → Hold for balance and switch sides",
+                            "title" to "Hamstring Stretch",
+                            "muscles" to "Hamstrings, calves",
+                            "benefits" to "Increases hamstring flexibility, relieves tightness",
                             "duration" to "20–30 seconds per side",
-                            "safety" to "Keep knees close together"
+                            "safety" to "Avoid rounding your back; hinge at hips",
+                            "steps" to "Sit on the floor with legs extended → Reach forward toward toes → Hold position and breathe"
                         ),
                         mapOf(
-                            "title" to "Seated Hamstring Stretch",
-                            "muscles" to "Hamstrings",
-                            "benefits" to "Lengthens hamstrings, reduces stiffness",
-                            "steps" to "Sit with one leg extended forward → Reach toward your toes → Hold gently and switch legs",
+                            "title" to "Quad Stretch",
+                            "muscles" to "Quadriceps",
+                            "benefits" to "Loosens front thighs, improves mobility",
+                            "duration" to "20–30 seconds per leg",
+                            "safety" to "Hold onto wall for balance; keep knees close",
+                            "steps" to "Stand tall → Grab ankle and pull heel toward glutes → Keep knees aligned"
+                        ),
+                        mapOf(
+                            "title" to "Calf Stretch",
+                            "muscles" to "Calves (gastrocnemius, soleus)",
+                            "benefits" to "Relieves calf tightness, improves ankle flexibility",
                             "duration" to "20–30 seconds per side",
-                            "safety" to "Avoid rounding lower back too much"
+                            "safety" to "Keep back heel flat on the ground",
+                            "steps" to "Stand facing wall → Step one foot back → Press heel down and lean forward"
+                        ),
+                        mapOf(
+                            "title" to "Glute Stretch",
+                            "muscles" to "Glutes, hips",
+                            "benefits" to "Relieves tight hips and glutes",
+                            "duration" to "20–30 seconds per side",
+                            "safety" to "Avoid twisting the spine excessively",
+                            "steps" to "Lie on back → Cross ankle over opposite knee → Pull thigh toward chest"
                         ),
                         mapOf(
                             "title" to "Hip Flexor Stretch",
                             "muscles" to "Hip flexors, quads",
-                            "benefits" to "Opens hips and reduces tightness from sitting",
-                            "steps" to "Kneel on one knee → Shift hips forward gently → Hold and switch legs",
+                            "benefits" to "Improves hip mobility, relieves anterior tightness",
                             "duration" to "20–30 seconds per side",
-                            "safety" to "Keep torso upright"
+                            "safety" to "Keep pelvis neutral; avoid arching lower back",
+                            "steps" to "Lunge forward → Lower back knee → Push hips forward gently"
                         ),
                         mapOf(
-                            "title" to "Glute Stretch (Figure 4)",
-                            "muscles" to "Glutes, hips",
-                            "benefits" to "Relieves hip and glute tension",
-                            "steps" to "Lie on your back → Cross one ankle over opposite knee → Pull legs gently toward chest",
+                            "title" to "Inner Thigh Stretch",
+                            "muscles" to "Adductors",
+                            "benefits" to "Increases inner thigh flexibility",
+                            "duration" to "20–30 seconds",
+                            "safety" to "Do not bounce; stretch gently",
+                            "steps" to "Sit with soles of feet together → Gently press knees toward floor → Hold"
+                        ),
+                        mapOf(
+                            "title" to "IT Band Stretch",
+                            "muscles" to "Outer thigh, IT band",
+                            "benefits" to "Reduces lateral thigh tightness",
                             "duration" to "20–30 seconds per side",
-                            "safety" to "Avoid straining neck or back"
+                            "safety" to "Keep hips square; do not twist excessively",
+                            "steps" to "Cross one leg over the other → Lean toward opposite side → Hold gently"
                         )
-                        // Add remaining exercises similarly...
                     )
 
                     exercises.forEach { ex ->
-                        StretchCardTracked(
+                        StretchCard4(
                             title = ex["title"]!!,
                             muscles = ex["muscles"]!!,
                             benefits = ex["benefits"]!!,
                             steps = ex["steps"]!!.split("→").map { it.trim() },
                             duration = ex["duration"]!!,
                             safetyTips = ex["safety"]!!,
-                            onTrack = { name, dur -> vm.trackExercise(name, dur) },
+                            onTrack = { name, dur, main, sub ->
+                                vm.trackExercise(
+                                    name,
+                                    dur,
+                                    mainCategory = "Stretching Exercises",
+                                    subCategory = "Lower Body"
+                                )
+                            },
                             onUndo = { name -> vm.removeExerciseFromHistory(name) }
                         )
                     }
@@ -169,14 +210,14 @@ fun LowerBodyStretchingScreen(navController: NavController) {
 }
 
 @Composable
-fun StretchCardTracked1(
+fun StretchCard4(
     title: String,
     muscles: String,
     benefits: String,
     steps: List<String>,
     duration: String,
     safetyTips: String,
-    onTrack: (String, String) -> Unit,
+    onTrack: (String, String, String, String) -> Unit,
     onUndo: (String) -> Unit
 ) {
     var isDone by remember { mutableStateOf(false) }
@@ -189,9 +230,7 @@ fun StretchCardTracked1(
         elevation = CardDefaults.cardElevation(10.dp),
         shape = RoundedCornerShape(18.dp)
     ) {
-        Box(
-            modifier = Modifier.fillMaxWidth()
-        ) {
+        Box(modifier = Modifier.fillMaxWidth()) {
             Image(
                 painter = painterResource(R.drawable.darkbg),
                 contentDescription = null,
@@ -226,7 +265,7 @@ fun StretchCardTracked1(
                     Button(
                         onClick = {
                             isDone = true
-                            onTrack(title, duration)
+                            onTrack(title, duration, "Stretching Exercises", "Lower Body")
                         },
                         colors = ButtonDefaults.buttonColors(containerColor = Grin)
                     ) {

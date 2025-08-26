@@ -8,6 +8,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
@@ -29,6 +30,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
 import com.tromeel.ponafit.data.DatabaseProvider
+import com.tromeel.ponafit.navigation.ROUT_HISTORY
 import com.tromeel.ponafit.navigation.ROUT_HOME
 import com.tromeel.ponafit.navigation.ROUT_STRETCHINGEXERCISES
 import com.tromeel.ponafit.repository.ExerciseRepository
@@ -51,10 +53,13 @@ fun CoolDownScreen(navController: NavController) {
                     icon = { Icon(Icons.Default.Home, contentDescription = "Home", tint = Color.Black) },
                     label = { Text("Home", color = Color.Black) },
                     selected = selectedIndex == 0,
-                    onClick = {
-                        selectedIndex = 0
-                        navController.navigate(ROUT_HOME)
-                    }
+                    onClick = { selectedIndex = 0; navController.navigate(ROUT_HOME) }
+                )
+                NavigationBarItem(
+                    icon = { Icon(Icons.Default.History, contentDescription = "History", tint = Color.Black) },
+                    label = { Text("History", color = Color.Black) },
+                    selected = selectedIndex == 1,
+                    onClick = { selectedIndex = 1; navController.navigate(ROUT_HISTORY) }
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.Person, contentDescription = "Profile", tint = Color.Black) },
@@ -88,9 +93,7 @@ fun CoolDownScreen(navController: NavController) {
                             imageVector = Icons.Default.ArrowBack,
                             contentDescription = "Back",
                             tint = Grin,
-                            modifier = Modifier
-                                .size(40.dp)
-                                .padding(start = 10.dp, top = 10.dp)
+                            modifier = Modifier.size(40.dp).padding(start = 10.dp, top = 10.dp)
                         )
                     }
 
@@ -113,7 +116,6 @@ fun CoolDownScreen(navController: NavController) {
                         modifier = Modifier.padding(bottom = 20.dp)
                     )
 
-                    // =================== Cool Down Exercises with Instructions ===================
                     val exercises = listOf(
                         mapOf(
                             "title" to "Standing Forward Fold",
@@ -141,59 +143,35 @@ fun CoolDownScreen(navController: NavController) {
                         ),
                         mapOf(
                             "title" to "Cat-Cow Stretch",
-                            "duration" to "6–8 slow cycles",
-                            "muscles" to "Spine, core",
-                            "benefits" to "Increases spinal flexibility, relieves tension in back and neck",
+                            "duration" to "8–10 cycles",
+                            "muscles" to "Spine, lower back, neck",
+                            "benefits" to "Improves spinal flexibility, relieves tension",
                             "safety" to "Move slowly and avoid jerky motions",
-                            "steps" to "Start on hands and knees → Inhale arch back (Cow) → Exhale round spine (Cat) → Repeat slowly"
+                            "steps" to "Start on hands and knees → Inhale arching back (Cow) → Exhale rounding spine (Cat) → Repeat"
                         ),
                         mapOf(
-                            "title" to "Quadriceps Stretch",
+                            "title" to "Figure Four Stretch",
                             "duration" to "20–30 seconds per side",
-                            "muscles" to "Quadriceps, hip flexors",
-                            "benefits" to "Improves leg flexibility, reduces tightness in quads",
-                            "safety" to "Keep knees together and avoid arching lower back",
-                            "steps" to "Stand tall → Bend one knee, hold ankle → Pull heel toward glutes → Keep knees aligned → Switch sides"
+                            "muscles" to "Glutes, hips",
+                            "benefits" to "Releases hip tension and stretches glutes",
+                            "safety" to "Avoid twisting lower back",
+                            "steps" to "Lie on back → Cross ankle over opposite knee → Pull leg toward chest → Switch sides"
                         ),
                         mapOf(
                             "title" to "Shoulder Stretch",
-                            "duration" to "20–30 seconds per side",
-                            "muscles" to "Deltoids, upper back",
-                            "benefits" to "Relieves tension in shoulders, improves upper body mobility",
-                            "safety" to "Do not overstretch; keep shoulders down",
-                            "steps" to "Bring one arm across chest → Use other arm to pull it closer → Hold → Switch sides"
+                            "duration" to "20 seconds per side",
+                            "muscles" to "Shoulders, upper back",
+                            "benefits" to "Relieves shoulder tension",
+                            "safety" to "Do not overstretch",
+                            "steps" to "Bring one arm across chest → Use opposite arm to press gently → Switch sides"
                         ),
                         mapOf(
-                            "title" to "Triceps Stretch",
-                            "duration" to "20–30 seconds per side",
-                            "muscles" to "Triceps, shoulders",
-                            "benefits" to "Improves arm flexibility, relieves tension in upper arms",
-                            "safety" to "Keep neck relaxed and avoid twisting torso",
-                            "steps" to "Raise one arm overhead → Bend elbow and reach hand down back → Use other hand to press elbow → Switch sides"
-                        ),
-                        mapOf(
-                            "title" to "Calf Stretch",
-                            "duration" to "20–30 seconds per side",
-                            "muscles" to "Calves, Achilles tendon",
-                            "benefits" to "Relieves calf tightness, improves ankle flexibility",
-                            "safety" to "Do not lock back knee; keep heel on floor",
-                            "steps" to "Stand facing wall → Step one foot back → Press heel down → Hold stretch → Switch sides"
-                        ),
-                        mapOf(
-                            "title" to "Seated Spinal Twist",
-                            "duration" to "20–30 seconds per side",
-                            "muscles" to "Spine, obliques",
-                            "benefits" to "Improves spinal mobility and digestion, stretches torso",
-                            "safety" to "Move gently; avoid forcing twist",
-                            "steps" to "Sit tall with legs extended → Cross one leg over other → Place hand behind back → Twist gently → Switch sides"
-                        ),
-                        mapOf(
-                            "title" to "Butterfly Stretch",
-                            "duration" to "30–45 seconds",
-                            "muscles" to "Inner thighs, hips",
-                            "benefits" to "Opens hips, stretches inner thighs, improves posture",
-                            "safety" to "Keep spine straight and avoid bouncing knees",
-                            "steps" to "Sit with feet together → Pull heels toward pelvis → Hold feet → Gently press knees toward floor"
+                            "title" to "Neck Stretch",
+                            "duration" to "15–20 seconds per side",
+                            "muscles" to "Neck, upper traps",
+                            "benefits" to "Reduces neck stiffness and tension",
+                            "safety" to "Avoid pulling on the neck forcefully",
+                            "steps" to "Sit or stand tall → Tilt head to one side → Hold gently → Switch sides"
                         )
                     )
 
@@ -202,10 +180,12 @@ fun CoolDownScreen(navController: NavController) {
                             title = ex["title"]!!,
                             muscles = ex["muscles"]!!,
                             benefits = ex["benefits"]!!,
-                            steps = ex["steps"]!!.split("→"), // split into list
+                            steps = ex["steps"]!!.split("→").map { it.trim() },
                             duration = ex["duration"]!!,
                             safetyTips = ex["safety"]!!,
-                            onTrack = { name, dur -> vm.trackExercise(name, dur) },
+                            mainCategory = "Stretching Exercises",
+                            subCategory = "Cool Down",
+                            onTrack = { name, dur, main, sub -> vm.trackExercise(name, dur, main, sub) },
                             onUndo = { name -> vm.removeExerciseFromHistory(name) }
                         )
                     }
@@ -215,7 +195,7 @@ fun CoolDownScreen(navController: NavController) {
     )
 }
 
-// =================== StretchCard4 with Instructions, Bigger Size ===================
+// =================== StretchCard4 with mainCategory and subCategory ===================
 @Composable
 fun StretchCard4(
     title: String,
@@ -224,7 +204,9 @@ fun StretchCard4(
     steps: List<String>,
     duration: String,
     safetyTips: String,
-    onTrack: (String, String) -> Unit,
+    mainCategory: String,
+    subCategory: String,
+    onTrack: (String, String, String, String) -> Unit,
     onUndo: (String) -> Unit
 ) {
     var isDone by remember { mutableStateOf(false) }
@@ -233,13 +215,11 @@ fun StretchCard4(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 14.dp)
-            .heightIn(min = 280.dp), // increased min height for content
+            .heightIn(min = 280.dp),
         elevation = CardDefaults.cardElevation(10.dp),
         shape = RoundedCornerShape(18.dp)
     ) {
-        Box(
-            modifier = Modifier.fillMaxWidth()
-        ) {
+        Box(modifier = Modifier.fillMaxWidth()) {
             Image(
                 painter = painterResource(R.drawable.darkbg),
                 contentDescription = null,
@@ -250,9 +230,7 @@ fun StretchCard4(
             )
 
             Column(
-                modifier = Modifier
-                    .padding(20.dp)
-                    .fillMaxWidth(),
+                modifier = Modifier.padding(20.dp).fillMaxWidth(),
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 Text(title, fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Color.White)
@@ -274,7 +252,7 @@ fun StretchCard4(
                     Button(
                         onClick = {
                             isDone = true
-                            onTrack(title, duration)
+                            onTrack(title, duration, mainCategory, subCategory)
                         },
                         colors = ButtonDefaults.buttonColors(containerColor = Grin)
                     ) {
