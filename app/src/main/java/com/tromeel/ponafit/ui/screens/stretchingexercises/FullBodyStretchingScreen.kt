@@ -1,10 +1,11 @@
 package com.tromeel.ponafit.ui.screens.stretchingexercises
 
+// ... (keep all existing imports)
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
@@ -13,12 +14,14 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
+// import androidx.compose.ui.draw.clip // This specific import for the Box is no longer strictly needed here
 import androidx.compose.ui.draw.paint
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -36,6 +39,9 @@ import com.tromeel.ponafit.navigation.ROUT_STRETCHINGEXERCISES
 import com.tromeel.ponafit.repository.ExerciseRepository
 import com.tromeel.ponafit.ui.theme.Grin
 import com.tromeel.ponafit.viewmodel.ExerciseViewModel
+
+
+// ... (FullBodyStretchingScreen remains the same)
 
 @Composable
 fun FullBodyStretchingScreen(navController: NavController) {
@@ -183,26 +189,130 @@ fun FullBodyStretchingScreen(navController: NavController) {
                         )
                     )
 
+                    // Render all cards with same design
                     exercises.forEach { ex ->
-                        StretchCard4(
+                        StretchCard(
                             title = ex["title"]!!,
                             muscles = ex["muscles"]!!,
                             benefits = ex["benefits"]!!,
                             steps = ex["steps"]!!.split("→"),
                             duration = ex["duration"]!!,
-                            safetyTips = ex["safety"]!!,
+                            safetyTips = ex["safety"]!!, // Make sure safetyTips is used in StretchCard if needed
                             mainCategory = "Stretching Exercises",
                             subCategory = "Full Body",
-                            onTrack = { name, dur, main, sub ->
-                                vm.trackExercise(name, dur, main, sub)
-                            },
-                            onUndo = { name -> vm.removeExerciseFromHistory(name) }
+                            onTrack = { name, dur, main, sub -> vm.trackExercise(name, dur, main, sub) },
+                            onUndo = { name -> vm.removeExerciseFromHistory(name) },
+                            vm = vm
                         )
                     }
                 }
             }
         }
     )
+}
+
+
+@Composable
+fun StretchCard(
+    title: String,
+    muscles: String,
+    benefits: String,
+    steps: List<String>,
+    duration: String,
+    safetyTips: String, // Ensure this is used if it's important for display
+    mainCategory: String,
+    subCategory: String,
+    onTrack: (String, String, String, String) -> Unit,
+    onUndo: (String) -> Unit,
+    vm: ExerciseViewModel
+) {
+    var isDone by remember { mutableStateOf(false) }
+
+    LaunchedEffect(title) {
+        vm.isExerciseTracked(title).collect { tracked ->
+            isDone = tracked
+        }
+    }
+
+    Card(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(vertical = 14.dp)
+            .heightIn(min = 280.dp), // Ensure card has enough min height for content
+        elevation = CardDefaults.cardElevation(10.dp),
+        shape = RoundedCornerShape(18.dp),
+        // Make the Card's own background transparent if the Box/Image is the true background
+        colors = CardDefaults.cardColors(containerColor = Color.Transparent)
+    ) {
+        // Box will now be the container for the background image and the content Column
+        Box(
+            modifier = Modifier.fillMaxSize() // Box fills the Card
+        ) {
+            // Background Image - drawn first, covers the entire Box (and thus the Card)
+            Image(
+                painter = painterResource(R.drawable.darkbg),
+                contentDescription = null, // Decorative image
+                modifier = Modifier.matchParentSize(), // Image fills the Box
+                contentScale = ContentScale.Crop // Crop to fill bounds while maintaining aspect ratio
+            )
+
+            // Content Column - drawn on top of the Image
+            Column(
+                modifier = Modifier
+                    .fillMaxSize() // Column also fills the Box, overlaying the image
+                    .padding(20.dp), // Padding for the content within the card
+                // horizontalAlignment = Alignment.Start // Content usually starts from left
+            ) {
+                Text(title, fontWeight = FontWeight.Bold, fontSize = 20.sp, color = Color.White)
+                Spacer(modifier = Modifier.height(6.dp))
+                Text("Muscles: $muscles", fontSize = 14.sp, color = Color.White)
+                Spacer(modifier = Modifier.height(4.dp)) // Added small spacer
+                Text("Benefits: $benefits", fontSize = 14.sp, color = Color.White)
+                Spacer(modifier = Modifier.height(4.dp)) // Added small spacer
+                Text("Duration: $duration", fontSize = 14.sp, color = Color.White)
+                // Optionally display safetyTips if relevant to the design
+                // Spacer(modifier = Modifier.height(4.dp))
+                // Text("Safety: $safetyTips", fontSize = 14.sp, color = Color.LightGray) // Example
+                Spacer(modifier = Modifier.height(10.dp)) // Increased space before steps
+
+                Text("Steps:", fontWeight = FontWeight.Bold, fontSize = 16.sp, color = Color.White)
+                Spacer(modifier = Modifier.height(4.dp))
+                steps.forEach { step ->
+                    Text(
+                        text = "• ${step.trim()}", // Trim step to remove leading/trailing spaces
+                        fontSize = 14.sp,
+                        color = Color.White,
+                        modifier = Modifier.padding(bottom = 2.dp) // Small padding between steps
+                    )
+                }
+                Spacer(modifier = Modifier.height(16.dp)) // Increased space before button
+
+                Button(
+                    onClick = {
+                        if (!isDone) {
+                            onTrack(title, duration, mainCategory, subCategory)
+                            isDone = true
+                        } else {
+                            onUndo(title)
+                            isDone = false
+                        }
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = if (isDone) Color.Gray else Grin // Assuming Grin is defined in your theme
+                    ),
+                    modifier = Modifier.align(Alignment.CenterHorizontally) // Center the button
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Check,
+                        contentDescription = "Mark as Done",
+                        tint = Color.White
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(if (isDone) "Done" else "Mark as Done", color = Color.White)
+                }
+            }
+        }
+    }
 }
 
 @Preview

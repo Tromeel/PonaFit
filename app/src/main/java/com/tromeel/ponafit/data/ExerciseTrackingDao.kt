@@ -27,4 +27,9 @@ interface ExerciseTrackingDao {
 
     @Query("SELECT * FROM exercise_tracking WHERE subCategory = :subCategory ORDER BY completedAt DESC")
     fun getTrackingBySubCategory(subCategory: String): Flow<List<ExerciseTrackingEntity>>
+
+
+    @Query("SELECT EXISTS(SELECT 1 FROM exercise_tracking WHERE exerciseName = :name)")
+    fun isExerciseTracked(name: String): Flow<Boolean>
+
 }

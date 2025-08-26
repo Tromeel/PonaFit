@@ -21,4 +21,9 @@ class ExerciseRepository(private val dao: ExerciseTrackingDao) {
     // ✅ Get exercises by subcategory (e.g. "Upperbody Workouts", "Knee Rehab")
     fun getTrackingBySubCategory(subCategory: String): Flow<List<ExerciseTrackingEntity>> =
         dao.getTrackingBySubCategory(subCategory)
+
+    fun isExerciseTracked(name: String): Flow<Boolean> = dao.isExerciseTracked(name)
+
 }
+
+

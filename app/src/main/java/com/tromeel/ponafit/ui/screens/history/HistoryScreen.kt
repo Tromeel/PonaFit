@@ -1,13 +1,11 @@
 package com.tromeel.ponafit.ui.screens.history
 
-import androidx.compose.animation.AnimatedVisibility
-import androidx.compose.animation.expandVertically
-import androidx.compose.animation.fadeIn
-import androidx.compose.animation.fadeOut
-import androidx.compose.animation.shrinkVertically
+import androidx.compose.animation.*
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material.icons.filled.Home
@@ -16,7 +14,6 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
@@ -39,26 +36,32 @@ fun HistoryScreen(
     var selectedIndex by remember { mutableStateOf(1) }
     val history = vm.allTracking.collectAsState()
 
-    // Group by mainCategory → subCategory
-    val groupedHistory = remember(history.value) {
-        groupExercises(history.value)
-    }
+    val groupedHistory = remember(history.value) { groupExercises(history.value) }
 
     Scaffold(
         topBar = {
             TopAppBar(
                 title = { Text("Exercise History", color = Color.White) },
+                navigationIcon = {
+                    IconButton(onClick = { navController.popBackStack() }) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBack,
+                            contentDescription = "Back",
+                            tint = Color.White
+                        )
+                    }
+                },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = Grin,
-                    titleContentColor = Color.Black
+                    titleContentColor = Color.White
                 )
             )
         },
         bottomBar = {
             NavigationBar(containerColor = Grin) {
                 NavigationBarItem(
-                    icon = { Icon(Icons.Default.Home, contentDescription = "Home", tint = Color.Black) },
-                    label = { Text("Home", color = Color.Black) },
+                    icon = { Icon(Icons.Default.Home, contentDescription = "Home", tint = Color.White) },
+                    label = { Text("Home", color = Color.White) },
                     selected = selectedIndex == 0,
                     onClick = {
                         selectedIndex = 0
@@ -66,8 +69,8 @@ fun HistoryScreen(
                     }
                 )
                 NavigationBarItem(
-                    icon = { Icon(Icons.Default.Person, contentDescription = "Profile", tint = Color.Black) },
-                    label = { Text("Profile", color = Color.Black) },
+                    icon = { Icon(Icons.Default.Person, contentDescription = "Profile", tint = Color.White) },
+                    label = { Text("Profile", color = Color.White) },
                     selected = selectedIndex == 2,
                     onClick = { selectedIndex = 2 }
                 )
@@ -77,11 +80,15 @@ fun HistoryScreen(
             Box(
                 modifier = Modifier
                     .fillMaxSize()
-                    .paint(
-                        painter = painterResource(R.drawable.greenbg),
-                        contentScale = ContentScale.FillBounds
-                    )
             ) {
+                // Screen background image
+                Image(
+                    painter = painterResource(R.drawable.greenbg),
+                    contentDescription = null,
+                    modifier = Modifier.fillMaxSize(),
+                    contentScale = ContentScale.Crop
+                )
+
                 if (history.value.isEmpty()) {
                     Box(
                         modifier = Modifier
@@ -124,7 +131,8 @@ fun ExpandableCategory(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 4.dp),
-        elevation = CardDefaults.cardElevation(4.dp)
+        elevation = CardDefaults.cardElevation(4.dp),
+        colors = CardDefaults.cardColors(containerColor = Grin)
     ) {
         Column {
             Row(
@@ -134,11 +142,12 @@ fun ExpandableCategory(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 verticalAlignment = Alignment.CenterVertically
             ) {
-                Text(title, style = MaterialTheme.typography.titleLarge)
+                Text(title, style = MaterialTheme.typography.titleLarge, color = Color.White)
                 IconButton(onClick = { expanded = !expanded }) {
                     Icon(
                         imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
-                        contentDescription = null
+                        contentDescription = null,
+                        tint = Color.White
                     )
                 }
             }
@@ -166,19 +175,28 @@ fun ExpandableSubCategory(
     var expanded by remember { mutableStateOf(false) }
 
     Column(modifier = Modifier.padding(start = 16.dp)) {
-        Row(
+        Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(8.dp),
-            horizontalArrangement = Arrangement.SpaceBetween,
-            verticalAlignment = Alignment.CenterVertically
+                .padding(vertical = 2.dp),
+            elevation = CardDefaults.cardElevation(3.dp),
+            colors = CardDefaults.cardColors(containerColor = Grin)
         ) {
-            Text(title, style = MaterialTheme.typography.titleMedium)
-            IconButton(onClick = { expanded = !expanded }) {
-                Icon(
-                    imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
-                    contentDescription = null
-                )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(12.dp),
+                horizontalArrangement = Arrangement.SpaceBetween,
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Text(title, style = MaterialTheme.typography.titleMedium, color = Color.White)
+                IconButton(onClick = { expanded = !expanded }) {
+                    Icon(
+                        imageVector = if (expanded) Icons.Filled.ExpandLess else Icons.Filled.ExpandMore,
+                        contentDescription = null,
+                        tint = Color.White
+                    )
+                }
             }
         }
 
@@ -202,17 +220,19 @@ fun ExerciseHistoryItem(item: ExerciseTrackingEntity) {
         modifier = Modifier
             .fillMaxWidth()
             .padding(start = 32.dp, bottom = 6.dp),
-        elevation = CardDefaults.cardElevation(2.dp)
+        elevation = CardDefaults.cardElevation(2.dp),
+        colors = CardDefaults.cardColors(containerColor = Grin)
     ) {
         Column(modifier = Modifier.padding(12.dp)) {
-            Text(item.exerciseName, style = MaterialTheme.typography.bodyLarge)
-            Text("Duration: ${item.duration}", style = MaterialTheme.typography.bodySmall)
+            Text(item.exerciseName, style = MaterialTheme.typography.bodyLarge, color = Color.White)
+            Text("Duration: ${item.duration}", style = MaterialTheme.typography.bodySmall, color = Color.White)
             Text(
                 "Completed at: ${
                     SimpleDateFormat("dd MMM yyyy, HH:mm", Locale.getDefault())
                         .format(Date(item.completedAt))
                 }",
-                style = MaterialTheme.typography.bodySmall
+                style = MaterialTheme.typography.bodySmall,
+                color = Color.White
             )
         }
     }

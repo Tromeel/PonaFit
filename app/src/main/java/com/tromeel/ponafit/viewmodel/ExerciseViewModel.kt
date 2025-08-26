@@ -55,4 +55,8 @@ class ExerciseViewModel(private val repo: ExerciseRepository) : ViewModel() {
     fun clearHistory() {
         viewModelScope.launch { repo.clearAll() }
     }
+    fun isExerciseTracked(name: String): Flow<Boolean> {
+        return repo.isExerciseTracked(name)
+    }
+
 }
