@@ -49,6 +49,7 @@ import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
 import com.tromeel.ponafit.navigation.ROUT_DASHBOARD
 import com.tromeel.ponafit.navigation.ROUT_HOME
+import com.tromeel.ponafit.navigation.ROUT_KNEE
 import com.tromeel.ponafit.ui.theme.Grin
 
 
@@ -178,7 +179,7 @@ fun RehabScreen(navController: NavController){
                 ){
                     //Start of card
                     Card(
-                        onClick = {},
+                        onClick = {navController.navigate(ROUT_KNEE)},
                         modifier = Modifier
                             .width(200.dp)
                             .height(300.dp),

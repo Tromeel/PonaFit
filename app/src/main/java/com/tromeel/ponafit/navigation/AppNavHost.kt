@@ -53,6 +53,7 @@ import com.tromeel.ponafit.ui.screens.homeexercises.ILowerBodyScreen
 import com.tromeel.ponafit.ui.screens.homeexercises.IUpperBodyScreen
 import com.tromeel.ponafit.ui.screens.homeexercises.LDifficultyScreen
 import com.tromeel.ponafit.ui.screens.homeexercises.UDifficultyScreen
+import com.tromeel.ponafit.ui.screens.rehab.KneeRehabScreen
 import com.tromeel.ponafit.ui.screens.rehab.RehabScreen
 import com.tromeel.ponafit.ui.screens.splash.SplashScreen
 import com.tromeel.ponafit.ui.screens.stretchingexercises.CoolDownScreen
@@ -69,7 +70,7 @@ import com.tromeel.ponafit.viewmodel.ExerciseViewModel
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = ROUT_STRETCHINGEXERCISES
+    startDestination: String = ROUT_REHAB
 ) {
     val context = LocalContext.current
 
@@ -307,6 +308,17 @@ fun AppNavHost(
 
 
 
+        //REHAB
+
+
+        composable(ROUT_REHAB) {
+            RehabScreen(navController)
+        }
+
+
+        composable(ROUT_KNEE) {
+            KneeRehabScreen(navController)
+        }
 
 
 
@@ -324,10 +336,6 @@ fun AppNavHost(
             GymExercisesScreen(navController)
         }
 
-
-        composable(ROUT_REHAB) {
-            RehabScreen(navController)
-        }
 
 
 

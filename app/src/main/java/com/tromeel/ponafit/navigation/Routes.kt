@@ -10,7 +10,7 @@ const val ROUT_HISTORY = "history"
 
 
 
-const val ROUT_REHAB = "rehab"
+
 
 
 
@@ -65,3 +65,8 @@ const val ROUT_UPPERBODYSTRETCHING = "upperbodystretching"
 const val ROUT_LOWERBODYSTRETCHING = "lowerbodystretching"
 const val ROUT_DYNAMICWARMUPS = "dynamicwarmups"
 const val ROUT_COOLDOWN = "cooldown"
+
+
+//REHAB
+const val ROUT_REHAB = "rehab"
+const val ROUT_KNEE = "knee"
