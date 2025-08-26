@@ -5,9 +5,11 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -15,7 +17,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -26,19 +27,64 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
-import com.tromeel.ponafit.navigation.ROUT_ACCOUNT
-import com.tromeel.ponafit.navigation.ROUT_GYMEXERCISES
-import com.tromeel.ponafit.navigation.ROUT_HOME
-import com.tromeel.ponafit.navigation.ROUT_HOMEEXERCISES
-import com.tromeel.ponafit.navigation.ROUT_REHAB
-import com.tromeel.ponafit.navigation.ROUT_STRETCHINGEXERCISES
+import com.tromeel.ponafit.navigation.*
 import com.tromeel.ponafit.ui.theme.Grin
+
+data class ExerciseCategory(
+    val imageRes: Int,
+    val title: String,
+    val description: String,
+    val taskCount: String,
+    val backgroundRes: Int,
+    val route: String
+)
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DashboardScreen(navController: NavController) {
     var selectedIndex by remember { mutableStateOf(0) }
+    var searchQuery by remember { mutableStateOf("") }
 
+    // ✅ List of exercise categories
+    val categories = listOf(
+        ExerciseCategory(
+            imageRes = R.drawable.home,
+            title = "Home Exercises",
+            description = "No gym? No problem. Simple yet effective workouts you can do anywhere using minimal or no equipment.",
+            taskCount = "4 tasks",
+            backgroundRes = R.drawable.darkbg,
+            route = ROUT_HOMEEXERCISES
+        ),
+        ExerciseCategory(
+            imageRes = R.drawable.gym,
+            title = "Gym Exercises",
+            description = "Make the most of gym machines and weights with guided workouts that target strength, endurance, and overall fitness.",
+            taskCount = "4 tasks",
+            backgroundRes = R.drawable.darkbg,
+            route = ROUT_GYMEXERCISES
+        ),
+        ExerciseCategory(
+            imageRes = R.drawable.stretch,
+            title = "Stretching and Mobility",
+            description = "Improve flexibility, posture, and joint health with gentle stretches and mobility drills.",
+            taskCount = "5 tasks",
+            backgroundRes = R.drawable.darkbg,
+            route = ROUT_STRETCHINGEXERCISES
+        ),
+        ExerciseCategory(
+            imageRes = R.drawable.rehab,
+            title = "Injury-Specific Rehab",
+            description = "Targeted physiotherapy routines to aid recovery from common injuries like knee, back, and shoulder issues.",
+            taskCount = "7 tasks",
+            backgroundRes = R.drawable.darkbg,
+            route = ROUT_REHAB
+        )
+    )
+
+    // ✅ Filter categories based on search query
+    val filteredCategories = categories.filter {
+        it.title.contains(searchQuery, ignoreCase = true)
+    }
 
     Scaffold(
         bottomBar = {
@@ -56,8 +102,10 @@ fun DashboardScreen(navController: NavController) {
                     icon = { Icon(Icons.Default.Person, contentDescription = "Profile", tint = Color.Black) },
                     label = { Text("Profile", color = Color.Black) },
                     selected = selectedIndex == 2,
-                    onClick = { selectedIndex = 2
-                    navController.navigate(ROUT_ACCOUNT)}
+                    onClick = {
+                        selectedIndex = 2
+                        navController.navigate(ROUT_ACCOUNT)
+                    }
                 )
             }
         },
@@ -103,43 +151,55 @@ fun DashboardScreen(navController: NavController) {
 
                 Spacer(modifier = Modifier.height(10.dp))
 
+                // ✅ Custom Grin Search bar
+                OutlinedTextField(
+                    value = searchQuery,
+                    onValueChange = { searchQuery = it },
+                    leadingIcon = {
+                        Icon(Icons.Default.Search, contentDescription = "Search", tint = Color.Black)
+                    },
+                    placeholder = {
+                        Text("Search categories...", color = Color.Black)
+                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 16.dp),
+                    shape = RoundedCornerShape(50.dp), // pill-shaped
+                    colors = OutlinedTextFieldDefaults.colors(
+                        focusedBorderColor = Color.White,  // Border color when focused
+                        unfocusedBorderColor = Grin, // Border color when not focused
+                        focusedTextColor = Color.Black,
+                        unfocusedTextColor = Grin,
+                        focusedTrailingIconColor = Color.White,
+                        unfocusedTrailingIconColor = Grin
+                    )
+                )
+
+                Spacer(modifier = Modifier.height(16.dp))
+
+                // ✅ Scrollable row of filtered cards
                 Row(
                     modifier = Modifier.horizontalScroll(rememberScrollState())
                 ) {
-                    ExerciseCard(
-                        imageRes = R.drawable.home,
-                        title = "Home Exercises",
-                        description = "No gym? No problem. Simple yet effective workouts you can do anywhere using minimal or no equipment. Perfect for staying active in your living room.",
-                        taskCount = "4 tasks",
-                        backgroundRes = R.drawable.darkbg,
-                        onClick = { navController.navigate(ROUT_HOMEEXERCISES) }
-                    )
-                    ExerciseCard(
-                        imageRes = R.drawable.gym,
-                        title = "Gym Exercises",
-                        description = "Make the most of gym machines and weights with guided workouts that target strength, endurance, and overall fitness.",
-                        taskCount = "4 tasks",
-                        backgroundRes = R.drawable.darkbg,
-                        onClick = { navController.navigate(ROUT_GYMEXERCISES) }
-                    )
-                    ExerciseCard(
-                        imageRes = R.drawable.stretch,
-                        title = "Stretching and Mobility",
-                        description = "Improve flexibility, posture, and joint health with gentle stretches and mobility drills designed for all fitness levels.",
-                        taskCount = "5 tasks",
-                        backgroundRes = R.drawable.darkbg,
-                        onClick = { navController.navigate(ROUT_STRETCHINGEXERCISES) }
-                    )
-                    ExerciseCard(
-                        imageRes = R.drawable.rehab,
-                        title = "Injury-Specific Rehab",
-                        description = "Targeted physiotherapy routines to aid recovery from common injuries like knee, back, and shoulder issues—always guided step-by-step for safety.",
-                        taskCount = "7 tasks",
-                        backgroundRes = R.drawable.darkbg,
-                        onClick = { navController.navigate(ROUT_REHAB) }
-                    )
-
-                    // ✅ Spacer at the end so last card has padding
+                    if (filteredCategories.isEmpty()) {
+                        Text(
+                            "No categories found",
+                            color = Grin,
+                            fontSize = 16.sp,
+                            modifier = Modifier.padding(20.dp)
+                        )
+                    } else {
+                        filteredCategories.forEach { category ->
+                            ExerciseCard(
+                                imageRes = category.imageRes,
+                                title = category.title,
+                                description = category.description,
+                                taskCount = category.taskCount,
+                                backgroundRes = category.backgroundRes,
+                                onClick = { navController.navigate(category.route) }
+                            )
+                        }
+                    }
                     Spacer(modifier = Modifier.width(20.dp))
                 }
             }
@@ -166,23 +226,17 @@ fun ExerciseCard(
         colors = CardDefaults.cardColors(Color.Transparent)
     ) {
         Box(modifier = Modifier.fillMaxSize()) {
-
-            // Background image
             Image(
                 painter = painterResource(backgroundRes),
                 contentDescription = null,
                 modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
             )
-
-            // Semi-transparent overlay
             Box(
                 modifier = Modifier
                     .fillMaxSize()
                     .background(Color.Black.copy(alpha = 0.3f))
             )
-
-            // Foreground content
             Column(
                 modifier = Modifier
                     .fillMaxSize()
@@ -198,7 +252,6 @@ fun ExerciseCard(
                     contentScale = ContentScale.Crop
                 )
                 Spacer(modifier = Modifier.height(16.dp))
-
                 Text(
                     text = title,
                     fontSize = 20.sp,
@@ -207,7 +260,6 @@ fun ExerciseCard(
                     color = Color.White
                 )
                 Spacer(modifier = Modifier.height(8.dp))
-
                 Text(
                     text = description,
                     fontSize = 16.sp,
@@ -215,9 +267,7 @@ fun ExerciseCard(
                     textAlign = TextAlign.Center,
                     modifier = Modifier.padding(bottom = 8.dp)
                 )
-
                 Spacer(modifier = Modifier.weight(1f))
-
                 Text(
                     text = taskCount,
                     fontSize = 14.sp,

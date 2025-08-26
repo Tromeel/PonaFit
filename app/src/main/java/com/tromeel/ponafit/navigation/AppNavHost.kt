@@ -2,12 +2,15 @@ package com.tromeel.ponafit.navigation
 
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.tromeel.ponafit.data.UserDatabase
+import com.tromeel.ponafit.repository.RepositoryProvider
 import com.tromeel.ponafit.repository.UserRepository
 import com.tromeel.ponafit.ui.screens.about.AboutScreen
 import com.tromeel.ponafit.ui.screens.account.AccountScreen
@@ -31,6 +34,7 @@ import com.tromeel.ponafit.ui.screens.gymexercises.GIUpperBodyScreen
 import com.tromeel.ponafit.ui.screens.gymexercises.GLDifficultyScreen
 import com.tromeel.ponafit.ui.screens.gymexercises.GUDifficultyScreen
 import com.tromeel.ponafit.ui.screens.gymexercises.GymExercisesScreen
+import com.tromeel.ponafit.ui.screens.history.HistoryScreen
 import com.tromeel.ponafit.ui.screens.home.HomeScreen
 import com.tromeel.ponafit.ui.screens.homeexercises.ACoreScreen
 import com.tromeel.ponafit.ui.screens.homeexercises.AFullBodyWorkoutScreen
@@ -58,13 +62,14 @@ import com.tromeel.ponafit.ui.screens.stretchingexercises.LowerBodyStretchingScr
 import com.tromeel.ponafit.ui.screens.stretchingexercises.StretchingExercisesScreen
 import com.tromeel.ponafit.ui.screens.stretchingexercises.UpperBodyStretchingScreen
 import com.tromeel.ponafit.viewmodel.AuthViewModel
-import com.tromeel.swaggy.data.UserDatabase
+import com.tromeel.ponafit.viewmodel.ExerciseViewModel
+
 
 @Composable
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = ROUT_SPLASH
+    startDestination: String = ROUT_HISTORY
 ) {
     val context = LocalContext.current
 
@@ -94,6 +99,31 @@ fun AppNavHost(
         composable(ROUT_ACCOUNT) {
             AccountScreen(navController)
         }
+        composable(ROUT_HISTORY) {
+            val context = LocalContext.current
+            val repo = remember { RepositoryProvider.getRepository(context) }
+            val vm = remember { ExerciseViewModel(repo) }
+            HistoryScreen(navController, vm)
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         ///BEGINNER WORKOUTS
 

@@ -17,6 +17,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -26,13 +27,22 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
+import com.tromeel.ponafit.data.DatabaseProvider
 import com.tromeel.ponafit.navigation.ROUT_HOME
 import com.tromeel.ponafit.navigation.ROUT_STRETCHINGEXERCISES
+import com.tromeel.ponafit.repository.ExerciseRepository
 import com.tromeel.ponafit.ui.theme.Grin
+import com.tromeel.ponafit.viewmodel.ExerciseViewModel
 
 @Composable
 fun CoolDownScreen(navController: NavController) {
     var selectedIndex by remember { mutableStateOf(0) }
+
+    // ✅ Setup DB + Repository + ViewModel manually
+    val context = LocalContext.current
+    val dao = remember { DatabaseProvider.getDatabase(context).exerciseTrackingDao() }
+    val repo = remember { ExerciseRepository(dao) }
+    val vm = remember { ExerciseViewModel(repo) }
 
     Scaffold(
         bottomBar = {
@@ -116,7 +126,7 @@ fun CoolDownScreen(navController: NavController) {
                         ),
                         duration = "20–30 seconds",
                         safetyTips = "Bend knees slightly if needed."
-                    )
+                    ) { name, duration -> vm.trackExercise(name, duration) }
 
                     StretchCard4(
                         title = "Seated Hamstring Stretch",
@@ -129,7 +139,7 @@ fun CoolDownScreen(navController: NavController) {
                         ),
                         duration = "20–30 seconds per side",
                         safetyTips = "Avoid bouncing."
-                    )
+                    ) { name, duration -> vm.trackExercise(name, duration) }
 
                     StretchCard4(
                         title = "Child’s Pose",
@@ -142,7 +152,7 @@ fun CoolDownScreen(navController: NavController) {
                         ),
                         duration = "30–60 seconds",
                         safetyTips = "Keep breathing deeply."
-                    )
+                    ) { name, duration -> vm.trackExercise(name, duration) }
 
                     StretchCard4(
                         title = "Cat-Cow Stretch",
@@ -155,7 +165,7 @@ fun CoolDownScreen(navController: NavController) {
                         ),
                         duration = "6–8 slow cycles",
                         safetyTips = "Move smoothly with breath."
-                    )
+                    ) { name, duration -> vm.trackExercise(name, duration) }
 
                     StretchCard4(
                         title = "Quadriceps Stretch",
@@ -168,7 +178,7 @@ fun CoolDownScreen(navController: NavController) {
                         ),
                         duration = "20–30 seconds per side",
                         safetyTips = "Hold onto support if needed."
-                    )
+                    ) { name, duration -> vm.trackExercise(name, duration) }
 
                     StretchCard4(
                         title = "Shoulder Stretch",
@@ -181,7 +191,7 @@ fun CoolDownScreen(navController: NavController) {
                         ),
                         duration = "20–30 seconds per side",
                         safetyTips = "Do not force the stretch."
-                    )
+                    ) { name, duration -> vm.trackExercise(name, duration) }
 
                     StretchCard4(
                         title = "Triceps Stretch",
@@ -194,7 +204,7 @@ fun CoolDownScreen(navController: NavController) {
                         ),
                         duration = "20–30 seconds per side",
                         safetyTips = "Keep neck neutral."
-                    )
+                    ) { name, duration -> vm.trackExercise(name, duration) }
 
                     StretchCard4(
                         title = "Calf Stretch",
@@ -207,7 +217,7 @@ fun CoolDownScreen(navController: NavController) {
                         ),
                         duration = "20–30 seconds per side",
                         safetyTips = "Keep back leg straight."
-                    )
+                    ) { name, duration -> vm.trackExercise(name, duration) }
 
                     StretchCard4(
                         title = "Seated Spinal Twist",
@@ -220,7 +230,7 @@ fun CoolDownScreen(navController: NavController) {
                         ),
                         duration = "20–30 seconds per side",
                         safetyTips = "Keep back straight during twist."
-                    )
+                    ) { name, duration -> vm.trackExercise(name, duration) }
 
                     StretchCard4(
                         title = "Butterfly Stretch",
@@ -233,14 +243,14 @@ fun CoolDownScreen(navController: NavController) {
                         ),
                         duration = "30–45 seconds",
                         safetyTips = "Avoid forcing knees down."
-                    )
+                    ) { name, duration -> vm.trackExercise(name, duration) }
                 }
             }
         }
     )
 }
 
-// ✅ Reusable Stretch Card
+// ✅ Reusable Stretch Card with Tracking
 @Composable
 fun StretchCard4(
     title: String,
@@ -248,7 +258,8 @@ fun StretchCard4(
     benefits: String,
     steps: List<String>,
     duration: String,
-    safetyTips: String
+    safetyTips: String,
+    onTrack: (String, String) -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -260,7 +271,7 @@ fun StretchCard4(
         Box(
             modifier = Modifier
                 .fillMaxWidth()
-                .heightIn(min = 220.dp)
+                .heightIn(min = 240.dp)
         ) {
             Image(
                 painter = painterResource(R.drawable.darkbg),
@@ -281,7 +292,6 @@ fun StretchCard4(
 
                 Spacer(modifier = Modifier.height(4.dp))
                 Text(text = "Muscles: $muscles", fontSize = 13.sp, color = Color.LightGray)
-
                 Text(text = "Benefits: $benefits", fontSize = 13.sp, color = Color.LightGray)
 
                 Spacer(modifier = Modifier.height(6.dp))
@@ -297,6 +307,14 @@ fun StretchCard4(
                 Spacer(modifier = Modifier.height(6.dp))
                 Text(text = "Duration/Reps: $duration", fontSize = 13.sp, color = Color.LightGray)
                 Text(text = "Safety Tips: $safetyTips", fontSize = 13.sp, color = Color.LightGray)
+
+                Spacer(modifier = Modifier.height(10.dp))
+                Button(
+                    onClick = { onTrack(title, duration) },
+                    colors = ButtonDefaults.buttonColors(containerColor = Grin)
+                ) {
+                    Text("Mark as Done", color = Color.Black, fontWeight = FontWeight.Bold)
+                }
             }
         }
     }

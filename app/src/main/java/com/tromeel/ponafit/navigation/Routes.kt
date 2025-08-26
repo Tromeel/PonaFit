@@ -6,14 +6,10 @@ const val ROUT_ABOUT = "about"
 const val ROUT_SPLASH = "splash"
 const val ROUT_DASHBOARD = "dashboard"
 const val ROUT_ACCOUNT = "account"
+const val ROUT_HISTORY = "history"
 
 
 
-<<<<<<< HEAD
-=======
-
-const val ROUT_STRETCHINGEXERCISES = "stretchingexercises"
->>>>>>> origin/master
 const val ROUT_REHAB = "rehab"
 
 
@@ -59,7 +55,7 @@ const val ROUT_GICORE = "gicore"
 const val ROUT_GACORE = "gacore"
 const val ROUT_GAFULLBODY = "gafullbody"
 const val ROUT_GAUPPERBODY = "gaupperbody"
-<<<<<<< HEAD
+
 const val ROUT_GALOWERBODY = "galowerbody"
 
 //Strethingexercise
@@ -69,6 +65,3 @@ const val ROUT_UPPERBODYSTRETCHING = "upperbodystretching"
 const val ROUT_LOWERBODYSTRETCHING = "lowerbodystretching"
 const val ROUT_DYNAMICWARMUPS = "dynamicwarmups"
 const val ROUT_COOLDOWN = "cooldown"
-=======
-const val ROUT_GALOWERBODY = "galowerbody"
->>>>>>> origin/master
