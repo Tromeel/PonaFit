@@ -36,10 +36,10 @@ fun HistoryScreen(
     navController: NavController,
     vm: ExerciseViewModel
 ) {
-    var selectedIndex by remember { mutableStateOf(1) } // bottom bar
+    var selectedIndex by remember { mutableStateOf(1) }
     val history = vm.allTracking.collectAsState()
 
-    // Grouped by categories → subcategories
+    // Group by mainCategory → subCategory
     val groupedHistory = remember(history.value) {
         groupExercises(history.value)
     }
@@ -219,19 +219,12 @@ fun ExerciseHistoryItem(item: ExerciseTrackingEntity) {
 }
 
 /**
- * Groups exercises into main categories and subcategories
+ * Group exercises by mainCategory → subCategory.
  */
 fun groupExercises(history: List<ExerciseTrackingEntity>): Map<String, Map<String, List<ExerciseTrackingEntity>>> {
-    val categories = mapOf(
-        "Home Exercises" to listOf("Full Body Workouts", "Upper Body Workouts", "Lower Body Workouts", "Abs Workouts"),
-        "Gym Exercises" to listOf("Full Body Workouts", "Upper Body Workouts", "Lower Body Workouts", "Abs Workouts"),
-        "Stretching Exercises" to listOf("Full Body Stretching", "Upper Body Stretching", "Lower Body Stretching", "Dynamic Warmups", "Cooldown"),
-        "Rehab" to listOf("Knee Rehab", "Shoulder Rehab", "Lower Back Rehab", "Ankle Rehab", "Hip Rehab", "Wrist Rehab", "Neck Rehab")
-    )
-
-    return categories.mapValues { (cat, subs) ->
-        subs.associateWith { sub ->
-            history.filter { it.exerciseName.contains(sub, ignoreCase = true) }
+    return history
+        .groupBy { it.mainCategory }
+        .mapValues { (_, items) ->
+            items.groupBy { it.subCategory }
         }
-    }
 }
