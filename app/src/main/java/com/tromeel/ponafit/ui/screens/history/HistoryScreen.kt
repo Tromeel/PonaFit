@@ -2,8 +2,10 @@ package com.tromeel.ponafit.ui.screens.history
 
 import androidx.compose.animation.*
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ExpandLess
@@ -81,7 +83,6 @@ fun HistoryScreen(
                 modifier = Modifier
                     .fillMaxSize()
             ) {
-                // Screen background image
                 Image(
                     painter = painterResource(R.drawable.greenbg),
                     contentDescription = null,
@@ -130,7 +131,8 @@ fun ExpandableCategory(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 4.dp),
+            .padding(vertical = 4.dp)
+            .border(2.dp, Color.White, RoundedCornerShape(8.dp)), // White border
         elevation = CardDefaults.cardElevation(4.dp),
         colors = CardDefaults.cardColors(containerColor = Grin)
     ) {
@@ -178,7 +180,8 @@ fun ExpandableSubCategory(
         Card(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(vertical = 2.dp),
+                .padding(vertical = 2.dp)
+                .border(1.5.dp, Color.White, RoundedCornerShape(6.dp)), // White border
             elevation = CardDefaults.cardElevation(3.dp),
             colors = CardDefaults.cardColors(containerColor = Grin)
         ) {
@@ -219,7 +222,8 @@ fun ExerciseHistoryItem(item: ExerciseTrackingEntity) {
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 32.dp, bottom = 6.dp),
+            .padding(start = 32.dp, bottom = 6.dp)
+            .border(1.dp, Color.White, RoundedCornerShape(6.dp)), // White border
         elevation = CardDefaults.cardElevation(2.dp),
         colors = CardDefaults.cardColors(containerColor = Grin)
     ) {
@@ -238,9 +242,6 @@ fun ExerciseHistoryItem(item: ExerciseTrackingEntity) {
     }
 }
 
-/**
- * Group exercises by mainCategory → subCategory.
- */
 fun groupExercises(history: List<ExerciseTrackingEntity>): Map<String, Map<String, List<ExerciseTrackingEntity>>> {
     return history
         .groupBy { it.mainCategory }

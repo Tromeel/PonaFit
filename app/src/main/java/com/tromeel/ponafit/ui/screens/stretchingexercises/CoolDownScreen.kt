@@ -15,10 +15,9 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -37,6 +36,7 @@ import com.tromeel.ponafit.repository.ExerciseRepository
 import com.tromeel.ponafit.ui.theme.Grin
 import com.tromeel.ponafit.viewmodel.ExerciseViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun CoolDownScreen(navController: NavController) {
     var selectedIndex by remember { mutableStateOf(0) }
@@ -47,6 +47,17 @@ fun CoolDownScreen(navController: NavController) {
     val vm = remember { ExerciseViewModel(repo) }
 
     Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Cool Down Stretches", color = Grin, fontWeight = FontWeight.Bold) },
+                navigationIcon = {
+                    IconButton(onClick = { navController.navigate(ROUT_STRETCHINGEXERCISES) }) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = Grin)
+                    }
+                },
+                colors = TopAppBarDefaults.mediumTopAppBarColors(containerColor = Color.Transparent)
+            )
+        },
         bottomBar = {
             NavigationBar(containerColor = Grin) {
                 NavigationBarItem(
@@ -85,28 +96,8 @@ fun CoolDownScreen(navController: NavController) {
                         .verticalScroll(rememberScrollState()),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    IconButton(
-                        onClick = { navController.navigate(ROUT_STRETCHINGEXERCISES) },
-                        modifier = Modifier.align(Alignment.Start)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back",
-                            tint = Grin,
-                            modifier = Modifier.size(40.dp).padding(start = 10.dp, top = 10.dp)
-                        )
-                    }
 
-                    Spacer(modifier = Modifier.height(30.dp))
-
-                    Text(
-                        text = "Cool Down Stretches",
-                        fontSize = 26.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Grin,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.padding(bottom = 20.dp)
-                    )
+                    Spacer(modifier = Modifier.height(10.dp))
 
                     Text(
                         text = "Cool down exercises help your body relax, reduce stiffness, and promote recovery after a workout. Perform each stretch slowly and with controlled breathing.",
@@ -176,17 +167,18 @@ fun CoolDownScreen(navController: NavController) {
                     )
 
                     exercises.forEach { ex ->
-                        StretchCard4(
+                        StretchCard(
                             title = ex["title"]!!,
                             muscles = ex["muscles"]!!,
                             benefits = ex["benefits"]!!,
-                            steps = ex["steps"]!!.split("→").map { it.trim() },
+                            steps = ex["steps"]!!.split("→"),
                             duration = ex["duration"]!!,
                             safetyTips = ex["safety"]!!,
                             mainCategory = "Stretching Exercises",
                             subCategory = "Cool Down",
                             onTrack = { name, dur, main, sub -> vm.trackExercise(name, dur, main, sub) },
-                            onUndo = { name -> vm.removeExerciseFromHistory(name) }
+                            onUndo = { name -> vm.removeExerciseFromHistory(name) },
+                            vm = vm
                         )
                     }
                 }
@@ -195,9 +187,8 @@ fun CoolDownScreen(navController: NavController) {
     )
 }
 
-// =================== StretchCard4 with mainCategory and subCategory ===================
 @Composable
-fun StretchCard4(
+fun StretchCard6(
     title: String,
     muscles: String,
     benefits: String,
@@ -207,9 +198,16 @@ fun StretchCard4(
     mainCategory: String,
     subCategory: String,
     onTrack: (String, String, String, String) -> Unit,
-    onUndo: (String) -> Unit
+    onUndo: (String) -> Unit,
+    vm: ExerciseViewModel
 ) {
     var isDone by remember { mutableStateOf(false) }
+
+    LaunchedEffect(title) {
+        vm.isExerciseTracked(title).collect { tracked ->
+            isDone = tracked
+        }
+    }
 
     Card(
         modifier = Modifier
@@ -217,73 +215,74 @@ fun StretchCard4(
             .padding(vertical = 14.dp)
             .heightIn(min = 280.dp),
         elevation = CardDefaults.cardElevation(10.dp),
-        shape = RoundedCornerShape(18.dp)
+        shape = RoundedCornerShape(18.dp),
+        colors = CardDefaults.cardColors(containerColor = Color.Transparent)
     ) {
-        Box(modifier = Modifier.fillMaxWidth()) {
+        Box(
+            modifier = Modifier.fillMaxSize()
+        ) {
             Image(
                 painter = painterResource(R.drawable.darkbg),
                 contentDescription = null,
-                modifier = Modifier
-                    .matchParentSize()
-                    .clip(RoundedCornerShape(18.dp)),
+                modifier = Modifier.fillMaxSize(),
                 contentScale = ContentScale.Crop
             )
 
             Column(
-                modifier = Modifier.padding(20.dp).fillMaxWidth(),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
+                modifier = Modifier
+                    .fillMaxSize()
+                    .padding(20.dp)
             ) {
-                Text(title, fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Color.White)
-                Text("Muscles: $muscles", fontSize = 14.sp, color = Color.LightGray)
-                Text("Benefits: $benefits", fontSize = 14.sp, color = Color.LightGray)
-
-                Text("Instructions:", fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Color.White)
-                steps.forEachIndexed { index, step ->
-                    Text("${index + 1}. ${step.trim()}", fontSize = 14.sp, color = Color.White)
+                Text(title, fontWeight = FontWeight.Bold, fontSize = 20.sp, color = Color.White)
+                Spacer(modifier = Modifier.height(6.dp))
+                Text("Muscles: $muscles", fontSize = 14.sp, color = Color.White)
+                Spacer(modifier = Modifier.height(4.dp))
+                Text("Benefits: $benefits", fontSize = 14.sp, color = Color.White)
+                Spacer(modifier = Modifier.height(4.dp))
+                Text("Duration: $duration", fontSize = 14.sp, color = Color.White)
+                Spacer(modifier = Modifier.height(10.dp))
+                Text("Steps:", fontWeight = FontWeight.Bold, fontSize = 16.sp, color = Color.White)
+                Spacer(modifier = Modifier.height(4.dp))
+                steps.forEach { step ->
+                    Text(
+                        text = "• ${step.trim()}",
+                        fontSize = 14.sp,
+                        color = Color.White,
+                        modifier = Modifier.padding(bottom = 2.dp)
+                    )
                 }
+                Spacer(modifier = Modifier.height(16.dp))
 
-                Text("Duration/Reps: $duration", fontSize = 14.sp, color = Color.LightGray)
-                Text("Safety Tips: $safetyTips", fontSize = 14.sp, color = Color.LightGray)
-
-                Row(
-                    horizontalArrangement = Arrangement.spacedBy(12.dp),
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Button(
-                        onClick = {
-                            isDone = true
+                Button(
+                    onClick = {
+                        if (!isDone) {
                             onTrack(title, duration, mainCategory, subCategory)
-                        },
-                        colors = ButtonDefaults.buttonColors(containerColor = Grin)
-                    ) {
-                        if (isDone) {
-                            Icon(Icons.Default.Check, contentDescription = "Done", tint = Color.White, modifier = Modifier.size(20.dp))
-                            Spacer(modifier = Modifier.width(6.dp))
-                            Text("Done", color = Color.White, fontWeight = FontWeight.Bold)
+                            isDone = true
                         } else {
-                            Text("Mark as Done", color = Color.White, fontWeight = FontWeight.Bold)
+                            onUndo(title)
+                            isDone = false
                         }
-                    }
-
-                    if (isDone) {
-                        Button(
-                            onClick = {
-                                isDone = false
-                                onUndo(title)
-                            },
-                            colors = ButtonDefaults.buttonColors(containerColor = Grin)
-                        ) {
-                            Text("Undo", color = Color.White, fontWeight = FontWeight.Bold)
-                        }
-                    }
+                    },
+                    colors = ButtonDefaults.buttonColors(
+                        containerColor = if (isDone) Color.Gray else Grin
+                    ),
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Check,
+                        contentDescription = "Mark as Done",
+                        tint = Color.White
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    Text(if (isDone) "Done" else "Mark as Done", color = Color.White)
                 }
             }
         }
     }
 }
 
-@Preview
 @Composable
+@Preview
 fun CoolDownScreenPreview() {
     CoolDownScreen(rememberNavController())
 }

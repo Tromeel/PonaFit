@@ -1,11 +1,11 @@
 package com.tromeel.ponafit.ui.screens.stretchingexercises
 
-// ... (keep all existing imports)
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
@@ -14,11 +14,8 @@ import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-// import androidx.compose.ui.draw.clip // This specific import for the Box is no longer strictly needed here
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
@@ -40,9 +37,7 @@ import com.tromeel.ponafit.repository.ExerciseRepository
 import com.tromeel.ponafit.ui.theme.Grin
 import com.tromeel.ponafit.viewmodel.ExerciseViewModel
 
-
-// ... (FullBodyStretchingScreen remains the same)
-
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun FullBodyStretchingScreen(navController: NavController) {
     var selectedIndex by remember { mutableStateOf(0) }
@@ -53,25 +48,30 @@ fun FullBodyStretchingScreen(navController: NavController) {
     val vm = remember { ExerciseViewModel(repo) }
 
     Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Full Body Stretching", color = Grin, fontWeight = FontWeight.Bold) },
+                navigationIcon = {
+                    IconButton(onClick = { navController.navigate(ROUT_STRETCHINGEXERCISES) }) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = Grin)
+                    }
+                },
+                colors = TopAppBarDefaults.mediumTopAppBarColors(containerColor = Color.Transparent)
+            )
+        },
         bottomBar = {
             NavigationBar(containerColor = Grin) {
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.Home, contentDescription = "Home", tint = Color.Black) },
                     label = { Text("Home", color = Color.Black) },
                     selected = selectedIndex == 0,
-                    onClick = {
-                        selectedIndex = 0
-                        navController.navigate(ROUT_HOME)
-                    }
+                    onClick = { selectedIndex = 0; navController.navigate(ROUT_HOME) }
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.History, contentDescription = "History", tint = Color.Black) },
                     label = { Text("History", color = Color.Black) },
                     selected = selectedIndex == 1,
-                    onClick = {
-                        selectedIndex = 1
-                        navController.navigate(ROUT_HISTORY)
-                    }
+                    onClick = { selectedIndex = 1; navController.navigate(ROUT_HISTORY) }
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.Person, contentDescription = "Profile", tint = Color.Black) },
@@ -97,30 +97,8 @@ fun FullBodyStretchingScreen(navController: NavController) {
                         .verticalScroll(rememberScrollState()),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    IconButton(
-                        onClick = { navController.navigate(ROUT_STRETCHINGEXERCISES) },
-                        modifier = Modifier.align(Alignment.Start)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back",
-                            tint = Grin,
-                            modifier = Modifier
-                                .size(40.dp)
-                                .padding(start = 10.dp, top = 10.dp)
-                        )
-                    }
 
-                    Spacer(modifier = Modifier.height(30.dp))
-
-                    Text(
-                        text = "Full Body Stretching",
-                        fontSize = 26.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Grin,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.padding(bottom = 20.dp)
-                    )
+                    Spacer(modifier = Modifier.height(10.dp))
 
                     Text(
                         text = "These stretches help improve flexibility, relieve tension, and enhance mobility across your whole body. Perform them gently and consistently for best results.",
@@ -189,7 +167,6 @@ fun FullBodyStretchingScreen(navController: NavController) {
                         )
                     )
 
-                    // Render all cards with same design
                     exercises.forEach { ex ->
                         StretchCard(
                             title = ex["title"]!!,
@@ -197,7 +174,7 @@ fun FullBodyStretchingScreen(navController: NavController) {
                             benefits = ex["benefits"]!!,
                             steps = ex["steps"]!!.split("→"),
                             duration = ex["duration"]!!,
-                            safetyTips = ex["safety"]!!, // Make sure safetyTips is used in StretchCard if needed
+                            safetyTips = ex["safety"]!!,
                             mainCategory = "Stretching Exercises",
                             subCategory = "Full Body",
                             onTrack = { name, dur, main, sub -> vm.trackExercise(name, dur, main, sub) },
@@ -211,7 +188,6 @@ fun FullBodyStretchingScreen(navController: NavController) {
     )
 }
 
-
 @Composable
 fun StretchCard(
     title: String,
@@ -219,7 +195,7 @@ fun StretchCard(
     benefits: String,
     steps: List<String>,
     duration: String,
-    safetyTips: String, // Ensure this is used if it's important for display
+    safetyTips: String,
     mainCategory: String,
     subCategory: String,
     onTrack: (String, String, String, String) -> Unit,
@@ -238,54 +214,46 @@ fun StretchCard(
         modifier = Modifier
             .fillMaxWidth()
             .padding(vertical = 14.dp)
-            .heightIn(min = 280.dp), // Ensure card has enough min height for content
+            .heightIn(min = 280.dp),
         elevation = CardDefaults.cardElevation(10.dp),
         shape = RoundedCornerShape(18.dp),
-        // Make the Card's own background transparent if the Box/Image is the true background
         colors = CardDefaults.cardColors(containerColor = Color.Transparent)
+        // Removed border as requested
     ) {
-        // Box will now be the container for the background image and the content Column
         Box(
-            modifier = Modifier.fillMaxSize() // Box fills the Card
+            modifier = Modifier.fillMaxSize()
         ) {
-            // Background Image - drawn first, covers the entire Box (and thus the Card)
             Image(
                 painter = painterResource(R.drawable.darkbg),
-                contentDescription = null, // Decorative image
-                modifier = Modifier.matchParentSize(), // Image fills the Box
-                contentScale = ContentScale.Crop // Crop to fill bounds while maintaining aspect ratio
+                contentDescription = null,
+                modifier = Modifier.matchParentSize(),
+                contentScale = ContentScale.Crop
             )
 
-            // Content Column - drawn on top of the Image
             Column(
                 modifier = Modifier
-                    .fillMaxSize() // Column also fills the Box, overlaying the image
-                    .padding(20.dp), // Padding for the content within the card
-                // horizontalAlignment = Alignment.Start // Content usually starts from left
+                    .fillMaxSize()
+                    .padding(20.dp)
             ) {
                 Text(title, fontWeight = FontWeight.Bold, fontSize = 20.sp, color = Color.White)
                 Spacer(modifier = Modifier.height(6.dp))
                 Text("Muscles: $muscles", fontSize = 14.sp, color = Color.White)
-                Spacer(modifier = Modifier.height(4.dp)) // Added small spacer
+                Spacer(modifier = Modifier.height(4.dp))
                 Text("Benefits: $benefits", fontSize = 14.sp, color = Color.White)
-                Spacer(modifier = Modifier.height(4.dp)) // Added small spacer
+                Spacer(modifier = Modifier.height(4.dp))
                 Text("Duration: $duration", fontSize = 14.sp, color = Color.White)
-                // Optionally display safetyTips if relevant to the design
-                // Spacer(modifier = Modifier.height(4.dp))
-                // Text("Safety: $safetyTips", fontSize = 14.sp, color = Color.LightGray) // Example
-                Spacer(modifier = Modifier.height(10.dp)) // Increased space before steps
-
+                Spacer(modifier = Modifier.height(10.dp))
                 Text("Steps:", fontWeight = FontWeight.Bold, fontSize = 16.sp, color = Color.White)
                 Spacer(modifier = Modifier.height(4.dp))
                 steps.forEach { step ->
                     Text(
-                        text = "• ${step.trim()}", // Trim step to remove leading/trailing spaces
+                        text = "• ${step.trim()}",
                         fontSize = 14.sp,
                         color = Color.White,
-                        modifier = Modifier.padding(bottom = 2.dp) // Small padding between steps
+                        modifier = Modifier.padding(bottom = 2.dp)
                     )
                 }
-                Spacer(modifier = Modifier.height(16.dp)) // Increased space before button
+                Spacer(modifier = Modifier.height(16.dp))
 
                 Button(
                     onClick = {
@@ -298,9 +266,9 @@ fun StretchCard(
                         }
                     },
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = if (isDone) Color.Gray else Grin // Assuming Grin is defined in your theme
+                        containerColor = if (isDone) Color.Gray else Grin
                     ),
-                    modifier = Modifier.align(Alignment.CenterHorizontally) // Center the button
+                    modifier = Modifier.align(Alignment.CenterHorizontally)
                 ) {
                     Icon(
                         imageVector = Icons.Default.Check,
@@ -315,8 +283,8 @@ fun StretchCard(
     }
 }
 
-@Preview
 @Composable
+@Preview
 fun FullBodyStretchingScreenPreview() {
     FullBodyStretchingScreen(rememberNavController())
 }
