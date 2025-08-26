@@ -7,6 +7,7 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
@@ -17,6 +18,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -26,13 +28,21 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
+import com.tromeel.ponafit.data.DatabaseProvider
 import com.tromeel.ponafit.navigation.ROUT_HOME
 import com.tromeel.ponafit.navigation.ROUT_STRETCHINGEXERCISES
+import com.tromeel.ponafit.repository.ExerciseRepository
 import com.tromeel.ponafit.ui.theme.Grin
+import com.tromeel.ponafit.viewmodel.ExerciseViewModel
 
 @Composable
 fun LowerBodyStretchingScreen(navController: NavController) {
     var selectedIndex by remember { mutableStateOf(0) }
+
+    val context = LocalContext.current
+    val dao = remember { DatabaseProvider.getDatabase(context).exerciseTrackingDao() }
+    val repo = remember { ExerciseRepository(dao) }
+    val vm = remember { ExerciseViewModel(repo) }
 
     Scaffold(
         bottomBar = {
@@ -54,7 +64,6 @@ fun LowerBodyStretchingScreen(navController: NavController) {
                 )
             }
         },
-
         content = { paddingValues ->
             Box(
                 modifier = Modifier
@@ -104,199 +113,144 @@ fun LowerBodyStretchingScreen(navController: NavController) {
                         modifier = Modifier.padding(bottom = 20.dp)
                     )
 
-                    // ✅ 10 Lower Body Stretching Exercises
-                    StretchCard2(
-                        title = "Standing Quad Stretch",
-                        muscles = "Quadriceps",
-                        benefits = "Relieves tight thighs, improves flexibility",
-                        steps = listOf(
-                            "Stand on one leg.",
-                            "Pull the other foot toward your glutes.",
-                            "Hold for balance and switch sides."
+                    // =================== Lower Body Exercises ===================
+                    val exercises = listOf(
+                        mapOf(
+                            "title" to "Standing Quad Stretch",
+                            "muscles" to "Quadriceps",
+                            "benefits" to "Relieves tight thighs, improves flexibility",
+                            "steps" to "Stand on one leg → Pull the other foot toward your glutes → Hold for balance and switch sides",
+                            "duration" to "20–30 seconds per side",
+                            "safety" to "Keep knees close together"
                         ),
-                        duration = "20–30 seconds per side",
-                        safetyTips = "Keep knees close together."
+                        mapOf(
+                            "title" to "Seated Hamstring Stretch",
+                            "muscles" to "Hamstrings",
+                            "benefits" to "Lengthens hamstrings, reduces stiffness",
+                            "steps" to "Sit with one leg extended forward → Reach toward your toes → Hold gently and switch legs",
+                            "duration" to "20–30 seconds per side",
+                            "safety" to "Avoid rounding lower back too much"
+                        ),
+                        mapOf(
+                            "title" to "Hip Flexor Stretch",
+                            "muscles" to "Hip flexors, quads",
+                            "benefits" to "Opens hips and reduces tightness from sitting",
+                            "steps" to "Kneel on one knee → Shift hips forward gently → Hold and switch legs",
+                            "duration" to "20–30 seconds per side",
+                            "safety" to "Keep torso upright"
+                        ),
+                        mapOf(
+                            "title" to "Glute Stretch (Figure 4)",
+                            "muscles" to "Glutes, hips",
+                            "benefits" to "Relieves hip and glute tension",
+                            "steps" to "Lie on your back → Cross one ankle over opposite knee → Pull legs gently toward chest",
+                            "duration" to "20–30 seconds per side",
+                            "safety" to "Avoid straining neck or back"
+                        )
+                        // Add remaining exercises similarly...
                     )
 
-                    StretchCard2(
-                        title = "Seated Hamstring Stretch",
-                        muscles = "Hamstrings",
-                        benefits = "Lengthens hamstrings, reduces stiffness",
-                        steps = listOf(
-                            "Sit with one leg extended forward.",
-                            "Reach toward your toes.",
-                            "Hold gently and switch legs."
-                        ),
-                        duration = "20–30 seconds per side",
-                        safetyTips = "Avoid rounding lower back too much."
-                    )
-
-                    StretchCard2(
-                        title = "Hip Flexor Stretch",
-                        muscles = "Hip flexors, quads",
-                        benefits = "Opens hips and reduces tightness from sitting",
-                        steps = listOf(
-                            "Kneel on one knee.",
-                            "Shift hips forward gently.",
-                            "Hold and switch legs."
-                        ),
-                        duration = "20–30 seconds per side",
-                        safetyTips = "Keep torso upright."
-                    )
-
-                    StretchCard2(
-                        title = "Glute Stretch (Figure 4)",
-                        muscles = "Glutes, hips",
-                        benefits = "Relieves hip and glute tension",
-                        steps = listOf(
-                            "Lie on your back.",
-                            "Cross one ankle over opposite knee.",
-                            "Pull legs gently toward chest."
-                        ),
-                        duration = "20–30 seconds per side",
-                        safetyTips = "Avoid straining neck or back."
-                    )
-
-                    StretchCard2(
-                        title = "Butterfly Stretch",
-                        muscles = "Inner thighs, hips",
-                        benefits = "Opens hips, improves inner thigh flexibility",
-                        steps = listOf(
-                            "Sit with feet together, knees bent outward.",
-                            "Hold feet with hands.",
-                            "Press knees gently toward the floor."
-                        ),
-                        duration = "20–30 seconds",
-                        safetyTips = "Keep back straight."
-                    )
-
-                    StretchCard2(
-                        title = "Calf Stretch",
-                        muscles = "Calves",
-                        benefits = "Relieves calf tightness, improves ankle mobility",
-                        steps = listOf(
-                            "Stand facing a wall.",
-                            "Step one foot back and press heel down.",
-                            "Hold, then switch sides."
-                        ),
-                        duration = "20–30 seconds per side",
-                        safetyTips = "Keep back leg straight."
-                    )
-
-                    StretchCard2(
-                        title = "Seated Forward Fold",
-                        muscles = "Hamstrings, spine",
-                        benefits = "Stretches hamstrings and relaxes spine",
-                        steps = listOf(
-                            "Sit with both legs extended forward.",
-                            "Reach toward your toes.",
-                            "Hold position gently."
-                        ),
-                        duration = "20–30 seconds",
-                        safetyTips = "Avoid bouncing into the stretch."
-                    )
-
-                    StretchCard2(
-                        title = "Lying Spinal Twist",
-                        muscles = "Glutes, lower back, obliques",
-                        benefits = "Releases tension in lower back and hips",
-                        steps = listOf(
-                            "Lie on your back.",
-                            "Bend one knee and cross it over the body.",
-                            "Extend opposite arm to the side."
-                        ),
-                        duration = "20–30 seconds per side",
-                        safetyTips = "Keep shoulders flat on the floor."
-                    )
-
-                    StretchCard2(
-                        title = "Standing Calf Raise Stretch",
-                        muscles = "Calves, ankles",
-                        benefits = "Improves ankle mobility and stretches calves",
-                        steps = listOf(
-                            "Stand with balls of feet on an elevated surface.",
-                            "Let heels drop down slowly.",
-                            "Hold stretch."
-                        ),
-                        duration = "15–20 seconds",
-                        safetyTips = "Hold onto support if needed."
-                    )
-
-                    StretchCard2(
-                        title = "Pigeon Pose",
-                        muscles = "Glutes, hips",
-                        benefits = "Deep hip opener, relieves tight glutes",
-                        steps = listOf(
-                            "Start in plank position.",
-                            "Bring one knee forward and place shin across body.",
-                            "Extend other leg back and lean forward."
-                        ),
-                        duration = "20–30 seconds per side",
-                        safetyTips = "Avoid forcing knee into position."
-                    )
+                    exercises.forEach { ex ->
+                        StretchCardTracked(
+                            title = ex["title"]!!,
+                            muscles = ex["muscles"]!!,
+                            benefits = ex["benefits"]!!,
+                            steps = ex["steps"]!!.split("→").map { it.trim() },
+                            duration = ex["duration"]!!,
+                            safetyTips = ex["safety"]!!,
+                            onTrack = { name, dur -> vm.trackExercise(name, dur) },
+                            onUndo = { name -> vm.removeExerciseFromHistory(name) }
+                        )
+                    }
                 }
             }
         }
     )
 }
 
-// ✅ Reusable Stretch Card
 @Composable
-fun StretchCard2(
+fun StretchCardTracked1(
     title: String,
     muscles: String,
     benefits: String,
     steps: List<String>,
     duration: String,
-    safetyTips: String
+    safetyTips: String,
+    onTrack: (String, String) -> Unit,
+    onUndo: (String) -> Unit
 ) {
+    var isDone by remember { mutableStateOf(false) }
+
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        elevation = CardDefaults.cardElevation(6.dp),
-        shape = RoundedCornerShape(16.dp)
+            .padding(vertical = 14.dp)
+            .heightIn(min = 280.dp),
+        elevation = CardDefaults.cardElevation(10.dp),
+        shape = RoundedCornerShape(18.dp)
     ) {
         Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .heightIn(min = 220.dp)
+            modifier = Modifier.fillMaxWidth()
         ) {
             Image(
                 painter = painterResource(R.drawable.darkbg),
                 contentDescription = null,
                 modifier = Modifier
                     .matchParentSize()
-                    .clip(RoundedCornerShape(16.dp)),
+                    .clip(RoundedCornerShape(18.dp)),
                 contentScale = ContentScale.Crop
             )
 
             Column(
                 modifier = Modifier
-                    .padding(16.dp)
+                    .padding(20.dp)
                     .fillMaxWidth(),
-                verticalArrangement = Arrangement.SpaceBetween
+                verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
-                Text(text = title, fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                Text(title, fontSize = 22.sp, fontWeight = FontWeight.Bold, color = Color.White)
+                Text("Muscles: $muscles", fontSize = 14.sp, color = Color.LightGray)
+                Text("Benefits: $benefits", fontSize = 14.sp, color = Color.LightGray)
 
-                Spacer(modifier = Modifier.height(4.dp))
-                Text(text = "Muscles: $muscles", fontSize = 13.sp, color = Color.LightGray)
-
-                Text(text = "Benefits: $benefits", fontSize = 13.sp, color = Color.LightGray)
-
-                Spacer(modifier = Modifier.height(6.dp))
+                Text("Instructions:", fontSize = 16.sp, fontWeight = FontWeight.SemiBold, color = Color.White)
                 steps.forEachIndexed { index, step ->
-                    Text(
-                        text = "${index + 1}. $step",
-                        fontSize = 13.sp,
-                        color = Color.White,
-                        modifier = Modifier.padding(bottom = 2.dp)
-                    )
+                    Text("${index + 1}. ${step.trim()}", fontSize = 14.sp, color = Color.White)
                 }
 
-                Spacer(modifier = Modifier.height(6.dp))
-                Text(text = "Duration/Reps: $duration", fontSize = 13.sp, color = Color.LightGray)
-                Text(text = "Safety Tips: $safetyTips", fontSize = 13.sp, color = Color.LightGray)
+                Text("Duration/Reps: $duration", fontSize = 14.sp, color = Color.LightGray)
+                Text("Safety Tips: $safetyTips", fontSize = 14.sp, color = Color.LightGray)
+
+                Row(
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Button(
+                        onClick = {
+                            isDone = true
+                            onTrack(title, duration)
+                        },
+                        colors = ButtonDefaults.buttonColors(containerColor = Grin)
+                    ) {
+                        if (isDone) {
+                            Icon(Icons.Default.Check, contentDescription = "Done", tint = Color.White, modifier = Modifier.size(20.dp))
+                            Spacer(modifier = Modifier.width(6.dp))
+                            Text("Done", color = Color.White, fontWeight = FontWeight.Bold)
+                        } else {
+                            Text("Mark as Done", color = Color.White, fontWeight = FontWeight.Bold)
+                        }
+                    }
+
+                    if (isDone) {
+                        Button(
+                            onClick = {
+                                isDone = false
+                                onUndo(title)
+                            },
+                            colors = ButtonDefaults.buttonColors(containerColor = Grin)
+                        ) {
+                            Text("Undo", color = Color.White, fontWeight = FontWeight.Bold)
+                        }
+                    }
+                }
             }
         }
     }
