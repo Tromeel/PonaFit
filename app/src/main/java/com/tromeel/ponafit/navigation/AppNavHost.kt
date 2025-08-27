@@ -1,14 +1,19 @@
 package com.tromeel.ponafit.navigation
 
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
+import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
 import com.tromeel.ponafit.data.UserDatabase
 import com.tromeel.ponafit.repository.RepositoryProvider
 import com.tromeel.ponafit.repository.UserRepository
@@ -53,6 +58,9 @@ import com.tromeel.ponafit.ui.screens.homeexercises.ILowerBodyScreen
 import com.tromeel.ponafit.ui.screens.homeexercises.IUpperBodyScreen
 import com.tromeel.ponafit.ui.screens.homeexercises.LDifficultyScreen
 import com.tromeel.ponafit.ui.screens.homeexercises.UDifficultyScreen
+import com.tromeel.ponafit.ui.screens.physio.AddPhysioScreen
+import com.tromeel.ponafit.ui.screens.physio.EditPhysioScreen
+import com.tromeel.ponafit.ui.screens.physio.PhysioListScreen
 import com.tromeel.ponafit.ui.screens.rehab.AnkleFootRehabScreen
 import com.tromeel.ponafit.ui.screens.rehab.HipRehabScreen
 import com.tromeel.ponafit.ui.screens.rehab.KneeRehabScreen
@@ -70,14 +78,19 @@ import com.tromeel.ponafit.ui.screens.stretchingexercises.StretchingExercisesScr
 import com.tromeel.ponafit.ui.screens.stretchingexercises.UpperBodyStretchingScreen
 import com.tromeel.ponafit.viewmodel.AuthViewModel
 import com.tromeel.ponafit.viewmodel.ExerciseViewModel
+import com.tromeel.ponafit.viewmodel.PhysioViewModel
 
 
+
+@RequiresApi(Build.VERSION_CODES.Q)
 @Composable
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = ROUT_SPLASH
-) {
+    startDestination: String = ROUT_ADD_PHYSIO,
+    physioViewModel: PhysioViewModel = viewModel(),
+
+    ) {
     val context = LocalContext.current
 
     NavHost(
@@ -111,6 +124,25 @@ fun AppNavHost(
             val repo = remember { RepositoryProvider.getRepository(context) }
             val vm = remember { ExerciseViewModel(repo) }
             HistoryScreen(navController, vm)
+        }
+
+        //Physio
+        composable(ROUT_ADD_PHYSIO) {
+            AddPhysioScreen(navController, physioViewModel)
+        }
+
+        composable(ROUT_PHYSIO_LIST) {
+            PhysioListScreen(navController, physioViewModel)
+        }
+
+        composable(
+            route = ROUT_EDIT_PHYSIO,
+            arguments = listOf(navArgument("physioId") { type = NavType.IntType })
+        ) { backStackEntry ->
+            val physioId = backStackEntry.arguments?.getInt("physioId")
+            if (physioId != null) {
+                EditPhysioScreen(physioId, navController, physioViewModel)
+            }
         }
 
 

@@ -76,3 +76,11 @@ const val ROUT_ANKLEFOOT = "anklefoot"
 const val ROUT_HIP = "hip"
 const val ROUT_WRISTELBOW = "wristelbow"
 const val ROUT_NECK = "neck"
+
+
+//PHYSIO
+const val ROUT_ADD_PHYSIO = "add_product"
+const val ROUT_PHYSIO_LIST = "physio_list"
+const val ROUT_EDIT_PHYSIO = "edit_physio/{physioId}"
+fun editPhysioRoute(physioId: Int) = "edit_physio/$physioId"
+
