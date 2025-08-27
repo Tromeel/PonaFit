@@ -53,8 +53,14 @@ import com.tromeel.ponafit.ui.screens.homeexercises.ILowerBodyScreen
 import com.tromeel.ponafit.ui.screens.homeexercises.IUpperBodyScreen
 import com.tromeel.ponafit.ui.screens.homeexercises.LDifficultyScreen
 import com.tromeel.ponafit.ui.screens.homeexercises.UDifficultyScreen
+import com.tromeel.ponafit.ui.screens.rehab.AnkleFootRehabScreen
+import com.tromeel.ponafit.ui.screens.rehab.HipRehabScreen
 import com.tromeel.ponafit.ui.screens.rehab.KneeRehabScreen
+import com.tromeel.ponafit.ui.screens.rehab.LowerBackRehabScreen
+import com.tromeel.ponafit.ui.screens.rehab.NeckRehabScreen
 import com.tromeel.ponafit.ui.screens.rehab.RehabScreen
+import com.tromeel.ponafit.ui.screens.rehab.ShoulderRehabScreen
+import com.tromeel.ponafit.ui.screens.rehab.WristElbowRehabScreen
 import com.tromeel.ponafit.ui.screens.splash.SplashScreen
 import com.tromeel.ponafit.ui.screens.stretchingexercises.CoolDownScreen
 import com.tromeel.ponafit.ui.screens.stretchingexercises.DynamicWarmUpsScreen
@@ -70,7 +76,7 @@ import com.tromeel.ponafit.viewmodel.ExerciseViewModel
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = ROUT_REHAB
+    startDestination: String = ROUT_SPLASH
 ) {
     val context = LocalContext.current
 
@@ -319,6 +325,26 @@ fun AppNavHost(
         composable(ROUT_KNEE) {
             KneeRehabScreen(navController)
         }
+         composable(ROUT_SHOULDER) {
+            ShoulderRehabScreen(navController)
+        }
+        composable(ROUT_LOWERBACK) {
+            LowerBackRehabScreen(navController)
+        }
+        composable(ROUT_ANKLEFOOT) {
+            AnkleFootRehabScreen(navController)
+        }
+        composable(ROUT_HIP) {
+            HipRehabScreen(navController)
+        }
+        composable(ROUT_WRISTELBOW) {
+            WristElbowRehabScreen(navController)
+        }
+
+        composable(ROUT_NECK) {
+            NeckRehabScreen(navController)
+        }
+
 
 
 

@@ -33,14 +33,13 @@ import com.tromeel.ponafit.data.DatabaseProvider
 import com.tromeel.ponafit.navigation.ROUT_HISTORY
 import com.tromeel.ponafit.navigation.ROUT_HOME
 import com.tromeel.ponafit.navigation.ROUT_REHAB
-import com.tromeel.ponafit.navigation.ROUT_STRETCHINGEXERCISES
 import com.tromeel.ponafit.repository.ExerciseRepository
 import com.tromeel.ponafit.ui.theme.Grin
 import com.tromeel.ponafit.viewmodel.ExerciseViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun KneeRehabScreen(navController: NavController) {
+fun ShoulderRehabScreen(navController: NavController) {
     var selectedIndex by remember { mutableStateOf(0) }
 
     val context = LocalContext.current
@@ -50,46 +49,46 @@ fun KneeRehabScreen(navController: NavController) {
 
     val recoveryPeriods = mapOf(
         "0–2 Weeks" to listOf(
-            mapOf("title" to "Quadriceps Activation", "muscles" to "Quadriceps", "benefits" to "Maintains quad strength without moving the knee", "duration" to "10 reps, 3 sets", "safety" to "Keep knee straight, do not lift leg", "steps" to "Sit with leg straight → Tighten thigh muscles → Hold 5 sec → Relax"),
-            mapOf("title" to "Knee Glide", "muscles" to "Knee joint, hamstrings", "benefits" to "Promotes knee mobility", "duration" to "10–15 reps, 2–3 sets", "safety" to "Move slowly, avoid pain", "steps" to "Lie on back → Slide heel toward buttocks → Slide back → Repeat"),
-            mapOf("title" to "Ankle Pumps", "muscles" to "Calves, ankle", "benefits" to "Promotes circulation", "duration" to "15 reps, 3 sets", "safety" to "Move gently", "steps" to "Flex and point toes → Repeat slowly"),
-            mapOf("title" to "Hamstring Sets", "muscles" to "Hamstrings", "benefits" to "Maintains hamstring tone", "duration" to "10 reps, 3 sets", "safety" to "Do not strain", "steps" to "Press heel into floor → Hold 5 sec → Relax"),
-            mapOf("title" to "Seated Knee Extensions", "muscles" to "Quadriceps", "benefits" to "Maintains knee range of motion", "duration" to "10 reps, 3 sets", "safety" to "Avoid pain", "steps" to "Sit → Straighten knee → Hold → Relax")
+            mapOf("title" to "Pendulum Swings", "muscles" to "Shoulder joint, deltoid", "benefits" to "Promotes gentle shoulder mobility", "duration" to "10 reps, 3 sets", "safety" to "Move gently, avoid pain", "steps" to "Lean forward → Let arm hang → Swing gently in circles"),
+            mapOf("title" to "Scapular Squeezes", "muscles" to "Upper back, scapula", "benefits" to "Improves shoulder stability", "duration" to "10 reps, 3 sets", "safety" to "Do not shrug shoulders", "steps" to "Squeeze shoulder blades together → Hold 5 sec → Relax"),
+            mapOf("title" to "Elbow Flexion/Extension", "muscles" to "Biceps, triceps", "benefits" to "Maintains arm mobility", "duration" to "10 reps, 3 sets", "safety" to "Move slowly", "steps" to "Bend elbow → Straighten → Repeat"),
+            mapOf("title" to "Shoulder Circles", "muscles" to "Deltoid, rotator cuff", "benefits" to "Gentle joint mobility", "duration" to "10 reps each way, 3 sets", "safety" to "Move slowly", "steps" to "Lift arm → Circle forward → Reverse"),
+            mapOf("title" to "Wand Assistance Flexion", "muscles" to "Deltoid, rotator cuff", "benefits" to "Assisted shoulder flexion", "duration" to "10 reps, 3 sets", "safety" to "Avoid pain", "steps" to "Hold wand → Lift arm with assistance → Lower slowly")
         ),
         "2–4 Weeks" to listOf(
-            mapOf("title" to "Straight Leg Strength", "muscles" to "Quadriceps, hip flexors", "benefits" to "Strengthens quad without bending knee", "duration" to "10–12 reps, 3 sets", "safety" to "Avoid arching back", "steps" to "Lie on back → Tighten thigh → Lift straight leg → Hold → Lower slowly"),
-            mapOf("title" to "Heel Raises", "muscles" to "Calves, quads", "benefits" to "Strengthens lower leg and improves balance", "duration" to "10 reps, 3 sets", "safety" to "Hold support if needed", "steps" to "Stand → Raise heels → Lower slowly"),
-            mapOf("title" to "Short Arc Quads", "muscles" to "Quadriceps", "benefits" to "Strengthens quad safely", "duration" to "10 reps, 3 sets", "safety" to "Avoid knee pain", "steps" to "Place towel under knee → Lift lower leg → Hold → Lower"),
-            mapOf("title" to "Hip Abductions", "muscles" to "Glutes, hip", "benefits" to "Improves hip stability", "duration" to "10 reps, 2–3 sets", "safety" to "Do not lean torso", "steps" to "Lie on side → Lift top leg → Lower slowly"),
-            mapOf("title" to "Bridging", "muscles" to "Glutes, hamstrings", "benefits" to "Activates posterior chain", "duration" to "10 reps, 3 sets", "safety" to "Avoid lower back strain", "steps" to "Lie on back → Lift hips → Hold → Lower slowly")
+            mapOf("title" to "Wall Slides", "muscles" to "Shoulders, upper back", "benefits" to "Enhances shoulder mobility", "duration" to "10 reps, 2–3 sets", "safety" to "Do not arch back", "steps" to "Stand against wall → Slide arms upward → Lower slowly"),
+            mapOf("title" to "External Rotation with Band", "muscles" to "Rotator cuff", "benefits" to "Strengthens external rotators", "duration" to "10 reps, 2–3 sets", "safety" to "Keep elbow close to body", "steps" to "Hold band → Rotate arm outward → Return"),
+            mapOf("title" to "Shoulder Flexion", "muscles" to "Deltoid", "benefits" to "Maintains shoulder flexion range", "duration" to "10 reps, 2–3 sets", "safety" to "Avoid pain", "steps" to "Lift arm forward → Hold → Lower slowly"),
+            mapOf("title" to "Shoulder Abduction", "muscles" to "Deltoid, rotator cuff", "benefits" to "Strengthens lateral shoulder", "duration" to "10 reps, 2–3 sets", "safety" to "Do not shrug", "steps" to "Lift arm sideways → Hold → Lower slowly"),
+            mapOf("title" to "Prone Y’s", "muscles" to "Upper back, shoulders", "benefits" to "Improves scapular control", "duration" to "10 reps, 2–3 sets", "safety" to "Lift gently", "steps" to "Lie face down → Lift arms in Y → Lower")
         ),
         "4–6 Weeks" to listOf(
-            mapOf("title" to "Partial Squats", "muscles" to "Quads, glutes", "benefits" to "Improves knee stability", "duration" to "10 reps, 2–3 sets", "safety" to "Keep knees behind toes", "steps" to "Stand with support → Slightly bend knees → Hold briefly → Return"),
-            mapOf("title" to "Step-Throughs", "muscles" to "Quads, glutes", "benefits" to "Improves functional movement", "duration" to "10 reps, 2–3 sets", "safety" to "Use support", "steps" to "Step forward → Back → Repeat"),
-            mapOf("title" to "Side-Lying Leg Lifts", "muscles" to "Hip abductors", "benefits" to "Strengthens hip stabilizers", "duration" to "10 reps, 3 sets", "safety" to "Keep torso straight", "steps" to "Lie on side → Lift top leg → Lower slowly"),
-            mapOf("title" to "Terminal Knee Extensions", "muscles" to "Quadriceps", "benefits" to "Improves knee extension", "duration" to "10 reps, 3 sets", "safety" to "Avoid pain", "steps" to "Knee slightly bent → Extend fully → Hold → Relax"),
-            mapOf("title" to "Mini Lunges", "muscles" to "Quads, glutes", "benefits" to "Improves knee control", "duration" to "8–10 reps, 2–3 sets", "safety" to "Do not overbend", "steps" to "Step forward → Slight bend → Return")
+            mapOf("title" to "TheraBand Rows", "muscles" to "Back, shoulder", "benefits" to "Strengthens upper back and shoulder stabilizers", "duration" to "10 reps, 3 sets", "safety" to "Keep back straight", "steps" to "Pull band toward chest → Squeeze shoulder blades → Release"),
+            mapOf("title" to "Shoulder Abduction with Band", "muscles" to "Deltoid, rotator cuff", "benefits" to "Improves lateral shoulder strength", "duration" to "10 reps, 2–3 sets", "safety" to "Avoid shrugging", "steps" to "Lift arm to side → Lower slowly"),
+            mapOf("title" to "Prone T’s", "muscles" to "Upper back, shoulders", "benefits" to "Strengthens scapular stabilizers", "duration" to "10 reps, 3 sets", "safety" to "Lift gently", "steps" to "Lie face down → Lift arms to T → Lower"),
+            mapOf("title" to "Internal Rotation with Band", "muscles" to "Rotator cuff", "benefits" to "Strengthens internal rotators", "duration" to "10 reps, 2 sets", "safety" to "Elbow at 90°", "steps" to "Pull band inward → Return"),
+            mapOf("title" to "Wall Angels", "muscles" to "Upper back, shoulders", "benefits" to "Improves posture and shoulder mobility", "duration" to "10 reps, 2 sets", "safety" to "Keep back flat", "steps" to "Stand → Move arms up/down wall → Return")
         ),
         "6–8 Weeks" to listOf(
-            mapOf("title" to "Step-Up Strength", "muscles" to "Quads, glutes, calves", "benefits" to "Builds strength and balance", "duration" to "10 reps each leg, 2–3 sets", "safety" to "Use support if needed", "steps" to "Step onto low platform → Step down slowly → Repeat"),
-            mapOf("title" to "Walking Lunges", "muscles" to "Quads, glutes", "benefits" to "Strengthens legs and improves balance", "duration" to "10 reps each leg, 2 sets", "safety" to "Maintain knee alignment", "steps" to "Step forward → Bend knees → Return → Switch"),
-            mapOf("title" to "Single-Leg Balance", "muscles" to "Quads, glutes", "benefits" to "Improves stability", "duration" to "30 sec each leg, 2 sets", "safety" to "Hold support if needed", "steps" to "Stand on one leg → Maintain balance → Switch"),
-            mapOf("title" to "Calf Raises on Step", "muscles" to "Calves", "benefits" to "Strengthens lower leg", "duration" to "12 reps, 2 sets", "safety" to "Slow controlled motion", "steps" to "Stand on step → Raise heels → Lower"),
-            mapOf("title" to "Glute Bridges with Hold", "muscles" to "Glutes, hamstrings", "benefits" to "Improves posterior strength", "duration" to "10 reps, 3 sets", "safety" to "Avoid overextension", "steps" to "Lift hips → Hold 3 sec → Lower")
+            mapOf("title" to "Wall Push-Ups", "muscles" to "Chest, shoulders", "benefits" to "Builds shoulder and chest strength safely", "duration" to "10 reps, 2–3 sets", "safety" to "Do not arch back", "steps" to "Stand facing wall → Push against wall → Return"),
+            mapOf("title" to "Standing Row with Band", "muscles" to "Back, shoulders", "benefits" to "Strengthens posterior shoulder muscles", "duration" to "10 reps, 2–3 sets", "safety" to "Keep shoulders down", "steps" to "Pull band toward body → Squeeze shoulder blades → Release"),
+            mapOf("title" to "Shoulder Extension with Band", "muscles" to "Posterior deltoid", "benefits" to "Strengthens back of shoulder", "duration" to "10 reps, 2 sets", "safety" to "Move slowly", "steps" to "Pull arm backward → Return slowly"),
+            mapOf("title" to "Reverse Fly with Band", "muscles" to "Rear deltoid, back", "benefits" to "Strengthens rear shoulder", "duration" to "10 reps, 2 sets", "safety" to "Keep arms straight", "steps" to "Pull band outward → Return"),
+            mapOf("title" to "Overhead Wall Stretch", "muscles" to "Deltoid, upper back", "benefits" to "Improves mobility and posture", "duration" to "Hold 20 sec, 3 sets", "safety" to "Do not overstretch", "steps" to "Place hands on wall → Stretch upward → Hold")
         ),
         "8+ Weeks" to listOf(
-            mapOf("title" to "Lunge Stability", "muscles" to "Quads, hamstrings, glutes", "benefits" to "Improves strength and flexibility", "duration" to "8–10 reps each leg, 2–3 sets", "safety" to "Keep front knee over ankle", "steps" to "Step forward → Bend knees to 90° → Return → Switch legs"),
-            mapOf("title" to "Bulgarian Split Squats", "muscles" to "Quads, glutes", "benefits" to "Improves leg strength", "duration" to "8 reps each leg, 2–3 sets", "safety" to "Use support if needed", "steps" to "Back foot on bench → Lower front knee → Return"),
-            mapOf("title" to "Single-Leg Deadlift", "muscles" to "Hamstrings, glutes", "benefits" to "Strengthens posterior chain", "duration" to "8–10 reps each leg, 2 sets", "safety" to "Maintain balance", "steps" to "Hinge at hips → Lower → Return"),
-            mapOf("title" to "Side Lunges", "muscles" to "Quads, adductors, glutes", "benefits" to "Improves lateral stability", "duration" to "8–10 reps each leg, 2 sets", "safety" to "Do not twist knee", "steps" to "Step sideways → Bend knee → Return"),
-            mapOf("title" to "Step-Downs", "muscles" to "Quads, glutes", "benefits" to "Improves eccentric control", "duration" to "10 reps each leg, 2 sets", "safety" to "Go slow, controlled", "steps" to "Step off platform → Return → Switch leg")
+            mapOf("title" to "Overhead Press with Light Weights", "muscles" to "Deltoid, rotator cuff", "benefits" to "Builds overall shoulder strength", "duration" to "8–10 reps, 2–3 sets", "safety" to "Use light weights only", "steps" to "Lift weights overhead → Lower slowly"),
+            mapOf("title" to "External Rotation at 90° Abduction", "muscles" to "Rotator cuff", "benefits" to "Strengthens shoulder rotators", "duration" to "8–10 reps, 2–3 sets", "safety" to "Avoid shoulder pain", "steps" to "Raise arm to side → Rotate outward → Return"),
+            mapOf("title" to "Scaption", "muscles" to "Deltoid, supraspinatus", "benefits" to "Strengthens shoulder in functional plane", "duration" to "8–10 reps, 2 sets", "safety" to "Move slowly", "steps" to "Lift arms 30° forward of side → Lower slowly"),
+            mapOf("title" to "Lateral Raises with Light Weights", "muscles" to "Deltoid", "benefits" to "Strengthens side shoulder muscles", "duration" to "10 reps, 2 sets", "safety" to "Use light weights", "steps" to "Lift arms sideways → Lower slowly"),
+            mapOf("title" to "Front Raises with Light Weights", "muscles" to "Deltoid, anterior shoulder", "benefits" to "Strengthens front shoulder muscles", "duration" to "10 reps, 2 sets", "safety" to "Use light weights", "steps" to "Lift arms forward → Lower slowly")
         )
     )
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Knee Rehab Exercises", color = Grin, fontWeight = FontWeight.Bold) },
+                title = { Text("Shoulder Rehab Exercises", color = Grin, fontWeight = FontWeight.Bold) },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigate(ROUT_REHAB) }) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = Grin)
@@ -134,7 +133,7 @@ fun KneeRehabScreen(navController: NavController) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "These exercises are designed to strengthen your knee and surrounding muscles during different recovery phases. Always follow your physiotherapist's guidance.",
+                    text = "These exercises are designed to strengthen your shoulder and surrounding muscles during different recovery phases. Always follow your physiotherapist's guidance.",
                     fontSize = 18.sp,
                     color = Grin,
                     textAlign = TextAlign.Center,
@@ -163,7 +162,7 @@ fun KneeRehabScreen(navController: NavController) {
                                 duration = ex["duration"]!!,
                                 safetyTips = ex["safety"]!!,
                                 mainCategory = "Rehab",
-                                subCategory = "KneeRehab",
+                                subCategory = "ShoulderRehab",
                                 onTrack = { name, dur, main, sub -> vm.trackExercise(name, dur, main, sub) },
                                 onUndo = { name -> vm.removeExerciseFromHistory(name) },
                                 vm = vm,
@@ -178,7 +177,7 @@ fun KneeRehabScreen(navController: NavController) {
 }
 
 @Composable
-fun StretchCard(
+fun StretchCard1(
     title: String,
     muscles: String,
     benefits: String,
@@ -201,7 +200,7 @@ fun StretchCard(
                 alpha = 0.85f
             ),
         shape = RoundedCornerShape(24.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp), // No outline
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
         colors = CardDefaults.cardColors(containerColor = Color.Transparent)
     ) {
         Column(
@@ -243,6 +242,6 @@ fun StretchCard(
 
 @Composable
 @Preview
-fun KneeRehabScreenPreview() {
-    KneeRehabScreen(rememberNavController())
+fun ShoulderRehabScreenPreview() {
+    ShoulderRehabScreen(rememberNavController())
 }

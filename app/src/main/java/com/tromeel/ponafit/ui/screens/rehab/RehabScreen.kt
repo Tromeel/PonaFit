@@ -47,9 +47,15 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
+import com.tromeel.ponafit.navigation.ROUT_ANKLEFOOT
 import com.tromeel.ponafit.navigation.ROUT_DASHBOARD
+import com.tromeel.ponafit.navigation.ROUT_HIP
 import com.tromeel.ponafit.navigation.ROUT_HOME
 import com.tromeel.ponafit.navigation.ROUT_KNEE
+import com.tromeel.ponafit.navigation.ROUT_LOWERBACK
+import com.tromeel.ponafit.navigation.ROUT_NECK
+import com.tromeel.ponafit.navigation.ROUT_SHOULDER
+import com.tromeel.ponafit.navigation.ROUT_WRISTELBOW
 import com.tromeel.ponafit.ui.theme.Grin
 
 
@@ -239,7 +245,7 @@ fun RehabScreen(navController: NavController){
 
                     //Start of card
                     Card(
-                        onClick = {},
+                        onClick = {navController.navigate(ROUT_SHOULDER)},
                         modifier = Modifier
                             .width(200.dp)
                             .height(300.dp),
@@ -300,7 +306,7 @@ fun RehabScreen(navController: NavController){
 
                     //Start of card
                     Card(
-                        onClick = {},
+                        onClick = {navController.navigate(ROUT_LOWERBACK)},
                         modifier = Modifier
                             .width(200.dp)
                             .height(300.dp),
@@ -360,7 +366,7 @@ fun RehabScreen(navController: NavController){
 
                     //Start of card
                     Card(
-                        onClick = {},
+                        onClick = {navController.navigate(ROUT_ANKLEFOOT)},
                         modifier = Modifier
                             .width(200.dp)
                             .height(300.dp),
@@ -421,7 +427,7 @@ fun RehabScreen(navController: NavController){
 
                     //Start of card
                     Card(
-                        onClick = {},
+                        onClick = {navController.navigate(ROUT_HIP)},
                         modifier = Modifier
                             .width(200.dp)
                             .height(300.dp),
@@ -482,7 +488,7 @@ fun RehabScreen(navController: NavController){
 
                     //Start of card
                     Card(
-                        onClick = {},
+                        onClick = {navController.navigate(ROUT_WRISTELBOW)},
                         modifier = Modifier
                             .width(200.dp)
                             .height(300.dp),
@@ -543,7 +549,7 @@ fun RehabScreen(navController: NavController){
 
                     //Start of card
                     Card(
-                        onClick = {},
+                        onClick = {navController.navigate(ROUT_NECK)},
                         modifier = Modifier
                             .width(200.dp)
                             .height(300.dp),

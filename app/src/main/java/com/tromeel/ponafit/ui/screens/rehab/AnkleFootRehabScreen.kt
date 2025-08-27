@@ -1,5 +1,7 @@
 package com.tromeel.ponafit.ui.screens.rehab
 
+
+
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.items
@@ -33,14 +35,13 @@ import com.tromeel.ponafit.data.DatabaseProvider
 import com.tromeel.ponafit.navigation.ROUT_HISTORY
 import com.tromeel.ponafit.navigation.ROUT_HOME
 import com.tromeel.ponafit.navigation.ROUT_REHAB
-import com.tromeel.ponafit.navigation.ROUT_STRETCHINGEXERCISES
 import com.tromeel.ponafit.repository.ExerciseRepository
 import com.tromeel.ponafit.ui.theme.Grin
 import com.tromeel.ponafit.viewmodel.ExerciseViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun KneeRehabScreen(navController: NavController) {
+fun AnkleFootRehabScreen(navController: NavController) {
     var selectedIndex by remember { mutableStateOf(0) }
 
     val context = LocalContext.current
@@ -50,46 +51,46 @@ fun KneeRehabScreen(navController: NavController) {
 
     val recoveryPeriods = mapOf(
         "0–2 Weeks" to listOf(
-            mapOf("title" to "Quadriceps Activation", "muscles" to "Quadriceps", "benefits" to "Maintains quad strength without moving the knee", "duration" to "10 reps, 3 sets", "safety" to "Keep knee straight, do not lift leg", "steps" to "Sit with leg straight → Tighten thigh muscles → Hold 5 sec → Relax"),
-            mapOf("title" to "Knee Glide", "muscles" to "Knee joint, hamstrings", "benefits" to "Promotes knee mobility", "duration" to "10–15 reps, 2–3 sets", "safety" to "Move slowly, avoid pain", "steps" to "Lie on back → Slide heel toward buttocks → Slide back → Repeat"),
             mapOf("title" to "Ankle Pumps", "muscles" to "Calves, ankle", "benefits" to "Promotes circulation", "duration" to "15 reps, 3 sets", "safety" to "Move gently", "steps" to "Flex and point toes → Repeat slowly"),
-            mapOf("title" to "Hamstring Sets", "muscles" to "Hamstrings", "benefits" to "Maintains hamstring tone", "duration" to "10 reps, 3 sets", "safety" to "Do not strain", "steps" to "Press heel into floor → Hold 5 sec → Relax"),
-            mapOf("title" to "Seated Knee Extensions", "muscles" to "Quadriceps", "benefits" to "Maintains knee range of motion", "duration" to "10 reps, 3 sets", "safety" to "Avoid pain", "steps" to "Sit → Straighten knee → Hold → Relax")
+            mapOf("title" to "Towel Scrunches", "muscles" to "Foot intrinsic muscles", "benefits" to "Strengthens toes and arch", "duration" to "10 reps, 3 sets", "safety" to "Do not strain toes", "steps" to "Place towel → Scrunch toes → Relax"),
+            mapOf("title" to "Seated Heel Raises", "muscles" to "Calves", "benefits" to "Activates calf muscles safely", "duration" to "10 reps, 3 sets", "safety" to "Move slowly", "steps" to "Sit → Raise heels → Lower → Repeat"),
+            mapOf("title" to "Alphabet Exercise", "muscles" to "Ankle muscles", "benefits" to "Improves ankle mobility", "duration" to "1 set", "safety" to "Avoid pain", "steps" to "Draw letters with toes → Repeat"),
+            mapOf("title" to "Ankle Circles", "muscles" to "Ankle joint", "benefits" to "Increases mobility", "duration" to "10 reps each direction", "safety" to "Move gently", "steps" to "Rotate ankle clockwise → Counterclockwise → Repeat")
         ),
         "2–4 Weeks" to listOf(
-            mapOf("title" to "Straight Leg Strength", "muscles" to "Quadriceps, hip flexors", "benefits" to "Strengthens quad without bending knee", "duration" to "10–12 reps, 3 sets", "safety" to "Avoid arching back", "steps" to "Lie on back → Tighten thigh → Lift straight leg → Hold → Lower slowly"),
-            mapOf("title" to "Heel Raises", "muscles" to "Calves, quads", "benefits" to "Strengthens lower leg and improves balance", "duration" to "10 reps, 3 sets", "safety" to "Hold support if needed", "steps" to "Stand → Raise heels → Lower slowly"),
-            mapOf("title" to "Short Arc Quads", "muscles" to "Quadriceps", "benefits" to "Strengthens quad safely", "duration" to "10 reps, 3 sets", "safety" to "Avoid knee pain", "steps" to "Place towel under knee → Lift lower leg → Hold → Lower"),
-            mapOf("title" to "Hip Abductions", "muscles" to "Glutes, hip", "benefits" to "Improves hip stability", "duration" to "10 reps, 2–3 sets", "safety" to "Do not lean torso", "steps" to "Lie on side → Lift top leg → Lower slowly"),
-            mapOf("title" to "Bridging", "muscles" to "Glutes, hamstrings", "benefits" to "Activates posterior chain", "duration" to "10 reps, 3 sets", "safety" to "Avoid lower back strain", "steps" to "Lie on back → Lift hips → Hold → Lower slowly")
+            mapOf("title" to "Standing Heel Raises", "muscles" to "Calves, foot", "benefits" to "Strengthens calf and ankle", "duration" to "12 reps, 3 sets", "safety" to "Hold support if needed", "steps" to "Stand → Raise heels → Lower slowly"),
+            mapOf("title" to "Toe Spreads", "muscles" to "Foot intrinsic muscles", "benefits" to "Improves balance and strength", "duration" to "10 reps, 3 sets", "safety" to "Do not overextend toes", "steps" to "Spread toes apart → Relax → Repeat"),
+            mapOf("title" to "Ankle Inversion/Eversion", "muscles" to "Ankle muscles", "benefits" to "Strengthens lateral stabilizers", "duration" to "10 reps each direction, 2 sets", "safety" to "Move slowly", "steps" to "Rotate ankle inward → Outward → Repeat"),
+            mapOf("title" to "Resisted Dorsiflexion", "muscles" to "Front shin, ankle", "benefits" to "Improves ankle control", "duration" to "10 reps, 2–3 sets", "safety" to "Use light resistance band", "steps" to "Pull toes toward you against band → Release → Repeat"),
+            mapOf("title" to "Seated Toe Taps", "muscles" to "Foot, ankle", "benefits" to "Enhances coordination", "duration" to "15 reps, 2 sets", "safety" to "Move gently", "steps" to "Tap toes on floor → Repeat")
         ),
         "4–6 Weeks" to listOf(
-            mapOf("title" to "Partial Squats", "muscles" to "Quads, glutes", "benefits" to "Improves knee stability", "duration" to "10 reps, 2–3 sets", "safety" to "Keep knees behind toes", "steps" to "Stand with support → Slightly bend knees → Hold briefly → Return"),
-            mapOf("title" to "Step-Throughs", "muscles" to "Quads, glutes", "benefits" to "Improves functional movement", "duration" to "10 reps, 2–3 sets", "safety" to "Use support", "steps" to "Step forward → Back → Repeat"),
-            mapOf("title" to "Side-Lying Leg Lifts", "muscles" to "Hip abductors", "benefits" to "Strengthens hip stabilizers", "duration" to "10 reps, 3 sets", "safety" to "Keep torso straight", "steps" to "Lie on side → Lift top leg → Lower slowly"),
-            mapOf("title" to "Terminal Knee Extensions", "muscles" to "Quadriceps", "benefits" to "Improves knee extension", "duration" to "10 reps, 3 sets", "safety" to "Avoid pain", "steps" to "Knee slightly bent → Extend fully → Hold → Relax"),
-            mapOf("title" to "Mini Lunges", "muscles" to "Quads, glutes", "benefits" to "Improves knee control", "duration" to "8–10 reps, 2–3 sets", "safety" to "Do not overbend", "steps" to "Step forward → Slight bend → Return")
+            mapOf("title" to "Single-Leg Balance", "muscles" to "Ankle stabilizers", "benefits" to "Improves proprioception", "duration" to "30 sec each leg, 2 sets", "safety" to "Hold support if needed", "steps" to "Stand on one leg → Maintain balance → Switch"),
+            mapOf("title" to "Calf Raises on Step", "muscles" to "Calves, Achilles tendon", "benefits" to "Strengthens lower leg", "duration" to "12 reps, 2–3 sets", "safety" to "Controlled motion", "steps" to "Step onto edge → Raise heels → Lower slowly"),
+            mapOf("title" to "Theraband Inversion/Eversion", "muscles" to "Ankle stabilizers", "benefits" to "Adds resistance for strength", "duration" to "10 reps each, 2 sets", "safety" to "Use light band", "steps" to "Pull band inward/outward → Repeat"),
+            mapOf("title" to "Toe Walking", "muscles" to "Calves, foot muscles", "benefits" to "Strengthens forefoot and balance", "duration" to "1 min, 2 sets", "safety" to "Do not rush", "steps" to "Walk on toes → Return → Repeat"),
+            mapOf("title" to "Heel Walking", "muscles" to "Shins, ankle", "benefits" to "Strengthens anterior tibialis", "duration" to "1 min, 2 sets", "safety" to "Move slowly", "steps" to "Walk on heels → Return → Repeat")
         ),
         "6–8 Weeks" to listOf(
-            mapOf("title" to "Step-Up Strength", "muscles" to "Quads, glutes, calves", "benefits" to "Builds strength and balance", "duration" to "10 reps each leg, 2–3 sets", "safety" to "Use support if needed", "steps" to "Step onto low platform → Step down slowly → Repeat"),
-            mapOf("title" to "Walking Lunges", "muscles" to "Quads, glutes", "benefits" to "Strengthens legs and improves balance", "duration" to "10 reps each leg, 2 sets", "safety" to "Maintain knee alignment", "steps" to "Step forward → Bend knees → Return → Switch"),
-            mapOf("title" to "Single-Leg Balance", "muscles" to "Quads, glutes", "benefits" to "Improves stability", "duration" to "30 sec each leg, 2 sets", "safety" to "Hold support if needed", "steps" to "Stand on one leg → Maintain balance → Switch"),
-            mapOf("title" to "Calf Raises on Step", "muscles" to "Calves", "benefits" to "Strengthens lower leg", "duration" to "12 reps, 2 sets", "safety" to "Slow controlled motion", "steps" to "Stand on step → Raise heels → Lower"),
-            mapOf("title" to "Glute Bridges with Hold", "muscles" to "Glutes, hamstrings", "benefits" to "Improves posterior strength", "duration" to "10 reps, 3 sets", "safety" to "Avoid overextension", "steps" to "Lift hips → Hold 3 sec → Lower")
+            mapOf("title" to "Single-Leg Calf Raise", "muscles" to "Calves, ankle", "benefits" to "Improves strength and balance", "duration" to "10 reps each leg, 2 sets", "safety" to "Hold support if needed", "steps" to "Stand on one leg → Raise heel → Lower → Repeat"),
+            mapOf("title" to "Lateral Hops", "muscles" to "Foot, ankle, calves", "benefits" to "Dynamic stability", "duration" to "10 hops each side, 2 sets", "safety" to "Soft landing", "steps" to "Hop side to side → Repeat"),
+            mapOf("title" to "Theraband Plantar Flexion", "muscles" to "Calf, ankle", "benefits" to "Strengthens Achilles tendon", "duration" to "10 reps, 2 sets", "safety" to "Controlled motion", "steps" to "Push foot down against band → Release → Repeat"),
+            mapOf("title" to "Toe Curls with Towel", "muscles" to "Foot arch muscles", "benefits" to "Improves intrinsic foot strength", "duration" to "10 reps, 2 sets", "safety" to "Do not strain", "steps" to "Scrunch towel with toes → Release → Repeat"),
+            mapOf("title" to "Balance Board Rocking", "muscles" to "Ankle stabilizers", "benefits" to "Enhances proprioception", "duration" to "1 min, 2 sets", "safety" to "Hold support", "steps" to "Rock board side to side → Forward/back → Repeat")
         ),
         "8+ Weeks" to listOf(
-            mapOf("title" to "Lunge Stability", "muscles" to "Quads, hamstrings, glutes", "benefits" to "Improves strength and flexibility", "duration" to "8–10 reps each leg, 2–3 sets", "safety" to "Keep front knee over ankle", "steps" to "Step forward → Bend knees to 90° → Return → Switch legs"),
-            mapOf("title" to "Bulgarian Split Squats", "muscles" to "Quads, glutes", "benefits" to "Improves leg strength", "duration" to "8 reps each leg, 2–3 sets", "safety" to "Use support if needed", "steps" to "Back foot on bench → Lower front knee → Return"),
-            mapOf("title" to "Single-Leg Deadlift", "muscles" to "Hamstrings, glutes", "benefits" to "Strengthens posterior chain", "duration" to "8–10 reps each leg, 2 sets", "safety" to "Maintain balance", "steps" to "Hinge at hips → Lower → Return"),
-            mapOf("title" to "Side Lunges", "muscles" to "Quads, adductors, glutes", "benefits" to "Improves lateral stability", "duration" to "8–10 reps each leg, 2 sets", "safety" to "Do not twist knee", "steps" to "Step sideways → Bend knee → Return"),
-            mapOf("title" to "Step-Downs", "muscles" to "Quads, glutes", "benefits" to "Improves eccentric control", "duration" to "10 reps each leg, 2 sets", "safety" to "Go slow, controlled", "steps" to "Step off platform → Return → Switch leg")
+            mapOf("title" to "Single-Leg Hops", "muscles" to "Ankle, calves", "benefits" to "Advanced ankle stability", "duration" to "10 reps each leg, 2 sets", "safety" to "Soft landing, controlled", "steps" to "Hop on one leg → Land softly → Repeat"),
+            mapOf("title" to "Resisted Ankle Circles", "muscles" to "Ankle", "benefits" to "Strengthens all directions", "duration" to "10 reps each way, 2 sets", "safety" to "Light resistance band", "steps" to "Rotate ankle against band → Repeat"),
+            mapOf("title" to "Forward/Backward Hops", "muscles" to "Ankle, calves", "benefits" to "Improves dynamic control", "duration" to "10 reps, 2 sets", "safety" to "Soft landing", "steps" to "Hop forward/back → Repeat"),
+            mapOf("title" to "Toe and Heel Raises Combo", "muscles" to "Calves, shins", "benefits" to "Strengthens entire lower leg", "duration" to "10 reps, 2 sets", "safety" to "Move slowly", "steps" to "Raise toes → Raise heels → Repeat"),
+            mapOf("title" to "Bosu Ball Balance", "muscles" to "Ankle stabilizers", "benefits" to "Advanced proprioception", "duration" to "1 min, 2 sets", "safety" to "Hold support if needed", "steps" to "Stand on Bosu → Maintain balance → Repeat")
         )
     )
 
     Scaffold(
         topBar = {
             TopAppBar(
-                title = { Text("Knee Rehab Exercises", color = Grin, fontWeight = FontWeight.Bold) },
+                title = { Text("Ankle & Foot Rehab Exercises", color = Grin, fontWeight = FontWeight.Bold) },
                 navigationIcon = {
                     IconButton(onClick = { navController.navigate(ROUT_REHAB) }) {
                         Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = Grin)
@@ -134,7 +135,7 @@ fun KneeRehabScreen(navController: NavController) {
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
-                    text = "These exercises are designed to strengthen your knee and surrounding muscles during different recovery phases. Always follow your physiotherapist's guidance.",
+                    text = "These exercises are designed to strengthen your ankle and foot during different recovery phases. Always follow your physiotherapist's guidance.",
                     fontSize = 18.sp,
                     color = Grin,
                     textAlign = TextAlign.Center,
@@ -163,7 +164,7 @@ fun KneeRehabScreen(navController: NavController) {
                                 duration = ex["duration"]!!,
                                 safetyTips = ex["safety"]!!,
                                 mainCategory = "Rehab",
-                                subCategory = "KneeRehab",
+                                subCategory = "AnkleFootRehab",
                                 onTrack = { name, dur, main, sub -> vm.trackExercise(name, dur, main, sub) },
                                 onUndo = { name -> vm.removeExerciseFromHistory(name) },
                                 vm = vm,
@@ -178,7 +179,7 @@ fun KneeRehabScreen(navController: NavController) {
 }
 
 @Composable
-fun StretchCard(
+fun StretchCard2(
     title: String,
     muscles: String,
     benefits: String,
@@ -201,7 +202,7 @@ fun StretchCard(
                 alpha = 0.85f
             ),
         shape = RoundedCornerShape(24.dp),
-        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp), // No outline
+        elevation = CardDefaults.cardElevation(defaultElevation = 0.dp),
         colors = CardDefaults.cardColors(containerColor = Color.Transparent)
     ) {
         Column(
@@ -243,6 +244,6 @@ fun StretchCard(
 
 @Composable
 @Preview
-fun KneeRehabScreenPreview() {
-    KneeRehabScreen(rememberNavController())
+fun AnkleFootRehabScreenPreview() {
+    AnkleFootRehabScreen(rememberNavController())
 }
