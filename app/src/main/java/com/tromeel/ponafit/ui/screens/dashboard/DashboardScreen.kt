@@ -8,6 +8,7 @@ import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.*
@@ -99,8 +100,8 @@ fun DashboardScreen(navController: NavController) {
                     }
                 )
                 NavigationBarItem(
-                    icon = { Icon(Icons.Default.Person, contentDescription = "Profile", tint = Color.Black) },
-                    label = { Text("Profile", color = Color.Black) },
+                    icon = { Icon(Icons.Default.Menu, contentDescription = "Profile", tint = Color.Black) },
+                    label = { Text("Actions", color = Color.Black) },
                     selected = selectedIndex == 2,
                     onClick = {
                         selectedIndex = 2

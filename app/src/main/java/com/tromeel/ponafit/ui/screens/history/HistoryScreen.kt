@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.ExpandLess
 import androidx.compose.material.icons.filled.ExpandMore
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -23,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.tromeel.ponafit.R
 import com.tromeel.ponafit.model.ExerciseTrackingEntity
+import com.tromeel.ponafit.navigation.ROUT_ACCOUNT
 import com.tromeel.ponafit.navigation.ROUT_HOME
 import com.tromeel.ponafit.ui.theme.Grin
 import com.tromeel.ponafit.viewmodel.ExerciseViewModel
@@ -71,10 +73,11 @@ fun HistoryScreen(
                     }
                 )
                 NavigationBarItem(
-                    icon = { Icon(Icons.Default.Person, contentDescription = "Profile", tint = Color.White) },
-                    label = { Text("Profile", color = Color.White) },
+                    icon = { Icon(Icons.Default.Menu, contentDescription = "Profile", tint = Color.White) },
+                    label = { Text("Actions", color = Color.White) },
                     selected = selectedIndex == 2,
-                    onClick = { selectedIndex = 2 }
+                    onClick = { selectedIndex = 2
+                        navController.navigate(ROUT_ACCOUNT)}
                 )
             }
         },

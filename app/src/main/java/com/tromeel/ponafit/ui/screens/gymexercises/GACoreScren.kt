@@ -7,6 +7,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
@@ -26,6 +27,7 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
 import com.tromeel.ponafit.data.DatabaseProvider
+import com.tromeel.ponafit.navigation.ROUT_ACCOUNT
 import com.tromeel.ponafit.navigation.ROUT_GCDIFFICULTY
 import com.tromeel.ponafit.navigation.ROUT_HISTORY
 import com.tromeel.ponafit.navigation.ROUT_HOME
@@ -71,10 +73,11 @@ fun GACoreScreen(navController: NavController) {
                     onClick = { selectedIndex = 1; navController.navigate(ROUT_HISTORY) }
                 )
                 NavigationBarItem(
-                    icon = { Icon(Icons.Default.Person, contentDescription = "Profile", tint = Color.Black) },
-                    label = { Text("Profile", color = Color.Black) },
+                    icon = { Icon(Icons.Default.Menu, contentDescription = "Profile", tint = Color.Black) },
+                    label = { Text("Actions", color = Color.Black) },
                     selected = selectedIndex == 2,
-                    onClick = { selectedIndex = 2 }
+                    onClick = { selectedIndex = 2
+                        navController.navigate(ROUT_ACCOUNT)}
                 )
             }
         },

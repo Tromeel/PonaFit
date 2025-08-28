@@ -25,7 +25,9 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.tromeel.ponafit.R
+import com.tromeel.ponafit.navigation.ROUT_ACCOUNT
 import com.tromeel.ponafit.navigation.ROUT_ADD_PHYSIO
+import com.tromeel.ponafit.navigation.ROUT_HOME
 import com.tromeel.ponafit.navigation.ROUT_PHYSIO_LIST
 import com.tromeel.ponafit.viewmodel.PhysioViewModel
 
@@ -57,7 +59,7 @@ fun AddPhysioScreen(navController: NavController, viewModel: PhysioViewModel) {
                 title = { Text("Add Physiotherapist", fontSize = 20.sp, fontWeight = FontWeight.Bold, color = Color.White) },
                 colors = TopAppBarDefaults.mediumTopAppBarColors(containerColor = Grin),
                 navigationIcon = {
-                    IconButton(onClick = { navController.popBackStack() }) {
+                    IconButton(onClick = { navController.navigate(ROUT_ACCOUNT) }) {
                         Icon(imageVector = Icons.Default.KeyboardArrowLeft, contentDescription = "Back", tint = Color.White)
                     }
                 },
@@ -216,7 +218,7 @@ fun BottomNavigationBar(navController: NavController) {
     ) {
         NavigationBarItem(
             selected = false,
-            onClick = { navController.navigate(ROUT_PHYSIO_LIST) },
+            onClick = { navController.navigate(ROUT_HOME) },
             icon = { Icon(Icons.Default.Home, contentDescription = "Physiotherapists List", tint = Color.White) },
             label = { Text("Home", color = Color.White) }
         )

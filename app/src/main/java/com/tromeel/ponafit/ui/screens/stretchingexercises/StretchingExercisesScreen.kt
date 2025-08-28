@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Menu
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -47,6 +48,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
+import com.tromeel.ponafit.navigation.ROUT_ACCOUNT
 import com.tromeel.ponafit.navigation.ROUT_COOLDOWN
 import com.tromeel.ponafit.navigation.ROUT_DASHBOARD
 import com.tromeel.ponafit.navigation.ROUT_DYNAMICWARMUPS
@@ -76,10 +78,11 @@ fun StretchingExercisesScreen(navController: NavController){
                     }
                 )
                 NavigationBarItem(
-                    icon = { Icon(Icons.Default.Person, contentDescription = "Profile",tint = Color.Black) },
-                    label = { Text("Profile",color = Color.Black) },
+                    icon = { Icon(Icons.Default.Menu, contentDescription = "Profile",tint = Color.Black) },
+                    label = { Text("Actions",color = Color.Black) },
                     selected = selectedIndex == 2,
-                    onClick = { selectedIndex = 2 }
+                    onClick = { selectedIndex = 2
+                        navController.navigate(ROUT_ACCOUNT)}
                 )
             }
         },

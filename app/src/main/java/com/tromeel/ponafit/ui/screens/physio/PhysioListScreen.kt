@@ -39,8 +39,10 @@ import androidx.navigation.NavController
 import coil.compose.rememberAsyncImagePainter
 import com.tromeel.ponafit.R
 import com.tromeel.ponafit.model.Physio
+import com.tromeel.ponafit.navigation.ROUT_ACCOUNT
 import com.tromeel.ponafit.navigation.ROUT_ADD_PHYSIO
 import com.tromeel.ponafit.navigation.ROUT_EDIT_PHYSIO
+import com.tromeel.ponafit.navigation.ROUT_HOME
 import com.tromeel.ponafit.navigation.ROUT_PHYSIO_LIST
 import com.tromeel.ponafit.navigation.editPhysioRoute
 import com.tromeel.ponafit.viewmodel.PhysioViewModel
@@ -77,6 +79,15 @@ fun PhysioListScreen(navController: NavController, viewModel: PhysioViewModel) {
                 Column {
                     TopAppBar(
                         title = { Text("Physiotherapists", fontSize = 20.sp, color = Color.White) },
+                        navigationIcon = {
+                            IconButton(onClick = { navController.navigate(ROUT_ACCOUNT) }) {
+                                Icon(
+                                    imageVector = Icons.Default.ArrowBack,
+                                    contentDescription = "Back",
+                                    tint = Color.White
+                                )
+                            }
+                        },
                         colors = TopAppBarDefaults.mediumTopAppBarColors(containerColor = Grin),
                         actions = {
                             IconButton(onClick = { showMenu = true }) {
@@ -345,7 +356,7 @@ fun BottomNavigationBar1(navController: NavController) {
     ) {
         NavigationBarItem(
             selected = false,
-            onClick = { navController.navigate(ROUT_PHYSIO_LIST) },
+            onClick = { navController.navigate(ROUT_HOME) },
             icon = { Icon(Icons.Default.Home, contentDescription = "Physiotherapist List", tint = Color.White) },
             label = { Text("Home", color = Color.White) }
         )

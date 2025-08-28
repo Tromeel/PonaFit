@@ -87,7 +87,7 @@ import com.tromeel.ponafit.viewmodel.PhysioViewModel
 fun AppNavHost(
     modifier: Modifier = Modifier,
     navController: NavHostController = rememberNavController(),
-    startDestination: String = ROUT_GYMEXERCISES,
+    startDestination: String = ROUT_SPLASH,
     physioViewModel: PhysioViewModel = viewModel(),
 
     ) {
