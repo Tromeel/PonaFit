@@ -7,16 +7,18 @@ import androidx.compose.foundation.verticalScroll
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.History
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Person
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
-import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -26,27 +28,49 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.tromeel.ponafit.R
-import com.tromeel.ponafit.navigation.ROUT_FDIFFICULTY
+import com.tromeel.ponafit.data.DatabaseProvider
+import com.tromeel.ponafit.navigation.ROUT_HISTORY
 import com.tromeel.ponafit.navigation.ROUT_HOME
-import com.tromeel.ponafit.navigation.ROUT_LDIFFICULTY
 import com.tromeel.ponafit.navigation.ROUT_UDIFFICULTY
+import com.tromeel.ponafit.repository.ExerciseRepository
 import com.tromeel.ponafit.ui.theme.Grin
+import com.tromeel.ponafit.viewmodel.ExerciseViewModel
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun BUpperBodyScreen(navController: NavController) {
     var selectedIndex by remember { mutableStateOf(0) }
 
+    val context = LocalContext.current
+    val dao = remember { DatabaseProvider.getDatabase(context).exerciseTrackingDao() }
+    val repo = remember { ExerciseRepository(dao) }
+    val vm = remember { ExerciseViewModel(repo) }
+
     Scaffold(
+        topBar = {
+            TopAppBar(
+                title = { Text("Beginner Upper Body Workouts", color = Grin, fontWeight = FontWeight.Bold) },
+                navigationIcon = {
+                    IconButton(onClick = { navController.navigate(ROUT_UDIFFICULTY) }) {
+                        Icon(Icons.Default.ArrowBack, contentDescription = "Back", tint = Grin)
+                    }
+                },
+                colors = TopAppBarDefaults.mediumTopAppBarColors(containerColor = Color.Transparent)
+            )
+        },
         bottomBar = {
             NavigationBar(containerColor = Grin) {
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.Home, contentDescription = "Home", tint = Color.Black) },
                     label = { Text("Home", color = Color.Black) },
                     selected = selectedIndex == 0,
-                    onClick = {
-                        selectedIndex = 0
-                        navController.navigate(ROUT_HOME)
-                    }
+                    onClick = { selectedIndex = 0; navController.navigate(ROUT_HOME) }
+                )
+                NavigationBarItem(
+                    icon = { Icon(Icons.Default.History, contentDescription = "History", tint = Color.Black) },
+                    label = { Text("History", color = Color.Black) },
+                    selected = selectedIndex == 1,
+                    onClick = { selectedIndex = 1; navController.navigate(ROUT_HISTORY) }
                 )
                 NavigationBarItem(
                     icon = { Icon(Icons.Default.Person, contentDescription = "Profile", tint = Color.Black) },
@@ -56,7 +80,6 @@ fun BUpperBodyScreen(navController: NavController) {
                 )
             }
         },
-
         content = { paddingValues ->
             Box(
                 modifier = Modifier
@@ -73,210 +96,119 @@ fun BUpperBodyScreen(navController: NavController) {
                         .verticalScroll(rememberScrollState()),
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
-                    IconButton(
-                        onClick = { navController.navigate(ROUT_UDIFFICULTY) },
-                        modifier = Modifier.align(Alignment.Start)
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.ArrowBack,
-                            contentDescription = "Back",
-                            tint = Grin,
-                            modifier = Modifier
-                                .size(40.dp)
-                                .padding(start = 10.dp, top = 10.dp)
+                    Text(
+                        text = "Beginner upper-body workouts at home help build strength in your chest, arms, shoulders, and back using just your bodyweight.",
+                        fontSize = 18.sp,
+                        color = Grin,
+                        textAlign = TextAlign.Center,
+                        modifier = Modifier.padding(bottom = 20.dp)
+                    )
+
+                    val exercises = listOf(
+                        mapOf(
+                            "title" to "Wall Push-Ups",
+                            "sets" to "3 sets",
+                            "reps" to "10–15 reps",
+                            "description" to "Great for beginners to strengthen chest and arms.",
+                            "steps" to listOf(
+                                "Stand facing a wall with arms extended at shoulder height.",
+                                "Place palms flat on the wall, slightly wider than shoulders.",
+                                "Bend elbows and lean chest toward the wall.",
+                                "Push back to starting position."
+                            )
+                        ),
+                        mapOf(
+                            "title" to "Arm Circles",
+                            "sets" to "3 sets",
+                            "reps" to "15–20 sec each",
+                            "description" to "Improves shoulder mobility and endurance.",
+                            "steps" to listOf(
+                                "Stand upright with arms extended to the sides.",
+                                "Rotate arms forward in small circles.",
+                                "Gradually make circles bigger.",
+                                "Repeat in the opposite direction."
+                            )
+                        ),
+                        mapOf(
+                            "title" to "Modified Knee Push-Ups",
+                            "sets" to "3 sets",
+                            "reps" to "8–12 reps",
+                            "description" to "Strengthens chest, shoulders, and triceps.",
+                            "steps" to listOf(
+                                "Start in a push-up position but with knees on the floor.",
+                                "Hands should be shoulder-width apart.",
+                                "Lower chest toward the ground by bending elbows.",
+                                "Push back up to starting position."
+                            )
+                        ),
+                        mapOf(
+                            "title" to "Superman Hold",
+                            "sets" to "3 sets",
+                            "reps" to "Hold for 10–15 sec",
+                            "description" to "Strengthens back and shoulders.",
+                            "steps" to listOf(
+                                "Lie face down on the floor with arms extended forward.",
+                                "Lift arms, chest, and legs slightly off the ground.",
+                                "Hold for a few seconds while squeezing your back.",
+                                "Slowly return to the starting position."
+                            )
+                        ),
+                        mapOf(
+                            "title" to "Shoulder Shrugs",
+                            "sets" to "3 sets",
+                            "reps" to "12–15 reps",
+                            "description" to "Helps relax and strengthen shoulder muscles.",
+                            "steps" to listOf(
+                                "Stand upright with arms relaxed by your sides.",
+                                "Lift your shoulders up toward your ears.",
+                                "Hold for 1–2 seconds, then release slowly.",
+                                "Repeat steadily without rushing."
+                            )
+                        ),
+                        mapOf(
+                            "title" to "Chair Dips",
+                            "sets" to "3 sets",
+                            "reps" to "8–12 reps",
+                            "description" to "Works on triceps and shoulders using a sturdy chair.",
+                            "steps" to listOf(
+                                "Sit on the edge of a chair with hands gripping the sides.",
+                                "Walk your feet slightly forward and slide off the seat.",
+                                "Lower your body by bending elbows to 90 degrees.",
+                                "Push back up to starting position."
+                            )
+                        ),
+                        mapOf(
+                            "title" to "Front Arm Raises",
+                            "sets" to "3 sets",
+                            "reps" to "10–12 reps",
+                            "description" to "Strengthens shoulders and improves control.",
+                            "steps" to listOf(
+                                "Stand upright with arms down at your sides.",
+                                "Lift both arms forward until shoulder height.",
+                                "Pause briefly, then lower arms slowly.",
+                                "Keep movements controlled without swinging."
+                            )
+                        )
+                    )
+
+                    exercises.forEach { ex ->
+                        WorkoutCardTrackable(
+                            title = ex["title"] as String,
+                            description = ex["description"] as String,
+                            reps = ex["reps"] as String,
+                            sets = ex["sets"] as String,
+                            steps = ex["steps"] as List<String>,
+                            mainCategory = "Home Exercises",
+                            subCategory = "Beginner Upper Body",
+                            onTrack = { name, reps, main, sub -> vm.trackExercise(name, reps, main, sub) },
+                            onUndo = { name -> vm.removeExerciseFromHistory(name) },
+                            vm = vm
                         )
                     }
-                    Spacer(modifier = Modifier.height(30.dp))
-
-                    Text(
-                        text = "Beginner Upper Body Workouts",
-                        fontSize = 26.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Grin,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.padding(bottom = 20.dp)
-                    )
-                    Spacer(modifier = Modifier.height(10.dp))
-
-                    Text(
-                        text = "Beginner upper-body workouts at home help build strength in your chest, arms, shoulders, and back using just your bodyweight. These simple exercises improve posture, stability, and overall fitness without needing any equipment.",
-                        fontSize = 20.sp,
-                        color = Grin,
-                        textAlign = TextAlign.Center,
-                        modifier = Modifier.padding(bottom = 20.dp)
-                    )
-
-                    // ✅ Workout List (7 total)
-                    UpperBodyWorkoutCard(
-                        title = "Wall Push-Ups",
-                        description = "Great for beginners to strengthen chest and arms.",
-                        steps = listOf(
-                            "Stand facing a wall with arms extended at shoulder height.",
-                            "Place palms flat on the wall, slightly wider than shoulders.",
-                            "Bend elbows and lean chest toward the wall.",
-                            "Push back to starting position."
-                        ),
-                        sets = "3 sets",
-                        reps = "10–15 reps"
-                    )
-
-                    UpperBodyWorkoutCard(
-                        title = "Arm Circles",
-                        description = "Improves shoulder mobility and endurance.",
-                        steps = listOf(
-                            "Stand upright with arms extended to the sides.",
-                            "Rotate arms forward in small circles.",
-                            "Gradually make circles bigger.",
-                            "Repeat in the opposite direction."
-                        ),
-                        sets = "3 sets",
-                        reps = "15–20 sec each"
-                    )
-
-                    UpperBodyWorkoutCard(
-                        title = "Modified Knee Push-Ups",
-                        description = "Strengthens chest, shoulders, and triceps.",
-                        steps = listOf(
-                            "Start in a push-up position but with knees on the floor.",
-                            "Hands should be shoulder-width apart.",
-                            "Lower chest toward the ground by bending elbows.",
-                            "Push back up to starting position."
-                        ),
-                        sets = "3 sets",
-                        reps = "8–12 reps"
-                    )
-
-                    UpperBodyWorkoutCard(
-                        title = "Superman Hold",
-                        description = "Strengthens back and shoulders.",
-                        steps = listOf(
-                            "Lie face down on the floor with arms extended forward.",
-                            "Lift arms, chest, and legs slightly off the ground.",
-                            "Hold for a few seconds while squeezing your back.",
-                            "Slowly return to the starting position."
-                        ),
-                        sets = "3 sets",
-                        reps = "Hold for 10–15 sec"
-                    )
-
-                    UpperBodyWorkoutCard(
-                        title = "Shoulder Shrugs",
-                        description = "Helps relax and strengthen shoulder muscles.",
-                        steps = listOf(
-                            "Stand upright with arms relaxed by your sides.",
-                            "Lift your shoulders up toward your ears.",
-                            "Hold for 1–2 seconds, then release slowly.",
-                            "Repeat steadily without rushing."
-                        ),
-                        sets = "3 sets",
-                        reps = "12–15 reps"
-                    )
-
-                    UpperBodyWorkoutCard(
-                        title = "Chair Dips",
-                        description = "Works on triceps and shoulders using a sturdy chair.",
-                        steps = listOf(
-                            "Sit on the edge of a chair with hands gripping the sides.",
-                            "Walk your feet slightly forward and slide off the seat.",
-                            "Lower your body by bending elbows to 90 degrees.",
-                            "Push back up to starting position."
-                        ),
-                        sets = "3 sets",
-                        reps = "8–12 reps"
-                    )
-
-                    UpperBodyWorkoutCard(
-                        title = "Front Arm Raises",
-                        description = "Strengthens shoulders and improves control.",
-                        steps = listOf(
-                            "Stand upright with arms down at your sides.",
-                            "Lift both arms forward until shoulder height.",
-                            "Pause briefly, then lower arms slowly.",
-                            "Keep movements controlled without swinging."
-                        ),
-                        sets = "3 sets",
-                        reps = "10–12 reps"
-                    )
                 }
             }
         }
     )
-}
-
-// ✅ Reusable Card Composable
-@Composable
-fun UpperBodyWorkoutCard(
-    title: String,
-    description: String,
-    steps: List<String>,
-    sets: String,
-    reps: String
-) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(vertical = 8.dp),
-        elevation = CardDefaults.cardElevation(6.dp),
-        shape = RoundedCornerShape(16.dp)
-    ) {
-        Box(
-            modifier = Modifier
-                .fillMaxWidth()
-                .heightIn(min = 200.dp)
-        ) {
-            Image(
-                painter = painterResource(R.drawable.darkbg),
-                contentDescription = null,
-                modifier = Modifier
-                    .matchParentSize()
-                    .clip(RoundedCornerShape(16.dp)),
-                contentScale = ContentScale.Crop
-            )
-
-            Column(
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth(),
-                verticalArrangement = Arrangement.SpaceBetween
-            ) {
-                Text(
-                    text = title,
-                    fontSize = 20.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color.White
-                )
-
-                Spacer(modifier = Modifier.height(4.dp))
-
-                Text(
-                    text = description,
-                    fontSize = 14.sp,
-                    color = Color.LightGray
-                )
-
-                Spacer(modifier = Modifier.height(10.dp))
-
-                steps.forEachIndexed { index, step ->
-                    Text(
-                        text = "${index + 1}. $step",
-                        fontSize = 13.sp,
-                        color = Color.White,
-                        modifier = Modifier.padding(bottom = 4.dp)
-                    )
-                }
-
-                Spacer(modifier = Modifier.height(10.dp))
-
-                Row(
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.SpaceBetween
-                ) {
-                    Text(text = "Sets: $sets", fontWeight = FontWeight.Medium, fontSize = 14.sp, color = Color.White)
-                    Text(text = "Reps: $reps", fontWeight = FontWeight.Medium, fontSize = 14.sp, color = Color.White)
-                }
-            }
-        }
-    }
 }
 
 @Preview
